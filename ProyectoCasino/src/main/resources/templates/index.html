@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <link rel="icon" href="./assets/fresa.png" type="image/icon type">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <!-- Contenedor para el fondo difuminado -->
+    <div class="background"></div>
+    <!-- Contenedor para el formulario -->
+    <div id="contenedor_login">
+        <form action="#">
+            <!-- Mensajes bienvenida e inicio de sesion -->
+            <div class="logo-bienvenida">
+                <img src="/assets/logo.webp" alt="Logo del Casino" />
+                <h1>JURASSIC JACKPOT</h1>
+            </div>
+            <!-- Formulario -->
+            <div class="campos_login">
+                <div class="contenedor_usuario">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" id="usuario" placeholder="Escribe tu usuario" onblur="comprobarUsuario()" />
+                    <div id="comprobacionUsuario" class="comprobacionUsuario"></div>
+                </div>
+                <div class="contenedor_contraseña">
+                    <label for="contraseña">Contraseña</label>
+                    <input type="password" id="contraseña" placeholder="Escribe tu contraseña" onblur="comprobarPasswd()" />
+                    <div id="comprobacionPasswd" class="comprobacionPasswd"></div>
+                </div>
+            </div>
+            <!-- Boton -->
+            <div class="acceder">
+                <button type="submit" onclick="comprobaciones(event)">Acceder</button>
+            </div>
+            <!-- Enlaces -->
+            <div class="olvidar_contraseña">
+                <a href="#">¿Has olvidado la contraseña?</a>
+            </div>
+            <div class="registrate_aqui">
+                <a href="/registro.html">Regístrate aquí</a>
+            </div>
+            <!-- Mensaje responsable -->
+            <hr>
+            <div class="juego_responsable">
+                <h3>+18</h3>
+                <h3>Juego responsable</h3>
+            </div>
+        </form>
+    </div>
+    <!-- Script JS -->
+    <script src="/js/login.js"></script>
+</body>
+</html>

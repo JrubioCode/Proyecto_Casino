@@ -1,0 +1,132 @@
+/* Estilo general */
+* {
+    font-family: 'Lobster', cursive;
+    box-sizing: border-box;
+}
+
+/* Cuerpo */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+/* Fondo */
+.background {
+    background-image: url('./../assets/login/fondoLogin.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Contenido login */
+#contenedor_login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 2px solid #03551f;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    z-index: 1; /* Contenedor por encima del fondo difuminado */
+}
+
+/* Logo y titulo */
+.logo-bienvenida {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-left: 50px;
+}
+
+.logo-bienvenida img {
+    width: 100px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.logo-bienvenida h1 {
+    color: #05752a;
+    font-size: 24px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Campos */
+label {
+    font-size: 18px;
+    color: #00050a;
+}
+
+.campos_login {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-color: #023d16;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.comprobacionUsuario{
+    height: 25px;
+}
+
+.comprobacionPasswd{
+    height: 25px;
+}
+
+/* Links */
+.registrate_aqui, .olvidar_contraseña, .acceder {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+
+}
+
+/* Boton */
+.acceder {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.acceder button {
+    background-color: #05752a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.acceder button:hover {
+    background-color: #03551f;
+}
+
+/* Linea separatoria */
+hr {
+    margin: 30px 0;
+    border: 2px solid black;
+}
+
+/* Mensaje responsable */
+.juego_responsable {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    color: #023d16;
+}
