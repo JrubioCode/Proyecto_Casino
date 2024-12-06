@@ -26,7 +26,7 @@ btn.addEventListener("click", function (event) {
           mostrarModal("¡Registrado!");
 
           // Redirigir al login
-          window.location.href = "./index.html";
+          window.location.pathname = "/";
 
         })
         .catch((err) => {

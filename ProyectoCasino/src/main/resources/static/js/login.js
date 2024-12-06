@@ -2,7 +2,7 @@ function comprobaciones(event) {
     // Prevenir el comportamiento por defecto del formulario
     event.preventDefault();
     if (comprobarUsuario() && comprobarPasswd()) {
-        window.location.href = "/registro.html";
+        window.location.pathname = "/lobby";
     }
 }
 

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CASINO</title>
+    <link rel="stylesheet" href="/css/lobby.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lobster&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="contenidoHeader">
+      <div class="header">
+        <img src="./assets/logo.webp" alt="Logo del Casino" />
+        <h1>Bienvenidos a PREHISTORIC JACKPOT</h1>
+        <!-- Contenedor reloj -->
+        <div class="reloj-container">
+          <div id="reloj"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Principal -->
+    <div class="contenidoCasino">
+      <!-- Carrusel de Juegos -->
+      <div class="carrusel-juegos">
+        <div class="contenedor-carrusel">
+            <div class="carrusel-slide">
+              <a href="https://prehistoric-slot.vercel.app/">
+                <img src="./assets/lobby/juego-tragaperra.png" alt="Juego 1" />
+              </a>
+            </div>
+            <div class="carrusel-slide">
+                <img src="./assets/lobby/juego-dinosaurio.png" alt="Juego 2" />
+            </div>
+        </div>
+        <div class="carrusel-izquierda" onclick="moverIzquierda()">
+            <img src="./assets/lobby/flecha-izquierda.png" alt="Anterior">
+        </div>
+        <div class="carrusel-derecha" onclick="moverDerecha()">
+            <img src="./assets/lobby/flecha-derecha.png" alt="Siguiente">
+        </div>
+    </div>
+    </div>
+    <!-- Contenido Footer -->
+    <div class="contenidoFooter">
+      <!-- Boton de jugar Registro -->
+      <div class="crearCuenta">
+        <h2>¿PREPARADO PARA CREAR TU CUENTA?</h2>
+        <a href="./login/login.html" class="crear">¡CREAR!</a>
+      </div>
+      <!-- Links a juegos -->
+      <div class="links-footer">
+        <div class="contenedores-footer">
+            <h3>Juegos de Casino</h3>
+            <ul>
+                <li><a href="#">Slots</a></li>
+                <li><a href="#">Ruleta</a></li>
+                <li><a href="#">Blackjack</a></li>
+                <li><a href="#">Casino en vivo</a></li>
+            </ul>
+        </div>
+        <div class="contenedores-footer">
+            <h3>Quiénes somos</h3>
+            <ul>
+                <li><a href="#">Ayuda</a></li>
+                <li><a href="#">Afiliados</a></li>
+                <li><a href="#">Spin Palace</a></li>
+                <li><a href="#">Mapa del sitio</a></li>
+            </ul>
+        </div>
+        <div class="contenedores-footer">
+            <h3>Políticas</h3>
+            <ul>
+                <li><a href="#">Juego más Seguro</a></li>
+                <li><a href="#">Política de privacidad</a></li>
+                <li><a href="#">Acuerdo con el usuario</a></li>
+                <li><a href="#">Política de bonos</a></li>
+                <li><a href="#">Porcentaje de retorno</a></li>
+                <li><a href="#">Política de desconexiones</a></li>
+                <li><a href="#">Juego autorizado</a></li>
+            </ul>
+        </div>
+        <div class="contenedores-footer">
+            <h3>Finanzas</h3>
+            <ul>
+                <li><a href="#">Dinero Real</a></li>
+                <li><a href="#">Pagos</a></li>
+                <li><a href="#">Cobros</a></li>
+                <li><a href="#">Verificar identidad</a></li>
+            </ul>
+        </div>
+        <div class="contenedores-footer">
+            <h3>Formas de Pago</h3>
+            <ul>
+                <li><a href="#">Visa</a></li>
+                <li><a href="#">Mastercard</a></li>
+                <li><a href="#">ApplePay</a></li>
+                <li><a href="#">Paypal</a></li>
+                <li><a href="#">Paysafecard</a></li>
+                <li><a href="#">Transferencia bancaria</a></li>
+            </ul>
+        </div>
+      </div>
+      <!-- Jugar con responsabilidad -->
+      <div class="responsabilidad">
+        <p>Juega Con Responsabilidad | 18+ | AutoProhibicion</p>
+        <p>PREVENCIÓN ADICCIÓN AL JUEGO, LLAMA: 900 533 788</p>
+      </div>
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>
+          Copyright © 2024. Spin Palace Games España S.A.
+        </p>
+        <p>
+          La prestación y operación de servicios de juego remoto en España por
+          parte de Spin Palace Games España S.A. ha sido autorizada por la
+          Dirección General de Ordenación del Juego.
+        </p>
+      </div>
+    </div>
+    <!-- Scripts Vercel Web Analytics -->
+    <script> window.va = window.va || function () {
+      (window.vaq = window.vaq || []).push(arguments);
+        };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script src="/js/lobby.js"></script>
+  </body>
+</html>

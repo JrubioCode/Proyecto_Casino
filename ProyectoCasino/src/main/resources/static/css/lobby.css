@@ -1,0 +1,203 @@
+body{
+    background-image: url('./../assets/lobby/fondo.png');
+}
+
+/* Estilo de la cabecera */
+.contenidoHeader {
+    background-color: #3b2d2d; /* Color marrón oscuro, como piedra */
+    border: 5px solid #1a1a1a; /* Borde más oscuro */
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px;
+}
+
+.header img {
+    width: 200px; /* Ajustar el tamaño del logo */
+    height: auto;
+    border-radius: 50%;
+    border: 4px solid #7f4c1c; /* Borde marrón, como tierra */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.header h1 {
+    color: #e1c6a9; /* Color beige suave para el texto */
+    font-size: 44px; /* Tamaño de fuente ajustado */
+    text-shadow: 1px 1px 3px #7f4c1c; /* Sombra más prominente */
+    margin-left: 20px;
+    font-family: 'Georgia', serif; /* Fuente más clásica */
+}
+
+/* Contenedor para el reloj */
+.reloj-container {
+    position: absolute;
+    right: 20px;
+    top: 30px;
+    background-color: #e1c6a9; /* Fondo marrón oscuro más sólido */
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+#reloj {
+    font-size: 24px;
+    color: #3b2d2d; /* Color de texto claro */
+    font-weight: bold;
+}
+
+/* Estilo del cuerpo */
+.contenidoCasino {
+    padding: 50px;
+    text-align: center;
+    border: 3px solid #7f4c1c; /* Borde marrón */
+    border-radius: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 30px rgba(139, 69, 19, 0.5);
+    background-color: #d2c5b3; /* Color claro, como barro */
+}
+
+/* Carrusel */
+.carrusel-juegos {
+    position: relative;
+    max-width: 800px;
+    margin: 20px auto;
+    height: 500px;
+    overflow: hidden;
+}
+
+.contenedor-carrusel {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carrusel-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.carrusel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que las imágenes cubran el área */
+    border: 3px solid #7f4c1c; /* Borde marrón en las imágenes */
+    border-radius: 10px;
+}
+
+.carrusel-izquierda, .carrusel-derecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.carrusel-izquierda img, .carrusel-derecha img {
+    width: 50px; 
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.carrusel-izquierda:hover img, .carrusel-derecha:hover img {
+    transform: scale(1.1);
+}
+
+/* Espaciado de los botones */
+.carrusel-izquierda {
+    left: 10px;
+}
+
+.carrusel-derecha {
+    right: 10px;
+}
+
+/* Estilo del footer */
+.contenidoFooter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #3b2d2d; /* Color marrón oscuro, como el header */
+    color: #f4f4f0; /* Color de texto claro */
+    padding: 20px 10px;
+    border-top: 3px solid #7f4c1c;
+    border-radius: 20px;
+}
+
+.crearCuenta h2 {
+    font-size: 32px;
+    margin-bottom: 45px;
+    color: #e1c6a9; /* Color beige suave */
+}
+
+.crearCuenta {
+    margin-bottom: 10px;
+}
+
+/* Botón de Crear Cuenta */
+.crear {
+    background-color: #b8860b; /* Color dorado */
+    color: #f4f4f0;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 10px rgba(205, 127, 50, 0.5);
+}
+
+.crear:hover {
+    background-color: #7f4c1c; /* Color marrón más oscuro */
+    transform: scale(1.05);
+}
+
+.links-footer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 80px; /* Espaciado más pequeño */
+    margin: 20px 0;
+}
+
+.contenedores-footer h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #e1c6a9; /* Color beige suave */
+}
+
+.contenedores-footer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contenedores-footer a {
+    color: #e1c6a9; /* Marrón oscuro */
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 16px;
+}
+
+.contenedores-footer a:hover {
+    color: #b8860b; /* Color dorado */
+}
+
+.responsabilidad {
+    margin: 20px 0;
+    font-size: 14px;
+    color: #f4f4f0;
+}
+
+.copyright {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    padding-top: 5px;
+    font-size: 12px;
+    color: #f4f4f0;
+}
