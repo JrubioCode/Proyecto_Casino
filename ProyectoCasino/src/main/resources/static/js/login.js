@@ -2,7 +2,30 @@ function comprobaciones(event) {
     // Prevenir el comportamiento por defecto del formulario
     event.preventDefault();
     if (comprobarUsuario() && comprobarPasswd()) {
-        window.location.pathname = "/lobby";
+
+        // Realizar una solicitud AJAX GET al UsuarioController usando jQuery
+        var usuario = $("#usuario").val();
+        var pwd = $("#contraseña").val();
+       
+       $.ajax({
+           type: "GET",
+           url: `/usuario/comprobarUsuario/${usuario}/${pwd}`, //CONFIGURAR LA URL PARA QUE DIRIJA AL CONTROLADOR
+           success: function(response) {
+               //POSIBLES SALIDAS DEL RESPONSE 
+               if(response == "200"){
+                   console.log("Respuesta del servidor (GET):", "Redirigiendo al lobby");
+                   window.location.pathname = "/lobby";
+               }else if(response == "300"){
+                   window.alert("Usuario no encontrado.");
+               }else if(response == "400"){
+                   window.alert("Contraseña incorrecta.")
+               }
+           },
+           error: function(error) {
+               console.error("Error en la solicitud AJAX (GET):", error);
+           }
+       });
+
     }
 }
 
