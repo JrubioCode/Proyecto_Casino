@@ -5,34 +5,51 @@ btn.addEventListener("click", function (event) {
   event.preventDefault();
 
   // Comprobaciones
-  if (comprobarNombre() && comprobarApellido1() && comprobarApellido2() && comprobarEdad() && comprobarUsuario() && comprobarEmail() && comprobarPasswd() && comprobarDNI() && comprobarNumero()) {
+  if (comprobarNombre() && comprobarApellido1() && comprobarApellido2() && comprobarEdad() &&
+  comprobarUsuario() && comprobarEmail() && comprobarPasswd() && comprobarDNI() && comprobarNumero()) {
     // Comprobar si se han aceptado los términos
     if (!aceptarTerminos()) {
       comprobarTerminos();
       return;
     } else {
-      mostrarModal("El registro se ha realizado con éxito");
       btn.textContent = "Registrando...";
 
-      const serviceID = "service_5gckq7i";
-      const templateID = "template_albjoye";
+      // Crear objeto con los datos del formulario
+      const formData = {
+        dni: document.getElementById("dni").value,
+        user_name: document.getElementById("usuario").value,
+        user_password: document.getElementById("contraseña").value,
+        nombre: document.getElementById("nombre").value,
+        apellido1: document.getElementById("apellido1").value,
+        apellido2: document.getElementById("apellido2").value,
+        fechaNacimiento: document.getElementById("nacimiento").value,
+        email: document.getElementById("email").value,
+        numeroTelefono: document.getElementById("numero").value,
+      };
 
-      // Envía el formulario con emailjs
-      emailjs
-        .sendForm(serviceID, templateID, form)
-        .then(() => {
-          btn.textContent = "Registrar";
+      // Realizar la solicitud AJAX para guardar los datos
+      $.ajax({
+        type: "POST",
+        url: "/usuario/registrar",
+        contentType: "application/json",
+        data: JSON.stringify(formData),
+        success: function (response) {
+          console.log("Respuesta del servidor:", response);
+          mostrarModal("¡Usuario registrado correctamente!");
+
+          // Restablecer el formulario
           form.reset();
-          mostrarModal("¡Registrado!");
+          btn.textContent = "Registrar";
 
           // Redirigir al login
           window.location.pathname = "/";
-
-        })
-        .catch((err) => {
+        },
+        error: function (error) {
+          console.error("Error en la solicitud AJAX:", error);
+          mostrarModal("Error al registrar el usuario: " + error.responseText);
           btn.textContent = "Registrar";
-          mostrarModal("Error: " + JSON.stringify(err));
-        });
+        },
+      });
     }
   }
 });

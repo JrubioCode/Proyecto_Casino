@@ -6,6 +6,7 @@
     <title>Iniciar sesión</title>
     <link rel="icon" href="./assets/fresa.png" type="image/icon type">
     <link rel="stylesheet" href="/css/login.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <!-- Contenedor para el fondo difuminado -->
@@ -49,6 +50,13 @@
                 <h3>Juego responsable</h3>
             </div>
         </form>
+        <!-- Modal -->
+        <div id="modal" class="modal">
+            <div class="contenido-modal">
+                <p id="mensajeModal">BIENVENIDO A FRUITS PARTY 🍇 ¡REGÍSTRESE YA!</p>
+                <input type="submit" class="close" value="cerrar"> 
+            </div>
+        </div>
     </div>
     <!-- Script JS -->
     <script src="/js/login.js"></script>

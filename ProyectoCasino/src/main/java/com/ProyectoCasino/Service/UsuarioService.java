@@ -9,4 +9,6 @@ public interface UsuarioService {
 
     UsuarioDTO validarUsuario(UsuarioEntity usuarioEntity, String pwd);
 
+    UsuarioEntity registrarUsuario(UsuarioDTO usuarioDTO);
+
 }

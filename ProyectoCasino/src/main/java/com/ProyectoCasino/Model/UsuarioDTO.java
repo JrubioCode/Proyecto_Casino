@@ -2,20 +2,86 @@ package com.ProyectoCasino.Model;
 
 public class UsuarioDTO {
 
-    private String user_name;
-    private String user_password;
+    private String dni;
+    private String nombre;
+    private String apellido1;
+    private String apellido2;
+    private String fechaNacimiento;
+    private String userName;
+    private String email;
+    private String userPassword;
+    private String numeroTelefono;
 
-    public String getUser_name() {
-        return user_name;
-    }
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
-    }
-    public String getUser_password() {
-        return user_password;
-    }
-    public void setUser_password(String user_password) {
-        this.user_password = user_password;
+    // Getters y Setters
+    public String getDni() {
+        return dni;
     }
 
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido1() {
+        return apellido1;
+    }
+
+    public void setApellido1(String apellido1) {
+        this.apellido1 = apellido1;
+    }
+
+    public String getApellido2() {
+        return apellido2;
+    }
+
+    public void setApellido2(String apellido2) {
+        this.apellido2 = apellido2;
+    }
+
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public String getNumeroTelefono() {
+        return numeroTelefono;
+    }
+
+    public void setNumeroTelefono(String numeroTelefono) {
+        this.numeroTelefono = numeroTelefono;
+    }
 }
