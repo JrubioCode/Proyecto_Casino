@@ -19,36 +19,36 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    // Método POST para registrar usuarios
     @PostMapping("/registrar")
     public String registrarUsuario(@RequestBody UsuarioDTO usuario) {
-        System.out.println(usuario.getUserName());
+        // Comprobamos duplicados
+        if (usuarioService.usuarioExiste(usuario.getDni())) {
+            return "Error: El DNI ya está registrado.";
+        }
+        if (usuarioService.userNameExiste(usuario.getUserName())) {
+            return "Error: El nombre de usuario ya está en uso.";
+        }
+
         usuarioService.registrarUsuario(usuario);
         return "USUARIO REGISTRADO CORRECTAMENTE";
     }
 
-    // Método GET del UsuarioController (comprobarUsuario)
     @GetMapping("/comprobarUsuario/{userName}/{userPassword}")
-    public String comprobarUsuario(@PathVariable("userName") String usuario, @PathVariable("userPassword") String pwd) {
-
-        UsuarioEntity user = usuarioService.comprobarUsuario(usuario);
+    public String comprobarUsuario(@PathVariable("userName") String userName, @PathVariable("userPassword") String pwd) {
+        UsuarioEntity user = usuarioService.comprobarUsuario(userName);
         String respuesta;
 
         if (user == null) {
-            // Si no se encuentra el usuario
             respuesta = "404 - Usuario no encontrado";
         } else {
-            // Si se encuentra el usuario, validamos la contraseña
+            // Comparamos contraseña de forma estricta
             UsuarioDTO usuarioDTO = usuarioService.validarUsuario(user, pwd);
             if (usuarioDTO == null) {
-                // Si la contraseña es incorrecta
                 respuesta = "Contraseña incorrecta";
             } else {
-                // Si el usuario y la contraseña son correctos
                 respuesta = "OK";
             }
         }
-
         return respuesta;
     }
 }

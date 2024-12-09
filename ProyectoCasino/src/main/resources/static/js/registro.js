@@ -5,8 +5,17 @@ btn.addEventListener("click", function (event) {
   event.preventDefault();
 
   // Comprobaciones
-  if (comprobarNombre() && comprobarApellido1() && comprobarApellido2() && comprobarEdad() &&
-  comprobarUsuario() && comprobarEmail() && comprobarPasswd() && comprobarDNI() && comprobarNumero()) {
+  if (
+    comprobarNombre() &&
+    comprobarApellido1() &&
+    comprobarApellido2() &&
+    comprobarEdad() &&
+    comprobarUsuario() &&
+    comprobarEmail() &&
+    comprobarPasswd() &&
+    comprobarDNI() &&
+    comprobarNumero()
+  ) {
     // Comprobar si se han aceptado los términos
     if (!aceptarTerminos()) {
       comprobarTerminos();
@@ -33,38 +42,46 @@ btn.addEventListener("click", function (event) {
         data: JSON.stringify(formData),
         success: function (response) {
           console.log("Respuesta del servidor:", response);
-          mostrarModal("¡Usuario registrado correctamente!");
 
-          // Restablecer el formulario
-          form.reset();
-          btn.textContent = "Registrar";
+          if (response.includes("Error: El DNI ya está registrado")) {
+            mostrarModal("El DNI ya está registrado. Por favor, verifica los datos.");
+          } else if (response.includes("Error: El nombre de usuario ya está en uso")) {
+            mostrarModal("El nombre de usuario ya está en uso. Por favor, elige otro.");
+          } else if (response.includes("USUARIO REGISTRADO CORRECTAMENTE")) {
+            mostrarModal("¡Usuario registrado correctamente!");
 
-          setTimeout(() => {
-            //EmailJS
-            btn.textContent = "Registrando...";
+            // Restablecer el formulario
+            form.reset();
+            btn.textContent = "Registrar";
 
-            const serviceID = "service_5gckq7i";
-            const templateID = "template_albjoye";
+            setTimeout(() => {
+              // EmailJS
+              btn.textContent = "Registrando...";
 
-            // Envía el formulario con emailjs
-            emailjs
-              .sendForm(serviceID, templateID, form)
-              .then(() => {
-                btn.textContent = "Registrar";
-                form.reset();
-                mostrarModal("¡Registrado!");
+              const serviceID = "service_5gckq7i";
+              const templateID = "template_albjoye";
 
-                // Redirigir al login
-                window.location.href = "./../login/login.html";
+              // Envía el formulario con emailjs
+              emailjs
+                .sendForm(serviceID, templateID, form)
+                .then(() => {
+                  btn.textContent = "Registrar";
+                  form.reset();
+                  mostrarModal("¡Registrado!");
 
-              })
-              .catch((err) => {
-                btn.textContent = "Registrar";
-                mostrarModal("Error: " + JSON.stringify(err));
-              });
-            // Redirigir al index (login)
-            window.location.pathname = "/";
-          },3000)
+                  // Redirigir al login
+                  window.location.href = "./../login/login.html";
+                })
+                .catch((err) => {
+                  btn.textContent = "Registrar";
+                  mostrarModal("Error: " + JSON.stringify(err));
+                });
+              // Redirigir al index (login)
+              window.location.pathname = "/";
+            }, 3000);
+          } else {
+            mostrarModal("Respuesta inesperada del servidor: " + response);
+          }
         },
         error: function (error) {
           console.error("Error en la solicitud AJAX:", error);

@@ -1,7 +1,5 @@
 package com.ProyectoCasino.Service.Implement;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,17 +17,17 @@ public class UsuarioImplent implements UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    // Método GET del UsuarioController (comprobarUsuario)
+    @Override
     public UsuarioEntity comprobarUsuario(String userName) {
+        // Hacemos la búsqueda sensible a mayúsculas/minúsculas
         return usuarioRepository.findByUserName(userName).orElse(null);
-    }    
+    }
 
-    // Método GET del UsuarioController (validarUsuario)
+    @Override
     public UsuarioDTO validarUsuario(UsuarioEntity usuarioEntity, String pwd) {
-
         UsuarioDTO usuario = null;
 
-        // Comparación segura de la contraseña
+        // Comparación estricta de contraseña
         if (usuarioEntity != null && usuarioEntity.getUserPassword().equals(pwd)) {
             usuario = new UsuarioDTO();
             usuario.setDni(usuarioEntity.getDni());
@@ -46,7 +44,7 @@ public class UsuarioImplent implements UsuarioService {
         return usuario;
     }
 
-    // Método POST del UsuarioController (registrarUsuario)
+    @Override
     public UsuarioEntity registrarUsuario(UsuarioDTO usuarioDTO) {
         UsuarioEntity usuarioEntity = new UsuarioEntity();
         usuarioEntity.setDni(usuarioDTO.getDni());
@@ -59,7 +57,16 @@ public class UsuarioImplent implements UsuarioService {
         usuarioEntity.setUserPassword(usuarioDTO.getUserPassword());
         usuarioEntity.setNumeroTelefono(usuarioDTO.getNumeroTelefono());
 
-        System.out.println(usuarioEntity);
         return usuarioRepository.save(usuarioEntity);
+    }
+
+    @Override
+    public boolean usuarioExiste(String dni) {
+        return usuarioRepository.existsById(dni);
+    }
+
+    @Override
+    public boolean userNameExiste(String userName) {
+        return usuarioRepository.findByUserName(userName).isPresent();
     }
 }
