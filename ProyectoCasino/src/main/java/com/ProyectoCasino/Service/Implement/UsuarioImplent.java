@@ -22,13 +22,16 @@ public class UsuarioImplent implements UsuarioService {
     // Método GET del UsuarioController (comprobarUsuario)
     public UsuarioEntity comprobarUsuario(String dni) {
         Optional<UsuarioEntity> userEntity = usuarioRepository.findById(dni);
-        return userEntity.orElse(null);
+        return userEntity.orElse(null); // Devuelve null si el usuario no existe
     }
 
     // Método GET del UsuarioController (validarUsuario)
     public UsuarioDTO validarUsuario(UsuarioEntity usuarioEntity, String pwd) {
+
         UsuarioDTO usuario = null;
-        if (usuarioEntity.getUserPassword().equals(pwd)) {
+
+        // Comparación segura de la contraseña
+        if (usuarioEntity != null && usuarioEntity.getUserPassword().equals(pwd)) {
             usuario = new UsuarioDTO();
             usuario.setDni(usuarioEntity.getDni());
             usuario.setUserName(usuarioEntity.getUserName());
@@ -40,6 +43,7 @@ public class UsuarioImplent implements UsuarioService {
             usuario.setEmail(usuarioEntity.getEmail());
             usuario.setNumeroTelefono(usuarioEntity.getNumeroTelefono());
         }
+
         return usuario;
     }
 
@@ -56,6 +60,7 @@ public class UsuarioImplent implements UsuarioService {
         usuarioEntity.setUserPassword(usuarioDTO.getUserPassword());
         usuarioEntity.setNumeroTelefono(usuarioDTO.getNumeroTelefono());
 
+        System.out.println(usuarioEntity);
         return usuarioRepository.save(usuarioEntity);
     }
 }

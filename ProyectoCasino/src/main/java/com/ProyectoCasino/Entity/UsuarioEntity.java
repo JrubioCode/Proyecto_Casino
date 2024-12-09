@@ -111,4 +111,11 @@ public class UsuarioEntity implements Serializable {
     public void setNumeroTelefono(String numeroTelefono) {
         this.numeroTelefono = numeroTelefono;
     }
+
+    @Override
+    public String toString() {
+        return "UsuarioEntity [dni=" + dni + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2="
+                + apellido2 + ", fechaNacimiento=" + fechaNacimiento + ", userName=" + userName + ", email=" + email
+                + ", userPassword=" + userPassword + ", numeroTelefono=" + numeroTelefono + "]";
+    }
 }

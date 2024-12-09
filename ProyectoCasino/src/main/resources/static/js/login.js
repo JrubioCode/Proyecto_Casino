@@ -1,38 +1,34 @@
 function comprobaciones(event) {
-    // Prevenir el comportamiento por defecto del formulario
-    event.preventDefault();
-  
-    if (comprobarUsuario() && comprobarPasswd()) {
-      // Obtener los valores de los campos de usuario y contraseña
-      const usuario = $("#usuario").val();
-      const pwd = $("#contraseña").val();
-  
-      // Realizar una solicitud AJAX GET al UsuarioController
+  event.preventDefault();
+
+  if (comprobarUsuario() && comprobarPasswd()) {
+      const userName = $("#usuario").val();
+      const userPassword = $("#contraseña").val();
+
       $.ajax({
-        type: "GET",
-        url: `/usuario/comprobarUsuario/${usuario}/${pwd}`, // Endpoint configurado para validar el usuario
-        success: function (response) {
-          console.log("Respuesta del servidor (GET):", response);
-  
-          // Manejar las posibles respuestas del servidor
-          if (response === "OK") {
-            console.log("Usuario autenticado correctamente. Redirigiendo al lobby...");
-            window.location.pathname = "/lobby";
-          } else if (response === "404") {
-            mostrarModal("Usuario no encontrado.");
-          } else if (response === "Contraseña incorrecta") {
-            mostrarModal("Contraseña incorrecta.");
-          } else {
-            mostrarModal("Respuesta inesperada del servidor: " + response);
+          type: "GET",
+          url: `/usuario/comprobarUsuario/${userName}/${userPassword}`,
+          success: function (response) {
+              console.log("Respuesta del servidor (GET):", response);
+
+              if (response === "OK") {
+                  console.log("Usuario autenticado correctamente. Redirigiendo al lobby...");
+                  window.location.pathname = "/lobby";
+              } else if (response === "404 - Usuario no encontrado") {
+                  mostrarModal("Usuario no encontrado.");
+              } else if (response === "Contraseña incorrecta") {
+                  mostrarModal("Contraseña incorrecta.");
+              } else {
+                  mostrarModal("Respuesta inesperada del servidor: " + response);
+              }
+          },
+          error: function (error) {
+              console.error("Error en la solicitud AJAX (GET):", error);
+              mostrarModal("Ocurrió un error al intentar iniciar sesión. Inténtelo de nuevo.");
           }
-        },
-        error: function (error) {
-          console.error("Error en la solicitud AJAX (GET):", error);
-          mostrarModal("Ocurrió un error al intentar iniciar sesión. Inténtelo de nuevo.");
-        },
       });
-    }
-}  
+  }
+}
 
 // Comprobar usuario
 function comprobarUsuario() {

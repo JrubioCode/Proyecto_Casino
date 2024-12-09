@@ -17,8 +17,8 @@ btn.addEventListener("click", function (event) {
       // Crear objeto con los datos del formulario
       const formData = {
         dni: document.getElementById("dni").value,
-        user_name: document.getElementById("usuario").value,
-        user_password: document.getElementById("contraseña").value,
+        userName: document.getElementById("usuario").value,
+        userPassword: document.getElementById("contraseña").value,
         nombre: document.getElementById("nombre").value,
         apellido1: document.getElementById("apellido1").value,
         apellido2: document.getElementById("apellido2").value,
