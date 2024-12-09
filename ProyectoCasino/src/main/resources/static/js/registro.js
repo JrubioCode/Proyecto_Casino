@@ -12,8 +12,6 @@ btn.addEventListener("click", function (event) {
       comprobarTerminos();
       return;
     } else {
-      btn.textContent = "Registrando...";
-
       // Crear objeto con los datos del formulario
       const formData = {
         dni: document.getElementById("dni").value,
@@ -41,8 +39,32 @@ btn.addEventListener("click", function (event) {
           form.reset();
           btn.textContent = "Registrar";
 
-          // Redirigir al login
-          window.location.pathname = "/";
+          setTimeout(() => {
+            //EmailJS
+            btn.textContent = "Registrando...";
+
+            const serviceID = "service_5gckq7i";
+            const templateID = "template_albjoye";
+
+            // Envía el formulario con emailjs
+            emailjs
+              .sendForm(serviceID, templateID, form)
+              .then(() => {
+                btn.textContent = "Registrar";
+                form.reset();
+                mostrarModal("¡Registrado!");
+
+                // Redirigir al login
+                window.location.href = "./../login/login.html";
+
+              })
+              .catch((err) => {
+                btn.textContent = "Registrar";
+                mostrarModal("Error: " + JSON.stringify(err));
+              });
+            // Redirigir al index (login)
+            window.location.pathname = "/";
+          },3000)
         },
         error: function (error) {
           console.error("Error en la solicitud AJAX:", error);
@@ -206,7 +228,7 @@ function comprobarApellido2() {
 // Comprobar DNI
 function comprobarDNI() {
   const dni = document.getElementById("dni").value;
-  const dniCom = /^\d{8}[a-zA-Z]$/;
+  const dniCom = /^\d{8}[A-Z]$/;
   const comprobacion = document.getElementById("comprobacionDNI");
 
   if (dniCom.test(dni)) {

@@ -20,10 +20,9 @@ public class UsuarioImplent implements UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     // Método GET del UsuarioController (comprobarUsuario)
-    public UsuarioEntity comprobarUsuario(String dni) {
-        Optional<UsuarioEntity> userEntity = usuarioRepository.findById(dni);
-        return userEntity.orElse(null); // Devuelve null si el usuario no existe
-    }
+    public UsuarioEntity comprobarUsuario(String userName) {
+        return usuarioRepository.findByUserName(userName).orElse(null);
+    }    
 
     // Método GET del UsuarioController (validarUsuario)
     public UsuarioDTO validarUsuario(UsuarioEntity usuarioEntity, String pwd) {

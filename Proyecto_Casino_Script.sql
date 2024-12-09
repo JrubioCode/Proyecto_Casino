@@ -16,8 +16,10 @@ CREATE TABLE USUARIO (
     CONSTRAINT PK_USUARIO PRIMARY KEY (DNI)
 );
 
+/*
 INSERT INTO USUARIO (DNI, NOMBRE, APELLIDO1, APELLIDO2, FECHA_NACIMIENTO, USER_NAME, EMAIL, USER_PASSWORD, NUMERO_TELEFONO) VALUES 
 ('12345678A', 'Pedro', 'García', 'López', '1990-05-15', 'Pedro90', 'pedro.garcia@example.com', 'Password123!', '123456789'),
 ('87654321B', 'María', 'Fernández', 'Pérez', '1985-07-20', 'Maria85', 'maria.fernandez@example.com', 'SecurePass456!', '987654321');
+*/
 
 SELECT * FROM USUARIO;
