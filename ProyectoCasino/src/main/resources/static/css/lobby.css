@@ -1,13 +1,20 @@
+/* Estilo general */
+* {
+    font-family: 'Lobster', cursive;
+    box-sizing: border-box;
+}
+
 body{
     background-image: url('./../assets/lobby/fondo.png');
 }
 
 /* Estilo de la cabecera */
 .contenidoHeader {
-    background-color: #3b2d2d; /* Color marrón oscuro, como piedra */
-    border: 5px solid #1a1a1a; /* Borde más oscuro */
+    background-color: rgba(255, 255, 255);
+    border: 2px solid #03551f;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    padding: 20px;
 }
 
 .header {
@@ -21,16 +28,15 @@ body{
     width: 200px; /* Ajustar el tamaño del logo */
     height: auto;
     border-radius: 50%;
-    border: 4px solid #7f4c1c; /* Borde marrón, como tierra */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    border: 5px solid #05752a;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .header h1 {
-    color: #e1c6a9; /* Color beige suave para el texto */
-    font-size: 44px; /* Tamaño de fuente ajustado */
-    text-shadow: 1px 1px 3px #7f4c1c; /* Sombra más prominente */
+    color: #05752a;
+    font-size: 50px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     margin-left: 20px;
-    font-family: 'Georgia', serif; /* Fuente más clásica */
 }
 
 /* Contenedor para el reloj */
@@ -38,29 +44,31 @@ body{
     position: absolute;
     right: 20px;
     top: 30px;
-    background-color: #e1c6a9; /* Fondo marrón oscuro más sólido */
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #03551f;
     padding: 10px 15px;
-    border-radius: 8px;
+    border-radius: 5px;
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 #reloj {
-    font-size: 24px;
-    color: #3b2d2d; /* Color de texto claro */
+    font-size: 30px;
+    color: #05752a;
     font-weight: bold;
+    width: 100px;
 }
 
 /* Estilo del cuerpo */
 .contenidoCasino {
     padding: 50px;
     text-align: center;
-    border: 3px solid #7f4c1c; /* Borde marrón */
+    border: 2px solid #03551f;
     border-radius: 20px;
     max-width: 800px;
     margin: 20px auto;
     box-shadow: 0 4px 30px rgba(139, 69, 19, 0.5);
-    background-color: #d2c5b3; /* Color claro, como barro */
+    background-color: rgba(255, 255, 255, 0.85);
 }
 
 /* Carrusel */
@@ -70,6 +78,8 @@ body{
     margin: 20px auto;
     height: 500px;
     overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .contenedor-carrusel {
@@ -86,8 +96,8 @@ body{
     width: 100%;
     height: 100%;
     object-fit: cover; /* Asegura que las imágenes cubran el área */
-    border: 3px solid #7f4c1c; /* Borde marrón en las imágenes */
     border-radius: 10px;
+    border: 2px solid #03551f;
 }
 
 .carrusel-izquierda, .carrusel-derecha {
@@ -122,18 +132,18 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-top: 2px solid #03551f;
+    padding: 20px;
     text-align: center;
-    background-color: #3b2d2d; /* Color marrón oscuro, como el header */
-    color: #f4f4f0; /* Color de texto claro */
-    padding: 20px 10px;
-    border-top: 3px solid #7f4c1c;
-    border-radius: 20px;
+    color: #023d16;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .crearCuenta h2 {
-    font-size: 32px;
-    margin-bottom: 45px;
-    color: #e1c6a9; /* Color beige suave */
+    font-size: 28px;
+    color: #05752a;
+    margin-bottom: 20px;
 }
 
 .crearCuenta {
@@ -142,19 +152,19 @@ body{
 
 /* Botón de Crear Cuenta */
 .crear {
-    background-color: #b8860b; /* Color dorado */
-    color: #f4f4f0;
+    background-color: #05752a;
+    color: white;
     padding: 12px 24px;
     border: none;
     border-radius: 8px;
     text-decoration: none;
-    font-weight: bold;
+    font-size: 25px;
     transition: background-color 0.3s, transform 0.3s;
     box-shadow: 0 4px 10px rgba(205, 127, 50, 0.5);
 }
 
 .crear:hover {
-    background-color: #7f4c1c; /* Color marrón más oscuro */
+    background-color: #03551f;
     transform: scale(1.05);
 }
 
@@ -169,7 +179,7 @@ body{
 .contenedores-footer h3 {
     font-size: 24px;
     margin-bottom: 10px;
-    color: #e1c6a9; /* Color beige suave */
+    color: #05752a;
 }
 
 .contenedores-footer ul {
@@ -178,26 +188,14 @@ body{
 }
 
 .contenedores-footer a {
-    color: #e1c6a9; /* Marrón oscuro */
+    color: #023d16;
     text-decoration: none;
     transition: color 0.3s;
     font-size: 16px;
 }
 
-.contenedores-footer a:hover {
-    color: #b8860b; /* Color dorado */
-}
-
-.responsabilidad {
-    margin: 20px 0;
+.responsabilidad, .copyright {
     font-size: 14px;
-    color: #f4f4f0;
-}
-
-.copyright {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: #023d16;
     margin-top: 10px;
-    padding-top: 5px;
-    font-size: 12px;
-    color: #f4f4f0;
 }
