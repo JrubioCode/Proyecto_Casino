@@ -109,24 +109,20 @@
 
         <!-- CONTENEDOR DEL JUEGO -->
         <div class="juego">
-
-            <video muted loop>
-                <source src="./videos/fondoAnimado.mp4" type="video/mp4" class="videoFondo">
+            <video muted autoplay loop class="videoFondo">
+                <source src="./videos/fondoAnimado.mp4" type="video/mp4">
                 Your browser does not support the video tag.
-            </video>
-            
+            </video>            
+            <img src="./assets/cavemanRun/cavernicola-unscreen.gif" class="cavernicolaCorriendo">
             <div class="controles-juego">
-                
                 <!-- BOTONES DE APUESTA AL PRINCIPIO -->
                 <div class="botones-apuesta">
-                    
                     <!-- ENTRADA DE APUESTA -->
                     <div class="input-apuesta">
                         <button class="btn-ajustar" id="btn-menos">-</button>
                         <input type="number" id="apuesta" value="0" min="0">
                         <button class="btn-ajustar" id="btn-mas">+</button>
                     </div>
-
                     <!-- APUESTA RÁPIDA -->
                     <div class="apuesta-rapida">
                         <input type="button" class="btn-apuesta-rapida" value="1">
@@ -135,7 +131,6 @@
                         <input type="button" class="btn-apuesta-rapida" value="100">
                     </div>
                 </div>
-
                 <!-- BOTONES CORRER Y PARAR (UNO ENCIMA DEL OTRO) -->
                 <div class="botones-accion">
                     <input type="button" id="btn-correr" class="btn-correr" value="Correr">
@@ -143,7 +138,7 @@
                     <input type="button" id="btn-parar" class="btn-parar" value="Parar">
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
 
     <!-- FILTRO BLANCO Y NEGRO -->

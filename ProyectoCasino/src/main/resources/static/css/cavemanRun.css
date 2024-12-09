@@ -292,11 +292,11 @@ body::before {
   transition: 0.5s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #5494de;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   transform: translateX(100%);
   box-shadow: inset 15px -4px 0px 15px #efdf2b, 0 0 10px 0px #efdf2b;
 }
@@ -351,212 +351,226 @@ input:checked + .slider:before {
 
 /* Fondo oscuro para el área de estadísticas */
 .analiticas {
-    border: none;
-    background-color: rgb(34, 34, 44);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.6), 0 4px 15px rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    width: 450px;
-    height: 650px;
-    margin-left: 50px;
-    overflow: auto;
-  }
-  
-  /* Menú de pestañas estilizado */
-  .estadisticas-menu {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    background: linear-gradient(to bottom, rgba(50, 50, 60, 1), rgba(30, 30, 40, 1));
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
-  }
-  
-  .tab-button {
-    background-color: rgb(44, 44, 54);
-    color: #ddd;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px black;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  .tab-button:hover {
-    background-color: rgb(70, 70, 80);
-    transform: scale(1.05);
-  }
-  
-  .tab-button.active {
-    background: linear-gradient(to bottom, rgba(70, 70, 80, 1), rgba(50, 50, 60, 1));
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-  
-  /* Sección de estadísticas */
-  .estadisticas-contenido {
-    background: linear-gradient(to bottom right, rgba(44, 44, 54, 0.95), rgba(34, 34, 44, 1));
-    border-radius: 10px;
-    padding: 20px;
-    height: calc(100% - 60px);
-    overflow-y: auto;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.5);
-  } 
+  border: none;
+  background-color: rgb(34, 34, 44);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.6), 0 4px 15px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  height: 650px;
+  margin-left: 50px;
+  overflow: auto;
+}
 
-  .estadistica-section {
-    display: none;
-  }
-  
-  .estadistica-section.active {
-    display: block;
-  }
+/* Menú de pestañas estilizado */
+.estadisticas-menu {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  background: linear-gradient(to bottom, rgba(50, 50, 60, 1), rgba(30, 30, 40, 1));
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+}
 
-  .parrafo-seccion1, .parrafo-seccion2{
-    color: white;
-  }
+.tab-button {
+  background-color: rgb(44, 44, 54);
+  color: #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px black;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
 
-  /* Historial y mejores jugadas tablas */
+.tab-button:hover {
+  background-color: rgb(70, 70, 80);
+  transform: scale(1.05);
+}
+
+.tab-button.active {
+  background: linear-gradient(to bottom, rgba(70, 70, 80, 1), rgba(50, 50, 60, 1));
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Sección de estadísticas */
+.estadisticas-contenido {
+  background: linear-gradient(to bottom right, rgba(44, 44, 54, 0.95), rgba(34, 34, 44, 1));
+  border-radius: 10px;
+  padding: 20px;
+  height: calc(100% - 60px);
+  overflow-y: auto;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.estadistica-section {
+  display: none;
+}
+
+.estadistica-section.active {
+  display: block;
+}
+
+.parrafo-seccion1, .parrafo-seccion2 {
+  color: white;
+}
+
+/* Historial y mejores jugadas tablas */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  table th, table td {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    text-align: center;
-    color: #ccc;
-  }
-  
-  table th {
-    background: rgba(255, 255, 255, 0.1);
-    text-shadow: 1px 1px 2px black;
-    font-weight: bold;
-  }
-  
-  table tbody tr:nth-child(even) {
-    background: rgba(255, 255, 255, 0.05);
-  }
-  
-  table tbody tr:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }  
-
-.juego {
-    border: 2px solid black;
-    border-radius: 10px;
-    width: 1000px;
-    height: 650px;
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
 }
 
-.videoFondo{
-  width: 10%;
-  height: 20%;
+table th, table td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  text-align: center;
+  color: #ccc;
 }
 
-.cavernicolaCorriendo{
+table th {
+  background: rgba(255, 255, 255, 0.1);
+  text-shadow: 1px 1px 2px black;
+  font-weight: bold;
+}
+
+table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cavernicolaCorriendo {
+  position: absolute;
+  top: 200px;
+  left: 350px;
   width: 250px;
   height: 250px;
-  margin-top: 150px;
-  margin-left: 250px;
+  z-index: 2;
+}
+
+.juego {
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 1000px;
+  height: 650px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.videoFondo {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  object-fit: cover;
+  z-index: 1;
 }
 
 .controles-juego {
-    margin-top: auto;
-    height: 150px;
-    background-color: rgba(32, 38, 44, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(32, 38, 44);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 2;
+  padding: 10px 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .botones-accion input {
-    width: 150px;
-    height: 50px;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
+  width: 150px;
+  height: 50px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
 }
 
 .botones-apuesta {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .input-apuesta {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .input-apuesta input {
-    width: 100px;
-    text-align: center;
-    padding: 5px;
-    font-size: 16px;
+  width: 100px;
+  text-align: center;
+  padding: 5px;
+  font-size: 16px;
 }
 
 .btn-ajustar {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-    border: none;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  border: none;
+  background-color: #444;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .btn-ajustar:hover {
-    background-color: #666;
+  background-color: #666;
 }
 
 .apuesta-rapida {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .btn-apuesta-rapida {
-    width: 60px;
-    height: 40px;
-    font-size: 16px;
-    border: none;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
+  width: 60px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background-color: #444;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .btn-apuesta-rapida:hover {
-    background-color: #666;
+  background-color: #666;
 }
 
 .btn-correr {
-    background-color: greenyellow;
-    font-weight: 900;
-    font-size: 20px;
-    cursor: pointer;
-    border-radius: 10px;
+  background-color: greenyellow;
+  font-weight: 900;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 5px 10px;
 }
 
 .btn-parar {
-    background-color: red;
-    font-weight: 900;
-    font-size: 20px;
-    cursor: pointer;
-    border-radius: 10px;
+  background-color: red;
+  font-weight: 900;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 5px 10px;
 }
