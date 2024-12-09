@@ -1,0 +1,562 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  background: none;
+  font-family: "Uncial Antiqua", sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url("/assets/cavemanRun/background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+.contenido-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  background-color: rgb(34, 34, 44);
+  border-radius: 20px;
+  padding: 30px;
+  gap: 70px;
+}
+
+.logo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.logo-titulo img {
+  width: auto;
+  height: 120px;
+  border-radius: 50%;
+  padding: 5px;
+  border: 3px solid orangered;
+}
+
+.logo-titulo h1 {
+  color: #f1f1f1;
+  font-size: 40px;
+  text-align: center;
+  margin: 0;
+}
+
+.barra-separar {
+  background-color: #f1f1f1;
+  width: 5px;
+  height: auto;
+  border-radius: 100%;
+}
+
+.gestion-saldo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.botones-saldo {
+  display: flex;
+  gap: 40px;
+}
+
+.botones-saldo input {
+  background: radial-gradient(circle, rgba(255, 175, 105, 0.9) 20%, rgba(255, 140, 75, 0.75) 85%);
+  border-radius: 10px;
+  height: 50px;
+  width: 180px;
+  padding: 0 10px;
+  border: none;
+  font-size: 20px;
+  color: #f1f1f1;
+  transition: all 0.3s ease;
+}
+
+.botones-saldo input:hover {
+  background: radial-gradient(circle, rgba(255, 155, 85, 0.9) 20%, rgba(255, 110, 60, 0.8) 80%);
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.mensajes-saldo {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.mensajes-saldo p {
+  color: #f0e6d2;
+  font-size: 25px;
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+}
+
+.reloj-ajustes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.reloj-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background: radial-gradient(circle, rgba(255, 175, 105, 0.9) 20%, rgba(255, 140, 75, 0.75) 85%);
+  border-radius: 8px;
+  padding: 5px 15px;
+}
+
+#reloj {
+  font-size: 25px;
+  color: #f1f1f1;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+}
+
+.icono-ajustes {
+  font-size: 40px;
+  color: #f0f0f0;
+  cursor: pointer;
+  transition: transform 0.3s;
+  margin-right: -80px;
+}
+
+.icono-ajustes:hover {
+  transform: rotate(360deg);
+  color: #ffcc99;
+}
+
+.modal-meter-dinero, .modal-retirar-dinero, .modal-conversion-fichas, .modal-conversion-saldo {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(34, 34, 44, 0.7);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+
+.contenido-modal {
+  background-color: rgb(34, 34, 44);
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: flex-start;
+  overflow-y: auto;
+  color: #f1f1f1;
+}
+
+.contenido-modal p {
+  margin-bottom: -10px;
+  font-size: 18px;
+  color: #ddd;
+}
+
+.comprobacion-meter-dinero, .comprobacion-retirar-dinero, .comprobacion-convertir-a-fichas, .comprobacion-convertir-a-dinero {
+  width: 100%;
+  height: 10px;
+}
+
+.contenido-modal input {
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #c3a28b;
+  width: 100%;
+  background: radial-gradient(circle, rgba(255, 175, 105, 0.9) 20%, rgba(255, 140, 75, 0.75) 85%);
+  color: #fff;
+}
+
+.contenido-modal input:hover {
+  background: radial-gradient(circle, rgba(255, 155, 85, 0.9) 20%, rgba(255, 110, 60, 0.8) 80%);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-ajustes {
+  display: none;
+  position: absolute;
+  top: 220px;
+  right: 45px;
+  width: 250px;
+  height: 600px;
+  z-index: 10;
+  justify-content: center;
+  transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.contenido-modal-ajustes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(34, 34, 44);
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  gap: 25px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contenido-modal-ajustes p {
+  color: #f1f1f1;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.contenedor-imagenes {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contenido-modal-ajustes img {
+  width: auto;
+  height: 40px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.musica img {
+  width: 50px;
+  height: 50px;
+}
+
+.switch {
+  font-size: 14px;
+  position: relative;
+  display: inline-block;
+  width: 3.9em;
+  height: 2.7em;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.slider {
+  --background: #20262c;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background);
+  transition: 0.5s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 50%;
+  left: 10%;
+  bottom: 15%;
+  box-shadow: inset 8px -4px 0px 0px #ececd9, -4px 1px 4px 0px #dadada;
+  background: var(--background);
+  transition: 0.5s;
+}
+
+input:checked + .slider {
+  background-color: #5494de;
+}
+
+input:checked + .slider:before {
+  transform: translateX(100%);
+  box-shadow: inset 15px -4px 0px 15px #efdf2b, 0 0 10px 0px #efdf2b;
+}
+
+#blancoYnegro {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  pointer-events: none;
+  backdrop-filter: grayscale(100%);
+  transition: backdrop-filter 0.3s ease, display 0.3s ease;
+}
+
+/* Modal información */
+.modal {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+/* Contenido del modal */
+.modal-content {
+  background-color: rgb(34, 34, 44);
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 1000px;
+  text-align: center;
+  max-height: 90%;
+  overflow-y: auto;
+}
+
+.contenido {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 80px;
+  margin-top: 25px;
+}
+
+/* Fondo oscuro para el área de estadísticas */
+.analiticas {
+    border: none;
+    background-color: rgb(34, 34, 44);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.6), 0 4px 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    height: 650px;
+    margin-left: 50px;
+    overflow: auto;
+  }
+  
+  /* Menú de pestañas estilizado */
+  .estadisticas-menu {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    background: linear-gradient(to bottom, rgba(50, 50, 60, 1), rgba(30, 30, 40, 1));
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  }
+  
+  .tab-button {
+    background-color: rgb(44, 44, 54);
+    color: #ddd;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .tab-button:hover {
+    background-color: rgb(70, 70, 80);
+    transform: scale(1.05);
+  }
+  
+  .tab-button.active {
+    background: linear-gradient(to bottom, rgba(70, 70, 80, 1), rgba(50, 50, 60, 1));
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Sección de estadísticas */
+  .estadisticas-contenido {
+    background: linear-gradient(to bottom right, rgba(44, 44, 54, 0.95), rgba(34, 34, 44, 1));
+    border-radius: 10px;
+    padding: 20px;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.5);
+  } 
+
+  .estadistica-section {
+    display: none;
+  }
+  
+  .estadistica-section.active {
+    display: block;
+  }
+
+  .parrafo-seccion1, .parrafo-seccion2{
+    color: white;
+  }
+
+  /* Historial y mejores jugadas tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  table th, table td {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    text-align: center;
+    color: #ccc;
+  }
+  
+  table th {
+    background: rgba(255, 255, 255, 0.1);
+    text-shadow: 1px 1px 2px black;
+    font-weight: bold;
+  }
+  
+  table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }  
+
+.juego {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 1000px;
+    height: 650px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.videoFondo{
+  width: 10%;
+  height: 20%;
+}
+
+.cavernicolaCorriendo{
+  width: 250px;
+  height: 250px;
+  margin-top: 150px;
+  margin-left: 250px;
+}
+
+.controles-juego {
+    margin-top: auto;
+    height: 150px;
+    background-color: rgba(32, 38, 44, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.botones-accion input {
+    width: 150px;
+    height: 50px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.botones-apuesta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.input-apuesta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-apuesta input {
+    width: 100px;
+    text-align: center;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.btn-ajustar {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    border: none;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-ajustar:hover {
+    background-color: #666;
+}
+
+.apuesta-rapida {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-apuesta-rapida {
+    width: 60px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-apuesta-rapida:hover {
+    background-color: #666;
+}
+
+.btn-correr {
+    background-color: greenyellow;
+    font-weight: 900;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.btn-parar {
+    background-color: red;
+    font-weight: 900;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+}

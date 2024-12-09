@@ -24,4 +24,9 @@ public class IndexController {
         return "lobby";
     }
 
+    // Metodo para acceder a CavemanRun
+    @GetMapping("/cavemanRun")
+    public String cavemanRun(){
+        return "cavemanRun";
+    }
 }
