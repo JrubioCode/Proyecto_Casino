@@ -140,34 +140,6 @@ body{
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.crearCuenta h2 {
-    font-size: 28px;
-    color: #05752a;
-    margin-bottom: 20px;
-}
-
-.crearCuenta {
-    margin-bottom: 10px;
-}
-
-/* Botón de Crear Cuenta */
-.crear {
-    background-color: #05752a;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 25px;
-    transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 4px 10px rgba(205, 127, 50, 0.5);
-}
-
-.crear:hover {
-    background-color: #03551f;
-    transform: scale(1.05);
-}
-
 .links-footer {
     display: flex;
     justify-content: center;
