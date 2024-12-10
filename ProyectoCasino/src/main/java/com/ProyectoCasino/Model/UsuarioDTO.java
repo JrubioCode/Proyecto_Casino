@@ -1,5 +1,8 @@
 package com.ProyectoCasino.Model;
 
+import java.util.Date;
+import java.util.Set;
+
 public class UsuarioDTO {
 
     private String dni;
@@ -11,6 +14,12 @@ public class UsuarioDTO {
     private String email;
     private String userPassword;
     private String numeroTelefono;
+    private Boolean esVip;
+    private Integer numeroTarjeta;
+    private String titularTarjeta;
+    private Date fechaExpiracion;
+    private Integer cvc;
+    private Set<Integer> historicos; // Representar IDs de HistoricoEntity
 
     // Getters y Setters
     public String getDni() {
@@ -83,5 +92,63 @@ public class UsuarioDTO {
 
     public void setNumeroTelefono(String numeroTelefono) {
         this.numeroTelefono = numeroTelefono;
+    }
+
+    public Boolean getEsVip() {
+        return esVip;
+    }
+
+    public void setEsVip(Boolean esVip) {
+        this.esVip = esVip;
+    }
+
+    public Integer getNumeroTarjeta() {
+        return numeroTarjeta;
+    }
+
+    public void setNumeroTarjeta(Integer numeroTarjeta) {
+        this.numeroTarjeta = numeroTarjeta;
+    }
+
+    public String getTitularTarjeta() {
+        return titularTarjeta;
+    }
+
+    public void setTitularTarjeta(String titularTarjeta) {
+        this.titularTarjeta = titularTarjeta;
+    }
+
+    public Date getFechaExpiracion() {
+        return fechaExpiracion;
+    }
+
+    public void setFechaExpiracion(Date fechaExpiracion) {
+        this.fechaExpiracion = fechaExpiracion;
+    }
+
+    public Integer getCvc() {
+        return cvc;
+    }
+
+    public void setCvc(Integer cvc) {
+        this.cvc = cvc;
+    }
+
+    public Set<Integer> getHistoricos() {
+        return historicos;
+    }
+
+    public void setHistoricos(Set<Integer> historicos) {
+        this.historicos = historicos;
+    }
+
+    // toString()
+    @Override
+    public String toString() {
+        return "UsuarioDTO [dni=" + dni + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2
+                + ", fechaNacimiento=" + fechaNacimiento + ", userName=" + userName + ", email=" + email
+                + ", userPassword=" + userPassword + ", numeroTelefono=" + numeroTelefono + ", esVip=" + esVip
+                + ", numeroTarjeta=" + numeroTarjeta + ", titularTarjeta=" + titularTarjeta + ", fechaExpiracion="
+                + fechaExpiracion + ", cvc=" + cvc + ", historicos=" + historicos + "]";
     }
 }
