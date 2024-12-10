@@ -11,7 +11,7 @@ body{
 /* Estilo de la cabecera */
 .contenidoHeader {
     background-color: rgba(255, 255, 255);
-    border: 2px solid #03551f;
+    border: 3px solid #03551f;
     border-radius: 10px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -134,6 +134,7 @@ body{
     align-items: center;
     background-color: rgba(255, 255, 255, 0.85);
     border-top: 2px solid #03551f;
+    border-radius: 10px;
     padding: 20px;
     text-align: center;
     color: #023d16;

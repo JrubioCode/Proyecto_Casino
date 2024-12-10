@@ -15,4 +15,5 @@ public interface UsuarioService {
     
     boolean userNameExiste(String userName);
 
+    boolean emailExiste(String email);
 }

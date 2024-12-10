@@ -21,12 +21,15 @@ public class UsuarioController {
 
     @PostMapping("/registrar")
     public String registrarUsuario(@RequestBody UsuarioDTO usuario) {
-        // Comprobamos duplicados
+  
         if (usuarioService.usuarioExiste(usuario.getDni())) {
             return "Error: El DNI ya está registrado.";
         }
         if (usuarioService.userNameExiste(usuario.getUserName())) {
             return "Error: El nombre de usuario ya está en uso.";
+        }
+        if (usuarioService.emailExiste(usuario.getEmail())) {
+            return "Error: El correo electrónico ya está registrado.";
         }
 
         usuarioService.registrarUsuario(usuario);

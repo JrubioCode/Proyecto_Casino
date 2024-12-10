@@ -11,6 +11,9 @@ import com.ProyectoCasino.Entity.UsuarioEntity;
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, String> {
 
     Optional<UsuarioEntity> findByUserName(String userName);
+
+    Optional<UsuarioEntity> findByEmail(String email);
+
 /*
     // Métodos básicos:
     // -----------------------

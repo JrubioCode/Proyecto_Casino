@@ -69,4 +69,9 @@ public class UsuarioImplent implements UsuarioService {
     public boolean userNameExiste(String userName) {
         return usuarioRepository.findByUserName(userName).isPresent();
     }
+
+    @Override
+    public boolean emailExiste(String email) {
+        return usuarioRepository.findByEmail(email).isPresent();
+    }
 }
