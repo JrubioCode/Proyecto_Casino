@@ -285,7 +285,7 @@ function actualizarSaldoEnBD(nuevoSaldo) {
 
   $.ajax({
     url: '/saldo/actualizar',
-    type: 'PUT',
+    type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify(usuarioDTO),
     success: function (response) {

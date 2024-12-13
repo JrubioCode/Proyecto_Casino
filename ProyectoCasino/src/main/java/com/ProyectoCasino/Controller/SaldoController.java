@@ -12,8 +12,7 @@ public class SaldoController {
     @Autowired
     private UsuarioService usuarioService;
 
-    // Endpoint para actualizar el saldo del usuario
-    @PutMapping("/actualizar")
+    @PostMapping("/actualizar")
     public UsuarioDTO actualizarSaldo(@RequestBody UsuarioDTO usuarioDTO) {
         return usuarioService.actualizarSaldo(usuarioDTO);
     }
