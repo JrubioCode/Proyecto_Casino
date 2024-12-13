@@ -167,10 +167,9 @@ document.getElementById("boton-meter-dinero-modal").addEventListener("click", fu
                 type: "GET",
                 url: `/usuario/obtenerSaldo/${dni}`,
                 success: function(saldoActual) {
-                    // Actualizar el saldo sumando la cantidad ingresada
                     saldoActual = parseFloat(saldoActual);
                     const nuevoSaldo = saldoActual + cantidadDinero;
-                    actualizarSaldoEnBD(nuevoSaldo); // Actualizar en la base de datos
+                    actualizarSaldoEnBD(nuevoSaldo);
                     actualizarSaldo();
                     cerrarModal(document.getElementById("modal-meter-dinero"));
                 },
@@ -203,7 +202,6 @@ document.getElementById("boton-retirar-dinero-modal").addEventListener("click", 
                 type: "GET",
                 url: `/usuario/obtenerSaldo/${dni}`,
                 success: function(saldoActual) {
-                    // Verificar si el saldo es suficiente
                     saldoActual = parseFloat(saldoActual);
                     if (cantidadDinero > saldoActual) {
                         comprobacion.textContent = estaEnIngles() ? "Not enough money" : "No tienes suficiente saldo.";
@@ -213,7 +211,7 @@ document.getElementById("boton-retirar-dinero-modal").addEventListener("click", 
                         }, 1500);
                     } else {
                         const nuevoSaldo = saldoActual - cantidadDinero;
-                        actualizarSaldoEnBD(nuevoSaldo); // Actualizar en la base de datos
+                        actualizarSaldoEnBD(nuevoSaldo);
                         actualizarSaldo();
                         cerrarModal(document.getElementById("modal-retirar-dinero"));
                     }
@@ -258,7 +256,7 @@ document.getElementById("boton-convertir-fichas").addEventListener("click", func
                         const cantidadFichas = cantidadEuros * 100;
                         fichas += cantidadFichas;
                         const nuevoSaldo = saldoActual - cantidadEuros;
-                        actualizarSaldoEnBD(nuevoSaldo); // Actualizar en la base de datos
+                        actualizarSaldoEnBD(nuevoSaldo);
                         actualizarSaldo();
                         cerrarModal(document.getElementById("modal-conversion-fichas"));
                     }
@@ -294,13 +292,13 @@ document.getElementById("boton-convertir-saldo").addEventListener("click", funct
       }, 1500);
   } else {
       // Convertir fichas a dinero y actualizar el saldo
-      const cantidadDinero = cantidadFichas / 100; // 100 fichas = 1 euro
+      const cantidadDinero = cantidadFichas / 100;
       const nuevoSaldo = saldo + cantidadDinero;
       
       // Actualizar el saldo y las fichas
       fichas -= cantidadFichas;
-      actualizarSaldoEnBD(nuevoSaldo); // Actualizar el saldo en la base de datos
-      actualizarSaldo(); // Actualizar la interfaz
+      actualizarSaldoEnBD(nuevoSaldo);
+      actualizarSaldo();
       
       cerrarModal(document.getElementById("modal-conversion-saldo"));
   }
@@ -330,7 +328,7 @@ function cargarSaldo() {
             url: `/usuario/obtenerSaldo/${dni}`,
             success: function(response) {
                 saldo = parseFloat(response);
-                actualizarSaldo(); // Mostrar el saldo cargado en la interfaz
+                actualizarSaldo();
             },
             error: function(error) {
                 console.error("Error al obtener el saldo:", error);
@@ -339,7 +337,6 @@ function cargarSaldo() {
     }
 }
 
-// Llamamos a la función al cargar la página para obtener el saldo del usuario
 cargarSaldo();
 
 // Función para actualizar el saldo en la base de datos
@@ -359,7 +356,7 @@ function actualizarSaldoEnBD(nuevoSaldo) {
             data: JSON.stringify(usuarioDTO),
             success: function(response) {
                 console.log("Saldo actualizado en la base de datos:", response);
-                cargarSaldo(); // Actualizar el saldo en la interfaz
+                cargarSaldo();
             },
             error: function(xhr, status, error) {
                 console.error("Error al actualizar el saldo:", error);
@@ -367,6 +364,25 @@ function actualizarSaldoEnBD(nuevoSaldo) {
         });
     }
 }
+
+// Función que convierte las fichas en dinero y actualiza el saldo
+function convertirFichasADinero() {
+  if (fichas > 0) {
+      const cantidadDinero = fichas / 100;
+      saldo += cantidadDinero; 
+      fichas = 0;
+
+      actualizarSaldoEnBD(saldo);
+      actualizarSaldo();
+  }
+}
+
+// Evento para detectar cuando el usuario intente salir o recargar la página
+window.addEventListener("beforeunload", function(event) {
+  if (fichas > 0) {
+      convertirFichasADinero();
+  }
+});
 
 
 
