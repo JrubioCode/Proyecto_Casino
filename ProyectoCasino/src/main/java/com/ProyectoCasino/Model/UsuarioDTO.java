@@ -14,12 +14,13 @@ public class UsuarioDTO {
     private String email;
     private String userPassword;
     private String numeroTelefono;
+    private Double dineroUsuario;
     private Boolean esVip;
     private Integer numeroTarjeta;
     private String titularTarjeta;
     private Date fechaExpiracion;
     private Integer cvc;
-    private Set<Integer> historicos; // Representar IDs de HistoricoEntity
+    private Set<Integer> historicos; // ID de HistoricoEntity
 
     // Getters y Setters
     public String getDni() {
@@ -94,6 +95,14 @@ public class UsuarioDTO {
         this.numeroTelefono = numeroTelefono;
     }
 
+    public Double getDineroUsuario() {
+        return dineroUsuario;
+    }
+
+    public void setDineroUsuario(Double dineroUsuario) {
+        this.dineroUsuario = dineroUsuario;
+    }
+
     public Boolean getEsVip() {
         return esVip;
     }
@@ -145,10 +154,23 @@ public class UsuarioDTO {
     // toString()
     @Override
     public String toString() {
-        return "UsuarioDTO [dni=" + dni + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2
-                + ", fechaNacimiento=" + fechaNacimiento + ", userName=" + userName + ", email=" + email
-                + ", userPassword=" + userPassword + ", numeroTelefono=" + numeroTelefono + ", esVip=" + esVip
-                + ", numeroTarjeta=" + numeroTarjeta + ", titularTarjeta=" + titularTarjeta + ", fechaExpiracion="
-                + fechaExpiracion + ", cvc=" + cvc + ", historicos=" + historicos + "]";
+        return "UsuarioDTO{" +
+                "dni='" + dni + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido1='" + apellido1 + '\'' +
+                ", apellido2='" + apellido2 + '\'' +
+                ", fechaNacimiento='" + fechaNacimiento + '\'' +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", numeroTelefono='" + numeroTelefono + '\'' +
+                ", dineroUsuario=" + dineroUsuario +
+                ", esVip=" + esVip +
+                ", numeroTarjeta=" + numeroTarjeta +
+                ", titularTarjeta='" + titularTarjeta + '\'' +
+                ", fechaExpiracion=" + fechaExpiracion +
+                ", cvc=" + cvc +
+                ", historicos=" + historicos +
+                '}';
     }
 }

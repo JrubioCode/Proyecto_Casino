@@ -3,9 +3,9 @@ package com.ProyectoCasino.Model;
 public class ConversionDTO {
 
     private Integer idConversion;
-    private Double euros;
-    private Integer fichas;
-    private Integer juegoId; // ID del juego
+    private Double multiplicador;
+    private String fechaCreacion;
+    private Integer juegoId;
 
     // Getters y Setters
     public Integer getIdConversion() {
@@ -16,20 +16,20 @@ public class ConversionDTO {
         this.idConversion = idConversion;
     }
 
-    public Double getEuros() {
-        return euros;
+    public Double getMultiplicador() {
+        return multiplicador;
     }
 
-    public void setEuros(Double euros) {
-        this.euros = euros;
+    public void setMultiplicador(Double multiplicador) {
+        this.multiplicador = multiplicador;
     }
 
-    public Integer getFichas() {
-        return fichas;
+    public String getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setFichas(Integer fichas) {
-        this.fichas = fichas;
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public Integer getJuegoId() {
@@ -40,9 +40,9 @@ public class ConversionDTO {
         this.juegoId = juegoId;
     }
 
-    // toString()
     @Override
     public String toString() {
-        return "ConversionDTO [idConversion=" + idConversion + ", euros=" + euros + ", fichas=" + fichas + ", juegoId=" + juegoId + "]";
+        return "ConversionDTO [idConversion=" + idConversion + ", multiplicador=" + multiplicador 
+               + ", fechaCreacion=" + fechaCreacion + ", juegoId=" + juegoId + "]";
     }
 }

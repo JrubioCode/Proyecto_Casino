@@ -16,4 +16,7 @@ public interface UsuarioService {
     boolean userNameExiste(String userName);
 
     boolean emailExiste(String email);
+
+    UsuarioDTO actualizarSaldo(UsuarioDTO usuarioDTO);
+    
 }

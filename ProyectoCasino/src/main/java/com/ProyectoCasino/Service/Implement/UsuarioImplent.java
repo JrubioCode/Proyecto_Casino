@@ -74,4 +74,18 @@ public class UsuarioImplent implements UsuarioService {
     public boolean emailExiste(String email) {
         return usuarioRepository.findByEmail(email).isPresent();
     }
+
+    @Override
+    public UsuarioDTO actualizarSaldo(UsuarioDTO usuarioDTO) {
+        UsuarioEntity usuarioEntity = usuarioRepository.findById(usuarioDTO.getDni())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Actualizar saldo en la entidad
+        usuarioEntity.setDineroUsuario(usuarioDTO.getDineroUsuario());
+        UsuarioEntity actualizado = usuarioRepository.save(usuarioEntity);
+
+        // Mapear de vuelta a DTO
+        usuarioDTO.setDineroUsuario(actualizado.getDineroUsuario());
+        return usuarioDTO;
+    }
 }

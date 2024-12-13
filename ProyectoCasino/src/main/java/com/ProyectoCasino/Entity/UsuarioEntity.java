@@ -21,7 +21,7 @@ public class UsuarioEntity implements Serializable {
     @Column(name = "APELLIDO1", nullable = false, length = 100)
     private String apellido1;
 
-    @Column(name = "APELLIDO2", nullable = true, length = 100)
+    @Column(name = "APELLIDO2", length = 100)
     private String apellido2;
 
     @Column(name = "FECHA_NACIMIENTO", nullable = false)
@@ -39,6 +39,9 @@ public class UsuarioEntity implements Serializable {
 
     @Column(name = "NUMERO_TELEFONO", nullable = false, length = 15)
     private String numeroTelefono;
+
+    @Column(name = "DINERO_USUARIO")
+    private Double dineroUsuario;
 
     @Column(name = "ES_VIP")
     private Boolean esVip;
@@ -132,6 +135,14 @@ public class UsuarioEntity implements Serializable {
         this.numeroTelefono = numeroTelefono;
     }
 
+    public Double getDineroUsuario() {
+        return dineroUsuario;
+    }
+
+    public void setDineroUsuario(Double dineroUsuario) {
+        this.dineroUsuario = dineroUsuario;
+    }
+
     public Boolean getEsVip() {
         return esVip;
     }
@@ -183,10 +194,23 @@ public class UsuarioEntity implements Serializable {
     // toString()
     @Override
     public String toString() {
-        return "UsuarioEntity [dni=" + dni + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2="
-                + apellido2 + ", fechaNacimiento=" + fechaNacimiento + ", userName=" + userName + ", email=" + email
-                + ", userPassword=" + userPassword + ", numeroTelefono=" + numeroTelefono + ", esVip=" + esVip
-                + ", numeroTarjeta=" + numeroTarjeta + ", titularTarjeta=" + titularTarjeta + ", fechaExpiracion="
-                + fechaExpiracion + ", cvc=" + cvc + ", historicos=" + historicos + "]";
+        return "UsuarioEntity{" +
+                "dni='" + dni + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido1='" + apellido1 + '\'' +
+                ", apellido2='" + apellido2 + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", numeroTelefono='" + numeroTelefono + '\'' +
+                ", dineroUsuario=" + dineroUsuario +
+                ", esVip=" + esVip +
+                ", numeroTarjeta=" + numeroTarjeta +
+                ", titularTarjeta='" + titularTarjeta + '\'' +
+                ", fechaExpiracion=" + fechaExpiracion +
+                ", cvc=" + cvc +
+                ", historicos=" + historicos +
+                '}';
     }
 }

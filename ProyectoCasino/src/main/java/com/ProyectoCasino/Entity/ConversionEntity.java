@@ -2,6 +2,7 @@ package com.ProyectoCasino.Entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "CONVERSION")
@@ -14,11 +15,11 @@ public class ConversionEntity implements Serializable {
     @Column(name = "ID_CONVERSION", nullable = false)
     private Integer idConversion;
 
-    @Column(name = "EUROS", nullable = false)
-    private Double euros;
+    @Column(name = "MULTIPLICADOR", nullable = false)
+    private Double multiplicador;
 
-    @Column(name = "FICHAS", nullable = false)
-    private Integer fichas;
+    @Column(name = "FECHA_CREACION", nullable = false, updatable = false)
+    private LocalDateTime fechaCreacion;
 
     @ManyToOne
     @JoinColumn(name = "ID_JUEGO", nullable = false)
@@ -33,20 +34,20 @@ public class ConversionEntity implements Serializable {
         this.idConversion = idConversion;
     }
 
-    public Double getEuros() {
-        return euros;
+    public Double getMultiplicador() {
+        return multiplicador;
     }
 
-    public void setEuros(Double euros) {
-        this.euros = euros;
+    public void setMultiplicador(Double multiplicador) {
+        this.multiplicador = multiplicador;
     }
 
-    public Integer getFichas() {
-        return fichas;
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setFichas(Integer fichas) {
-        this.fichas = fichas;
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public JuegoEntity getJuego() {
@@ -60,7 +61,7 @@ public class ConversionEntity implements Serializable {
     // toString()
     @Override
     public String toString() {
-        return "ConversionEntity [idConversion=" + idConversion + ", euros=" + euros + ", fichas=" + fichas + ", juego="
-                + juego + "]";
-    }   
+        return "ConversionEntity [idConversion=" + idConversion + ", multiplicador=" + multiplicador 
+               + ", fechaCreacion=" + fechaCreacion + ", juego=" + juego + "]";
+    }
 }

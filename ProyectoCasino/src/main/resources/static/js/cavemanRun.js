@@ -164,6 +164,7 @@ document.getElementById("boton-meter-dinero-modal").addEventListener("click", fu
   } else {
     saldo += cantidadDinero;
     actualizarSaldo();
+    actualizarSaldoEnBD(saldo); // Actualizar en base de datos
     cerrarModal(document.getElementById("modal-meter-dinero"));
   }
 
@@ -264,6 +265,37 @@ document.getElementById("boton-convertir-saldo").addEventListener("click", funct
   document.getElementById("input-cantidad-conversion-saldo").value = '';
 });
 
+// ACTUALIZAR SALDO EN LA PANTALLA
+function actualizarSaldo() {
+  if(estaEnIngles()){
+    document.getElementById("dinero-actual").textContent = "MONEY: " + saldo + "€";
+    document.getElementById("fichas-actuales").textContent = "CHIPS: " + fichas + "🎫";
+  } else{
+    document.getElementById("dinero-actual").textContent = "DINERO: " + saldo + "€";
+    document.getElementById("fichas-actuales").textContent = "FICHAS: " + fichas + "🎫";
+  }
+
+}
+
+function actualizarSaldoEnBD(nuevoSaldo) {
+  const usuarioDTO = {
+    dni: '12345678A', // Variable que contiene el DNI del usuario logueado.
+    dineroUsuario: nuevoSaldo
+  };
+
+  $.ajax({
+    url: '/saldo/actualizar',
+    type: 'PUT',
+    contentType: 'application/json',
+    data: JSON.stringify(usuarioDTO),
+    success: function (response) {
+      console.log("Saldo actualizado:", response);
+    },
+    error: function (xhr, status, error) {
+      console.error("Error al actualizar el saldo:", error);
+    }
+  });
+}
 
 
 
@@ -353,16 +385,7 @@ renderMejoresJugadas();
 
 
 
-// ACTUALIZAR SALDO EN LA PANTALLA
-function actualizarSaldo() {
-  if(estaEnIngles()){
-    document.getElementById("dinero-actual").textContent = "MONEY: " + saldo + "€";
-    document.getElementById("fichas-actuales").textContent = "CHIPS: " + fichas + "🎫";
-  } else{
-    document.getElementById("dinero-actual").textContent = "DINERO: " + saldo + "€";
-    document.getElementById("fichas-actuales").textContent = "FICHAS: " + fichas + "🎫";
-  }
-}
+
 
 /* TRADUCIR A INGLES */
 i18next.init({
