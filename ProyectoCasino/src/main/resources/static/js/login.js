@@ -12,10 +12,27 @@ function comprobaciones(event) {
         console.log("Respuesta del servidor (GET):", response);
 
         if (response === "OK") {
-          mostrarModal("Usuario autenticado correctamente. Redirigiendo al lobby...");
-          setTimeout(() => {
-            window.location.pathname = "/lobby";
-          }, 3000);
+          // Hacer una segunda solicitud para obtener el DNI
+          $.ajax({
+            type: "GET",
+            url: `/usuario/obtenerDni/${userName}/${userPassword}`,
+            success: function(dni) {
+              if (dni) {
+                localStorage.setItem("dni", dni);
+                console.log(dni);
+                mostrarModal("Usuario autenticado correctamente. Redirigiendo al lobby...");
+                setTimeout(() => {
+                  window.location.pathname = "/lobby";
+                }, 3000);
+              } else {
+                mostrarModal("Error al obtener el DNI del usuario.");
+              }
+            },
+            error: function (error) {
+              console.error("Error al obtener el DNI:", error);
+              mostrarModal("Ocurrió un error al intentar obtener el DNI.");
+            }
+          });
         } else if (response === "404 - Usuario no encontrado") {
           mostrarModal("Usuario no encontrado.");
         } else if (response === "Contraseña incorrecta") {
@@ -26,9 +43,7 @@ function comprobaciones(event) {
       },
       error: function (error) {
         console.error("Error en la solicitud AJAX (GET):", error);
-        mostrarModal(
-          "Ocurrió un error al intentar iniciar sesión. Inténtelo de nuevo."
-        );
+        mostrarModal("Ocurrió un error al intentar iniciar sesión. Inténtelo de nuevo.");
       },
     });
   }

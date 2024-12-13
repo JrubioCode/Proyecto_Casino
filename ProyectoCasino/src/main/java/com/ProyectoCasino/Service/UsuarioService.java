@@ -18,5 +18,9 @@ public interface UsuarioService {
     boolean emailExiste(String email);
 
     UsuarioDTO actualizarSaldo(UsuarioDTO usuarioDTO);
+
+    String obtenerDni(String userName, String userPassword);
+
+    UsuarioEntity obtenerUsuarioPorDni(String dni);
     
 }

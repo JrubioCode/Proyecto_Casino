@@ -54,4 +54,17 @@ public class UsuarioController {
         }
         return respuesta;
     }
+
+    @GetMapping("/obtenerDni/{userName}/{userPassword}")
+    public String obtenerDni(@PathVariable("userName") String userName, @PathVariable("userPassword") String userPassword) {
+        String dni = usuarioService.obtenerDni(userName, userPassword);
+        return dni;
+    }
+
+    @GetMapping("/obtenerSaldo/{dni}")
+    public double obtenerSaldo(@PathVariable("dni") String dni) {
+    UsuarioEntity usuarioEntity = usuarioService.obtenerUsuarioPorDni(dni);
+    return usuarioEntity != null ? usuarioEntity.getDineroUsuario() : 0.0; // Devuelve el saldo si lo encuentra, o 0 si no
+}
+
 }

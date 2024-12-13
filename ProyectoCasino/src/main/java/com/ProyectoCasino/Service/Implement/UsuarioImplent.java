@@ -86,4 +86,21 @@ public class UsuarioImplent implements UsuarioService {
         usuarioDTO.setDineroUsuario(actualizado.getDineroUsuario());
         return usuarioDTO;
     }
+
+    @Override
+    public String obtenerDni(String userName, String userPassword) {
+        UsuarioEntity usuarioEntity = usuarioRepository.findByUserName(userName).orElse(null);
+
+        if (usuarioEntity != null && usuarioEntity.getUserPassword().equals(userPassword)) {
+            return usuarioEntity.getDni();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public UsuarioEntity obtenerUsuarioPorDni(String dni) {
+        return usuarioRepository.findById(dni).orElse(null);
+    }
+
 }

@@ -102,8 +102,6 @@ function iniciarMusicaAlInteraccion() {
 // Llamar a la función para habilitar las interacciones iniciales
 iniciarMusicaAlInteraccion();
 
-/* GESTIÓN DEL SALDO */
-var saldo = 0;
 var fichas = 0;
 
 // Función para mostrar un modal
@@ -152,88 +150,127 @@ document.getElementById("boton-cerrar-conversion-saldo").addEventListener("click
 
 // Ingresar dinero
 document.getElementById("boton-meter-dinero-modal").addEventListener("click", function () {
-  const cantidadDinero = parseFloat(document.getElementById("input-introducir-dinero").value);
-  const comprobacion = document.getElementById("comprobacion-meter-dinero");
+    const cantidadDinero = parseFloat(document.getElementById("input-introducir-dinero").value);
+    const comprobacion = document.getElementById("comprobacion-meter-dinero");
 
-  if (cantidadDinero <= 0 || isNaN(cantidadDinero)) {
-    comprobacion.textContent = estaEnIngles() ? "Please introduce a correct quantity" : "Por favor, ingresa una cantidad válida.";
-    comprobacion.style.color = "red";
-    setTimeout(() => {
-      comprobacion.textContent = "";
-    }, 1500);
-  } else {
-    saldo += cantidadDinero;
-    actualizarSaldo();
-    actualizarSaldoEnBD(saldo); // Actualizar en base de datos
-    cerrarModal(document.getElementById("modal-meter-dinero"));
-  }
+    if (cantidadDinero <= 0 || isNaN(cantidadDinero)) {
+        comprobacion.textContent = estaEnIngles() ? "Please introduce a correct quantity" : "Por favor, ingresa una cantidad válida.";
+        comprobacion.style.color = "red";
+        setTimeout(() => {
+            comprobacion.textContent = "";
+        }, 1500);
+    } else {
+        // Obtener el saldo actual de la base de datos
+        const dni = localStorage.getItem("dni");
+        if (dni) {
+            $.ajax({
+                type: "GET",
+                url: `/usuario/obtenerSaldo/${dni}`,
+                success: function(saldoActual) {
+                    // Actualizar el saldo sumando la cantidad ingresada
+                    saldoActual = parseFloat(saldoActual);
+                    const nuevoSaldo = saldoActual + cantidadDinero;
+                    actualizarSaldoEnBD(nuevoSaldo); // Actualizar en la base de datos
+                    actualizarSaldo();
+                    cerrarModal(document.getElementById("modal-meter-dinero"));
+                },
+                error: function(error) {
+                    console.error("Error al obtener el saldo:", error);
+                }
+            });
+        }
+    }
 
-  document.getElementById("input-introducir-dinero").value = '';
-});
-
-document.getElementById("boton-cerrar-meter-dinero-modal").addEventListener("click", function () {
-  document.getElementById("input-introducir-dinero").value = '';
-  cerrarModal(document.getElementById("modal-meter-dinero"));
+    document.getElementById("input-introducir-dinero").value = '';
 });
 
 // Retirar dinero
 document.getElementById("boton-retirar-dinero-modal").addEventListener("click", function () {
-  const cantidadDinero = parseFloat(document.getElementById("input-retirar-dinero").value);
-  const comprobacion = document.getElementById("comprobacion-retirar-dinero");
+    const cantidadDinero = parseFloat(document.getElementById("input-retirar-dinero").value);
+    const comprobacion = document.getElementById("comprobacion-retirar-dinero");
 
-  if (cantidadDinero <= 0 || isNaN(cantidadDinero)) {
-    comprobacion.textContent = estaEnIngles() ? "Please introduce a correct quantity" : "Por favor, ingresa una cantidad válida.";
-    comprobacion.style.color = "red";
-    setTimeout(() => {
-      comprobacion.textContent = "";
-    }, 1500);
-  } else if (cantidadDinero > saldo) {
-    comprobacion.textContent = estaEnIngles() ? "Not enough money" : "No tienes suficiente saldo.";
-    comprobacion.style.color = "red";
-    setTimeout(() => {
-      comprobacion.textContent = "";
-    }, 1500);
-  } else {
-    saldo -= cantidadDinero;
-    actualizarSaldo();
-    cerrarModal(document.getElementById("modal-retirar-dinero"));
-  }
+    if (cantidadDinero <= 0 || isNaN(cantidadDinero)) {
+        comprobacion.textContent = estaEnIngles() ? "Please introduce a correct quantity" : "Por favor, ingresa una cantidad válida.";
+        comprobacion.style.color = "red";
+        setTimeout(() => {
+            comprobacion.textContent = "";
+        }, 1500);
+    } else {
+        // Obtener el saldo actual de la base de datos
+        const dni = localStorage.getItem("dni");
+        if (dni) {
+            $.ajax({
+                type: "GET",
+                url: `/usuario/obtenerSaldo/${dni}`,
+                success: function(saldoActual) {
+                    // Verificar si el saldo es suficiente
+                    saldoActual = parseFloat(saldoActual);
+                    if (cantidadDinero > saldoActual) {
+                        comprobacion.textContent = estaEnIngles() ? "Not enough money" : "No tienes suficiente saldo.";
+                        comprobacion.style.color = "red";
+                        setTimeout(() => {
+                            comprobacion.textContent = "";
+                        }, 1500);
+                    } else {
+                        const nuevoSaldo = saldoActual - cantidadDinero;
+                        actualizarSaldoEnBD(nuevoSaldo); // Actualizar en la base de datos
+                        actualizarSaldo();
+                        cerrarModal(document.getElementById("modal-retirar-dinero"));
+                    }
+                },
+                error: function(error) {
+                    console.error("Error al obtener el saldo:", error);
+                }
+            });
+        }
+    }
 
-  document.getElementById("input-retirar-dinero").value = '';
-});
-
-document.getElementById("boton-cerrar-retirar-dinero-modal").addEventListener("click", function () {
-  document.getElementById("input-retirar-dinero").value = '';
-  cerrarModal(document.getElementById("modal-retirar-dinero"));
+    document.getElementById("input-retirar-dinero").value = '';
 });
 
 // Convertir saldo a fichas
 document.getElementById("boton-convertir-fichas").addEventListener("click", function () {
-  const cantidadEuros = parseFloat(document.getElementById("input-cantidad-conversion-fichas").value);
-  const comprobacion = document.getElementById("comprobacion-convertir-a-fichas");
+    const cantidadEuros = parseFloat(document.getElementById("input-cantidad-conversion-fichas").value);
+    const comprobacion = document.getElementById("comprobacion-convertir-a-fichas");
 
-  if (cantidadEuros <= 0 || isNaN(cantidadEuros)) {
-    comprobacion.textContent = estaEnIngles() ? "Please introduce a correct quantity" : "Por favor, ingresa una cantidad válida.";
-    comprobacion.style.color = "red";
-    setTimeout(() => {
-      comprobacion.textContent = "";
-    }, 1500);
-  } else if (cantidadEuros > saldo) {
-    comprobacion.textContent = estaEnIngles() ? "Not enough money" : "No tienes suficiente saldo.";
-    comprobacion.style.color = "red";
-    setTimeout(() => {
-      comprobacion.textContent = "";
-    }, 1500);
-  } else {
-    const cantidadFichas = cantidadEuros * 100;
-    saldo -= cantidadEuros;
-    fichas += cantidadFichas;
-    actualizarSaldo();
-    cerrarModal(document.getElementById("modal-conversion-fichas"));
-  }
+    if (cantidadEuros <= 0 || isNaN(cantidadEuros)) {
+        comprobacion.textContent = estaEnIngles() ? "Please introduce a correct quantity" : "Por favor, ingresa una cantidad válida.";
+        comprobacion.style.color = "red";
+        setTimeout(() => {
+            comprobacion.textContent = "";
+        }, 1500);
+    } else {
+        // Obtener el saldo actual de la base de datos
+        const dni = localStorage.getItem("dni");
+        if (dni) {
+            $.ajax({
+                type: "GET",
+                url: `/usuario/obtenerSaldo/${dni}`,
+                success: function(saldoActual) {
+                    saldoActual = parseFloat(saldoActual);
+                    if (cantidadEuros > saldoActual) {
+                        comprobacion.textContent = estaEnIngles() ? "Not enough money" : "No tienes suficiente saldo.";
+                        comprobacion.style.color = "red";
+                        setTimeout(() => {
+                            comprobacion.textContent = "";
+                        }, 1500);
+                    } else {
+                        const cantidadFichas = cantidadEuros * 100;
+                        fichas += cantidadFichas;
+                        const nuevoSaldo = saldoActual - cantidadEuros;
+                        actualizarSaldoEnBD(nuevoSaldo); // Actualizar en la base de datos
+                        actualizarSaldo();
+                        cerrarModal(document.getElementById("modal-conversion-fichas"));
+                    }
+                },
+                error: function(error) {
+                    console.error("Error al obtener el saldo:", error);
+                }
+            });
+        }
+    }
 
-  // Limpiar el campo de entrada después de procesar
-  document.getElementById("input-cantidad-conversion-fichas").value = '';
+    document.getElementById("input-cantidad-conversion-fichas").value = '';
 });
 
 // Convertir fichas a saldo
@@ -242,60 +279,96 @@ document.getElementById("boton-convertir-saldo").addEventListener("click", funct
   const comprobacion = document.getElementById("comprobacion-convertir-a-dinero");
 
   if (cantidadFichas <= 0 || isNaN(cantidadFichas)) {
-    comprobacion.textContent = estaEnIngles() ? "Please introduce a correct quantity" : "Por favor, ingresa una cantidad válida.";
-    comprobacion.style.color = "red";
-    setTimeout(() => {
-      comprobacion.textContent = "";
-    }, 1500);
+      // Verificar que se introduzca una cantidad válida
+      comprobacion.textContent = estaEnIngles() ? "Please introduce a correct quantity" : "Por favor, ingresa una cantidad válida.";
+      comprobacion.style.color = "red";
+      setTimeout(() => {
+          comprobacion.textContent = "";
+      }, 1500);
   } else if (cantidadFichas > fichas) {
-    comprobacion.textContent = estaEnIngles() ? "Not enough tokens" : "No tienes suficientes fichas.";
-    comprobacion.style.color = "red";
-    setTimeout(() => {
-      comprobacion.textContent = "";
-    }, 1500);
+      // Verificar que haya suficientes fichas para la conversión
+      comprobacion.textContent = estaEnIngles() ? "Not enough chips" : "No tienes suficientes fichas.";
+      comprobacion.style.color = "red";
+      setTimeout(() => {
+          comprobacion.textContent = "";
+      }, 1500);
   } else {
-    const cantidadDinero = cantidadFichas / 100;
-    fichas -= cantidadFichas;
-    saldo += cantidadDinero;
-    actualizarSaldo();
-    cerrarModal(document.getElementById("modal-conversion-saldo"));
+      // Convertir fichas a dinero y actualizar el saldo
+      const cantidadDinero = cantidadFichas / 100; // 100 fichas = 1 euro
+      const nuevoSaldo = saldo + cantidadDinero;
+      
+      // Actualizar el saldo y las fichas
+      fichas -= cantidadFichas;
+      actualizarSaldoEnBD(nuevoSaldo); // Actualizar el saldo en la base de datos
+      actualizarSaldo(); // Actualizar la interfaz
+      
+      cerrarModal(document.getElementById("modal-conversion-saldo"));
   }
 
-  // Limpiar el campo de entrada después de procesar
+  // Limpiar el campo de entrada
   document.getElementById("input-cantidad-conversion-saldo").value = '';
 });
 
 // ACTUALIZAR SALDO EN LA PANTALLA
 function actualizarSaldo() {
-  if(estaEnIngles()){
-    document.getElementById("dinero-actual").textContent = "MONEY: " + saldo + "€";
-    document.getElementById("fichas-actuales").textContent = "CHIPS: " + fichas + "🎫";
-  } else{
-    document.getElementById("dinero-actual").textContent = "DINERO: " + saldo + "€";
-    document.getElementById("fichas-actuales").textContent = "FICHAS: " + fichas + "🎫";
-  }
-
-}
-
-function actualizarSaldoEnBD(nuevoSaldo) {
-  const usuarioDTO = {
-    dni: '12345678A', // Variable que contiene el DNI del usuario logueado.
-    dineroUsuario: nuevoSaldo
-  };
-
-  $.ajax({
-    url: '/saldo/actualizar',
-    type: 'POST',
-    contentType: 'application/json',
-    data: JSON.stringify(usuarioDTO),
-    success: function (response) {
-      console.log("Saldo actualizado:", response);
-    },
-    error: function (xhr, status, error) {
-      console.error("Error al actualizar el saldo:", error);
+    if (estaEnIngles()) {
+        document.getElementById("dinero-actual").textContent = "MONEY: " + saldo + "€";
+        document.getElementById("fichas-actuales").textContent = "CHIPS: " + fichas + "🎫";
+    } else {
+        document.getElementById("dinero-actual").textContent = "DINERO: " + saldo + "€";
+        document.getElementById("fichas-actuales").textContent = "FICHAS: " + fichas + "🎫";
     }
-  });
 }
+
+// Función para cargar el saldo del usuario
+function cargarSaldo() {
+    const dni = localStorage.getItem("dni");
+
+    if (dni) {
+        $.ajax({
+            type: "GET",
+            url: `/usuario/obtenerSaldo/${dni}`,
+            success: function(response) {
+                saldo = parseFloat(response);
+                actualizarSaldo(); // Mostrar el saldo cargado en la interfaz
+            },
+            error: function(error) {
+                console.error("Error al obtener el saldo:", error);
+            }
+        });
+    }
+}
+
+// Llamamos a la función al cargar la página para obtener el saldo del usuario
+cargarSaldo();
+
+// Función para actualizar el saldo en la base de datos
+function actualizarSaldoEnBD(nuevoSaldo) {
+    const dni = localStorage.getItem("dni");
+
+    if (dni) {
+        const usuarioDTO = {
+            dni: dni,
+            dineroUsuario: nuevoSaldo
+        };
+
+        $.ajax({
+            url: '/saldo/actualizar',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(usuarioDTO),
+            success: function(response) {
+                console.log("Saldo actualizado en la base de datos:", response);
+                cargarSaldo(); // Actualizar el saldo en la interfaz
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al actualizar el saldo:", error);
+            }
+        });
+    }
+}
+
+
 
 
 
