@@ -471,7 +471,6 @@ renderMejoresJugadas();
 
 
 
-// Control de apuesta de fichas
 document.addEventListener("DOMContentLoaded", () => {
   const inputApuesta = document.getElementById("apuesta");
   const btnMenos = document.getElementById("btn-menos");
@@ -479,113 +478,129 @@ document.addEventListener("DOMContentLoaded", () => {
   const botonesApuestaRapida = document.querySelectorAll(".btn-apuesta-rapida");
   const btnCorrer = document.getElementById("btn-correr");
   const fichasDisplay = document.getElementById("fichas-actuales");
+  const multiplicadorDisplay = document.getElementById("multiplicador");
 
-  let corriendo = false; // Estado inicial del juego
+  let corriendo = false;
+  let multiplicador = 0;
+  let intervaloMulti;
+  let apuesta = 0;
 
   // Función para manejar errores
   function mostrarError(mensajeError) {
-      alert(mensajeError);
+    alert(mensajeError);
   }
 
   // Función para validar la apuesta
   function validarApuesta(value) {
-      if (value <= 0) {
-          mostrarError("Debes apostar al menos 1 ficha.");
-          return false;
-      }
-      if (value > fichas) {
-          mostrarError("No tienes suficientes fichas para esta apuesta.");
-          return false;
-      }
-      return true;
+    if (value <= 0) {
+      mostrarError("Debes apostar al menos 1 ficha.");
+      return false;
+    }
+    if (value > fichas) {
+      mostrarError("No tienes suficientes fichas para esta apuesta.");
+      return false;
+    }
+    return true;
   }
 
-  // Función para actualizar fichas
   function actualizarFichas() {
-      fichasDisplay.textContent = `FICHAS: ${fichas} 🎫`;
+    fichasDisplay.textContent = `FICHAS: ${fichas} 🎫`;
+  }
+
+  function actualizarMultiplicador() {
+    multiplicador += 0.1;
+    multiplicadorDisplay.textContent = `X${multiplicador.toFixed(1)}`; // Muestra el multiplicador con un decimal
   }
 
   // Ajustar apuesta con los botones
   btnMenos.addEventListener("click", () => {
-      const currentApuesta = parseInt(inputApuesta.value, 10) || 0;
-      if (currentApuesta > 0) {
-          inputApuesta.value = currentApuesta - 1;
-      }
+    const currentApuesta = parseInt(inputApuesta.value, 10) || 0;
+    if (currentApuesta > 0) {
+      inputApuesta.value = currentApuesta - 1;
+    }
   });
 
   btnMas.addEventListener("click", () => {
-      const currentApuesta = parseInt(inputApuesta.value, 10) || 0;
-      inputApuesta.value = currentApuesta + 1;
+    const currentApuesta = parseInt(inputApuesta.value, 10) || 0;
+    inputApuesta.value = currentApuesta + 1;
   });
 
   // Manejar las apuestas rápidas
   botonesApuestaRapida.forEach((button) => {
-      button.addEventListener("click", () => {
-          const apuestaRapida = parseInt(button.value, 10);
-          inputApuesta.value = apuestaRapida;
-      });
+    button.addEventListener("click", () => {
+      const apuestaRapida = parseInt(button.value, 10);
+      inputApuesta.value = apuestaRapida;
+    });
   });
 
   // Manejar el clic en correr
   btnCorrer.addEventListener("click", () => {
-      if (!corriendo) {
-          const apuesta = parseInt(inputApuesta.value, 10) || 0;
+    if (!corriendo) {
+      apuesta = parseInt(inputApuesta.value, 10) || 0;
 
-          // Validar la apuesta antes de permitir jugar
-          if (!validarApuesta(apuesta)) {
-              return;
-          }
-
-          // Restar las fichas apostadas solo al iniciar
-          fichas -= apuesta;
-          actualizarFichas();
-
-          // Mostrar un mensaje de éxito
-          alert(`Has apostado ${apuesta} fichas. ¡Suerte!`);
-
-          startRunning();
-      } else {
-          stopRunning();
+      // Validar la apuesta antes de permitir jugar
+      if (!validarApuesta(apuesta)) {
+        return;
       }
+
+      fichas -= apuesta;
+      actualizarFichas();
+
+      startRunning();
+    } else {
+      stopRunning();
+    }
   });
 
-  // Función para iniciar el movimiento
   function startRunning() {
-      const fondo = document.querySelector(".videoFondo");
-      const cavernicola = document.querySelector(".cavernicolaCorriendo");
+    const fondo = document.querySelector(".videoFondo");
+    const cavernicola = document.querySelector(".cavernicolaCorriendo");
 
-      cavernicola.src = "./assets/cavemanRun/cavernicola-corriendo.gif";
+    cavernicola.src = "./assets/cavemanRun/cavernicola-corriendo.gif";
 
-      fondo.play();
+    fondo.play();
 
-      // Cambiar el botón a "Parar"
-      btnCorrer.value = "Parar";
-      btnCorrer.style.backgroundColor = "red";
-      btnCorrer.style.color = "white";
+    // Cambiar el botón a "Parar"
+    btnCorrer.value = "Parar";
+    btnCorrer.style.backgroundColor = "red";
+    btnCorrer.style.color = "white";
 
-      corriendo = true;
+    corriendo = true;
+
+    multiplicador = 1;
+    multiplicadorDisplay.textContent = `X${multiplicador.toFixed(1)}`;
+
+    // Iniciar el intervalo para actualizar el multiplicador cada segundo
+    intervaloMulti = setInterval(actualizarMultiplicador, 1000);
   }
 
   // Función para detener el movimiento
   function stopRunning() {
-      const fondo = document.querySelector(".videoFondo");
-      const cavernicola = document.querySelector(".cavernicolaCorriendo");
+    const fondo = document.querySelector(".videoFondo");
+    const cavernicola = document.querySelector(".cavernicolaCorriendo");
 
-      cavernicola.src = "./assets/cavemanRun/cavernicola-parado.png";
+    cavernicola.src = "./assets/cavemanRun/cavernicola-parado.png";
 
-      fondo.pause();
+    fondo.pause();
 
-      // Cambiar el botón a "Correr"
-      btnCorrer.value = "Correr";
-      btnCorrer.style.backgroundColor = "";
-      btnCorrer.style.color = "";
+    btnCorrer.value = "Correr";
+    btnCorrer.style.backgroundColor = "";
+    btnCorrer.style.color = "";
 
-      corriendo = false;
+    corriendo = false;
+
+    // Detener el intervalo del multiplicador cuando se detiene el juego
+    clearInterval(intervaloMulti);
+
+    const ganancia = apuesta * multiplicador;
+    fichas += Math.round(ganancia);
+    actualizarFichas();
   }
-
-  // Inicializar la visualización de fichas
   actualizarFichas();
 });
+
+
+
 
 
 
