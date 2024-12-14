@@ -207,7 +207,7 @@ body::before {
 .modal-ajustes {
   display: none;
   position: absolute;
-  top: 220px;
+  top: 210px;
   right: 45px;
   width: 250px;
   height: 600px;
@@ -345,7 +345,7 @@ input:checked+.slider:before {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 80px;
+  gap: 50px;
   margin-top: 25px;
 }
 
@@ -358,7 +358,7 @@ input:checked+.slider:before {
   box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.6), 0 4px 15px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
-  width: 450px;
+  width: 500px;
   height: 650px;
   margin-left: 50px;
   overflow: auto;
@@ -558,19 +558,27 @@ table tbody tr:hover {
 }
 
 .btn-correr {
-  background-color: greenyellow;
+  background-color: #28a745;
+  color: white;
   font-weight: 900;
-  font-size: 20px;
   cursor: pointer;
   border-radius: 10px;
   padding: 5px 10px;
+  border: none;
+  transition: all 0.2s ease-in;
 }
 
-.btn-parar {
-  background-color: red;
-  font-weight: 900;
-  font-size: 20px;
-  cursor: pointer;
-  border-radius: 10px;
-  padding: 5px 10px;
+.btn-correr:hover {
+  background-color: #218838;
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.multiplicador{
+  z-index: 1;
+  color: white;
+  font-weight: 1000;
+  margin: 0 auto;
+  margin-top: 150px;
+  font-size: 40px;
 }

@@ -80,7 +80,7 @@
                                 <th>ID</th>
                                 <th>Jugador</th>
                                 <th>Apuesta</th>
-                                <th>Multiplicador</th>
+                                <th>Multi</th>
                                 <th>Premio</th>
                             </tr>
                         </thead>
@@ -92,7 +92,7 @@
                 
                 <!-- MEJORES JUGADAS -->
                 <div class="estadistica-section" id="estadistica2">
-                    <p class="parrafo-seccion2">Mejores jugadas (solo ganancias):</p>
+                    <p class="parrafo-seccion2">Mejores jugadas:</p>
                     <table>
                         <thead>
                             <tr>
@@ -110,11 +110,12 @@
 
         <!-- CONTENEDOR DEL JUEGO -->
         <div class="juego">
-            <video muted autoplay loop class="videoFondo">
+            <video loop class="videoFondo">
                 <source src="./videos/fondoAnimado.mp4" type="video/mp4">
                 Your browser does not support the video tag.
-            </video>            
-            <img src="./assets/cavemanRun/cavernicola-corriendo.gif" class="cavernicolaCorriendo">
+            </video>
+            <h1 id="multiplicador" class="multiplicador">X1</h1>                   
+            <img src="./assets/cavemanRun/cavernicola-parado.png" class="cavernicolaCorriendo">
             <div class="controles-juego">
                 <!-- BOTONES DE APUESTA AL PRINCIPIO -->
                 <div class="botones-apuesta">
@@ -135,8 +136,7 @@
                 <!-- BOTONES CORRER Y PARAR (UNO ENCIMA DEL OTRO) -->
                 <div class="botones-accion">
                     <input type="button" id="btn-correr" class="btn-correr" value="Correr">
-                    <br>
-                    <input type="button" id="btn-parar" class="btn-parar" value="Parar">
+
                 </div>
             </div>
         </div>        
