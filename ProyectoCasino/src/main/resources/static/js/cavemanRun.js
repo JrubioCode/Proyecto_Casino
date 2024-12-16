@@ -489,37 +489,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Referencia al modal
   const modal = document.getElementById("Modal");
-  const modalContenido = document.querySelector(".contenido-modal");
 
   // Función para mostrar el modal con un mensaje
-  function mostrarError(mensajeError) {
-      const modalTitulo = modal.querySelector("h1");
-      modalTitulo.textContent = mensajeError; // Asignar el mensaje al modal
-      modal.style.display = "flex"; // Mostrar el modal (flex para centrar)
+  function mostrarModal(mensaje) {
+    const modalTitulo = modal.querySelector("h1");
+    modalTitulo.textContent = mensaje; // Asignar el mensaje al modal
+    modal.style.display = "flex"; // Mostrar el modal (flex para centrar)
   }
 
   // Función para ocultar el modal al hacer clic fuera del contenido
   modal.addEventListener("click", (e) => {
-      if (e.target === modal) {
-          modal.style.display = "none"; // Ocultar el modal
-      }
+    if (e.target === modal) {
+      modal.style.display = "none"; // Ocultar el modal
+    }
   });
 
   // Función para validar la apuesta
   function validarApuesta(value) {
     if (value <= 0) {
-      mostrarError("Debes apostar al menos 1 ficha.");
+      if (estaEnIngles()) {
+        mostrarModal("You must bet at least 1 chip.");
+      } else {
+        mostrarModal("Debes apostar al menos 1 ficha.");
+      }
       return false;
     }
     if (value > fichas) {
-      mostrarError("No tienes suficientes fichas para esta apuesta.");
+      if (estaEnIngles()) {
+        mostrarModal("You don't have enough chips for this bet.");
+      } else {
+        mostrarModal("No tienes suficientes fichas para esta apuesta.");
+      }
       return false;
     }
     return true;
   }
 
   function actualizarFichas() {
-    fichasDisplay.textContent = `FICHAS: ${fichas.toFixed(2)} 🎫`;
+    if (estaEnIngles()) {
+      fichasDisplay.textContent = `CHIPS: ${fichas.toFixed(2)} 🎫`;
+    } else {
+      fichasDisplay.textContent = `FICHAS: ${fichas.toFixed(2)} 🎫`;
+    }
   }
 
   function actualizarMultiplicador() {
@@ -576,7 +587,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fondo.play();
 
-    btnCorrer.value = "Parar";
+    if (estaEnIngles()) {
+      btnCorrer.value = "Stop";
+    } else {
+      btnCorrer.value = "Parar";
+    }
     btnCorrer.style.backgroundColor = "red";
     btnCorrer.style.color = "white";
 
@@ -595,32 +610,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }, tiempoMamut);
   }
 
-    function stopRunning(manual = true) {
-      const fondo = document.querySelector(".videoFondo");
-      const cavernicola = document.querySelector(".cavernicolaCorriendo");
+  function stopRunning(manual = true) {
+    const fondo = document.querySelector(".videoFondo");
+    const cavernicola = document.querySelector(".cavernicolaCorriendo");
 
-      cavernicola.src = "./assets/cavemanRun/cavernicola-parado.png";
+    cavernicola.src = "./assets/cavemanRun/cavernicola-parado.png";
 
-      fondo.pause();
+    fondo.pause();
 
+    if (estaEnIngles()) {
+      btnCorrer.value = "Run";
+    } else {
       btnCorrer.value = "Correr";
-      btnCorrer.style.backgroundColor = "";
-      btnCorrer.style.color = "";
+    }
+    btnCorrer.style.backgroundColor = "";
+    btnCorrer.style.color = "";
 
-      corriendo = false;
+    corriendo = false;
 
-      // Detener el intervalo del multiplicador
-      clearInterval(intervaloMulti);
+    // Detener el intervalo del multiplicador
+    clearInterval(intervaloMulti);
 
-      // Cancelar el tiempo del mamut si se detiene manualmente
-      clearTimeout(timeoutMamut);
+    // Cancelar el tiempo del mamut si se detiene manualmente
+    clearTimeout(timeoutMamut);
 
-      if (manual) {
-          // Solo sumar fichas si se detiene manualmente
-          const ganancia = apuesta * multiplicador; // Ganancia incluye el multiplicador exacto
-          fichas += ganancia; // Sumar la ganancia sin redondear
-          actualizarFichas();
+    if (manual) {
+      // Calcular ganancia y mostrar el modal de victoria
+      const ganancia = apuesta * multiplicador;
+      fichas += ganancia; // Sumar la ganancia sin redondear
+      actualizarFichas();
+      if (estaEnIngles()) {
+        mostrarModal(`Congratulations! You won ${ganancia.toFixed(2)} chips 🎉`);
+      } else {
+        mostrarModal(`¡Felicidades! Has ganado ${ganancia.toFixed(2)} fichas 🎉`);
       }
+    } else {
+      // Mostrar el modal de pérdida
+      if (estaEnIngles()) {
+        mostrarModal(`Oh no! You lost ${apuesta.toFixed(2)} chips 😢`);
+      } else {
+        mostrarModal(`¡Oh no! Has perdido ${apuesta.toFixed(2)} fichas 😢`);
+      }
+    }
   }
 
   function mostrarMamut() {
@@ -628,7 +659,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Mostrar el mamut
       mamut.style.display = "flex";
 
-      // Detener el juego automáticamente
+      // Detener el juego automáticamente y mostrar el modal de pérdida
       stopRunning(false);
     }
   }
