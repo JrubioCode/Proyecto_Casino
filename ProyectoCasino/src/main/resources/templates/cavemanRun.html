@@ -111,11 +111,12 @@
         <!-- CONTENEDOR DEL JUEGO -->
         <div class="juego">
             <video loop class="videoFondo">
-                <source src="./videos/fondoAnimado.mp4" type="video/mp4">
+                <source src="./videos/fondoAnimado2.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <h1 id="multiplicador" class="multiplicador">X1</h1>                   
             <img src="./assets/cavemanRun/cavernicola-parado.png" class="cavernicolaCorriendo">
+            <img src="./assets/cavemanRun/mamut.png" class="mamut">
             <div class="controles-juego">
                 <!-- BOTONES DE APUESTA AL PRINCIPIO -->
                 <div class="botones-apuesta">
@@ -135,8 +136,7 @@
                 </div>
                 <!-- BOTONES CORRER Y PARAR (UNO ENCIMA DEL OTRO) -->
                 <div class="botones-accion">
-                    <input type="button" id="btn-correr" class="btn-correr" value="Correr">
-
+                    <input type="button" id="btn-correr" class="btn-correr" value="Run">
                 </div>
             </div>
         </div>        
@@ -224,6 +224,13 @@
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <h1>Manual de Caveman Run</h1>
+        </div>
+    </div>
+
+    <!-- MODAL GENERAL -->
+    <div id="Modal" class="modal">
+        <div class="contenido-modal">
+            <h1></h1>
         </div>
     </div>
 

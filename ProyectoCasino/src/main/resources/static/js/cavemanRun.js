@@ -479,16 +479,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnCorrer = document.getElementById("btn-correr");
   const fichasDisplay = document.getElementById("fichas-actuales");
   const multiplicadorDisplay = document.getElementById("multiplicador");
+  const mamut = document.querySelector(".mamut");
 
   let corriendo = false;
   let multiplicador = 0;
   let intervaloMulti;
   let apuesta = 0;
+  let timeoutMamut;
 
-  // Función para manejar errores
+  // Referencia al modal
+  const modal = document.getElementById("Modal");
+  const modalContenido = document.querySelector(".contenido-modal");
+
+  // Función para mostrar el modal con un mensaje
   function mostrarError(mensajeError) {
-    alert(mensajeError);
+      const modalTitulo = modal.querySelector("h1");
+      modalTitulo.textContent = mensajeError; // Asignar el mensaje al modal
+      modal.style.display = "flex"; // Mostrar el modal (flex para centrar)
   }
+
+  // Función para ocultar el modal al hacer clic fuera del contenido
+  modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+          modal.style.display = "none"; // Ocultar el modal
+      }
+  });
 
   // Función para validar la apuesta
   function validarApuesta(value) {
@@ -504,7 +519,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function actualizarFichas() {
-    fichasDisplay.textContent = `FICHAS: ${fichas} 🎫`;
+    fichasDisplay.textContent = `FICHAS: ${fichas.toFixed(2)} 🎫`;
   }
 
   function actualizarMultiplicador() {
@@ -556,11 +571,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const fondo = document.querySelector(".videoFondo");
     const cavernicola = document.querySelector(".cavernicolaCorriendo");
 
+    mamut.style.display = "none";
     cavernicola.src = "./assets/cavemanRun/cavernicola-corriendo.gif";
 
     fondo.play();
 
-    // Cambiar el botón a "Parar"
     btnCorrer.value = "Parar";
     btnCorrer.style.backgroundColor = "red";
     btnCorrer.style.color = "white";
@@ -572,71 +587,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Iniciar el intervalo para actualizar el multiplicador cada segundo
     intervaloMulti = setInterval(actualizarMultiplicador, 1000);
+
+    // Configurar el tiempo aleatorio para que aparezca el mamut
+    const tiempoMamut = Math.random() * 30000 + 1000; // Tiempo entre 1 y 30 segundos
+    timeoutMamut = setTimeout(() => {
+      mostrarMamut();
+    }, tiempoMamut);
   }
 
-  // Función para detener el movimiento
-  function stopRunning() {
-    const fondo = document.querySelector(".videoFondo");
-    const cavernicola = document.querySelector(".cavernicolaCorriendo");
+    function stopRunning(manual = true) {
+      const fondo = document.querySelector(".videoFondo");
+      const cavernicola = document.querySelector(".cavernicolaCorriendo");
 
-    cavernicola.src = "./assets/cavemanRun/cavernicola-parado.png";
+      cavernicola.src = "./assets/cavemanRun/cavernicola-parado.png";
 
-    fondo.pause();
+      fondo.pause();
 
-    btnCorrer.value = "Correr";
-    btnCorrer.style.backgroundColor = "";
-    btnCorrer.style.color = "";
+      btnCorrer.value = "Correr";
+      btnCorrer.style.backgroundColor = "";
+      btnCorrer.style.color = "";
 
-    corriendo = false;
+      corriendo = false;
 
-    // Detener el intervalo del multiplicador cuando se detiene el juego
-    clearInterval(intervaloMulti);
+      // Detener el intervalo del multiplicador
+      clearInterval(intervaloMulti);
 
-    const ganancia = apuesta * multiplicador;
-    fichas += Math.round(ganancia);
-    actualizarFichas();
+      // Cancelar el tiempo del mamut si se detiene manualmente
+      clearTimeout(timeoutMamut);
+
+      if (manual) {
+          // Solo sumar fichas si se detiene manualmente
+          const ganancia = apuesta * multiplicador; // Ganancia incluye el multiplicador exacto
+          fichas += ganancia; // Sumar la ganancia sin redondear
+          actualizarFichas();
+      }
   }
+
+  function mostrarMamut() {
+    if (corriendo) {
+      // Mostrar el mamut
+      mamut.style.display = "flex";
+
+      // Detener el juego automáticamente
+      stopRunning(false);
+    }
+  }
+
   actualizarFichas();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* TRADUCIR A INGLES */
 i18next.init({
