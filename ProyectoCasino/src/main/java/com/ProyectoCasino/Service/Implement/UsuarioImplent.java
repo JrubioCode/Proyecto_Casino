@@ -19,7 +19,6 @@ public class UsuarioImplent implements UsuarioService {
 
     @Override
     public UsuarioEntity comprobarUsuario(String userName) {
-        // Hacemos la búsqueda sensible a mayúsculas/minúsculas
         return usuarioRepository.findByUserName(userName).orElse(null);
     }
 
@@ -27,7 +26,6 @@ public class UsuarioImplent implements UsuarioService {
     public UsuarioDTO validarUsuario(UsuarioEntity usuarioEntity, String pwd) {
         UsuarioDTO usuario = null;
 
-        // Comparación estricta de contraseña
         if (usuarioEntity != null && usuarioEntity.getUserPassword().equals(pwd)) {
             usuario = new UsuarioDTO();
             usuario.setDni(usuarioEntity.getDni());

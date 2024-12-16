@@ -44,7 +44,6 @@ public class UsuarioController {
         if (user == null) {
             respuesta = "404 - Usuario no encontrado";
         } else {
-            // Comparamos contraseña de forma estricta
             UsuarioDTO usuarioDTO = usuarioService.validarUsuario(user, pwd);
             if (usuarioDTO == null) {
                 respuesta = "Contraseña incorrecta";
@@ -52,6 +51,7 @@ public class UsuarioController {
                 respuesta = "OK";
             }
         }
+        
         return respuesta;
     }
 
@@ -64,7 +64,12 @@ public class UsuarioController {
     @GetMapping("/obtenerSaldo/{dni}")
     public double obtenerSaldo(@PathVariable("dni") String dni) {
     UsuarioEntity usuarioEntity = usuarioService.obtenerUsuarioPorDni(dni);
-    return usuarioEntity != null ? usuarioEntity.getDineroUsuario() : 0.0; // Devuelve el saldo si lo encuentra, o 0 si no
-}
+    return usuarioEntity != null ? usuarioEntity.getDineroUsuario() : 0.0;
+    }
+
+    @PostMapping("/actualizar")
+    public UsuarioDTO actualizarSaldo(@RequestBody UsuarioDTO usuarioDTO) {
+        return usuarioService.actualizarSaldo(usuarioDTO);
+    }
 
 }

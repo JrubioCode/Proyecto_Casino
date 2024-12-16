@@ -350,7 +350,7 @@ function actualizarSaldoEnBD(nuevoSaldo) {
         };
 
         $.ajax({
-            url: '/saldo/actualizar',
+            url: '/usuario/actualizar',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(usuarioDTO),
@@ -481,11 +481,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const multiplicadorDisplay = document.getElementById("multiplicador");
   const mamut = document.querySelector(".mamut");
 
-  let corriendo = false;
-  let multiplicador = 0;
-  let intervaloMulti;
-  let apuesta = 0;
-  let timeoutMamut;
+  var corriendo = false;
+  var multiplicador = 0;
+  var intervaloMulti;
+  var apuesta = 0;
+  var timeoutMamut;
 
   // Referencia al modal
   const modal = document.getElementById("Modal");
@@ -559,24 +559,61 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  var apuesta = 0; // Definir la variable globalmente
+
   // Manejar el clic en correr
   btnCorrer.addEventListener("click", () => {
     if (!corriendo) {
-      apuesta = parseInt(inputApuesta.value, 10) || 0;
-
+      apuesta = parseInt(inputApuesta.value, 10) || 0;  // Asignar el valor de apuesta
+  
       // Validar la apuesta antes de permitir jugar
       if (!validarApuesta(apuesta)) {
         return;
       }
-
+  
       fichas -= apuesta;
       actualizarFichas();
-
+  
       startRunning();
     } else {
       stopRunning();
     }
   });
+  
+  function registrarTiradaEnBD(apuesta, multiplicador, resultado) {
+    const dni = localStorage.getItem("dni");
+    const idJuego = 1;
+
+    if (!dni) {
+        console.error("No se encontró un DNI en el localStorage.");
+        return;
+    }
+
+    // Crear un objeto con los parámetros que necesitas enviar en formato JSON
+    const datos = {
+        apuesta: apuesta,
+        multiplicador: multiplicador,
+        resultado: resultado,
+        usuarioDni: dni,
+        juegoId: idJuego,
+        fechaLogHistorico: new Date().toISOString(),
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/historico/registrar",
+        contentType: "application/json",
+        data: JSON.stringify(datos),
+        success: function(response) {
+            console.log("Tirada registrada con éxito:", response);
+            alert("¡Tirada registrada con éxito!");
+        },
+        error: function(error) {
+            console.error("Error al registrar la tirada:", error);
+            alert("Error al registrar la tirada. Por favor, inténtalo de nuevo.");
+        }
+    });
+}    
 
   function startRunning() {
     const fondo = document.querySelector(".videoFondo");
@@ -613,11 +650,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function stopRunning(manual = true) {
     const fondo = document.querySelector(".videoFondo");
     const cavernicola = document.querySelector(".cavernicolaCorriendo");
-
+  
     cavernicola.src = "./assets/cavemanRun/cavernicola-parado.png";
-
     fondo.pause();
-
+  
     if (estaEnIngles()) {
       btnCorrer.value = "Run";
     } else {
@@ -625,20 +661,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     btnCorrer.style.backgroundColor = "";
     btnCorrer.style.color = "";
-
+  
     corriendo = false;
-
+  
     // Detener el intervalo del multiplicador
     clearInterval(intervaloMulti);
-
+  
     // Cancelar el tiempo del mamut si se detiene manualmente
     clearTimeout(timeoutMamut);
-
+  
+    let resultado; // Declarar el resultado aquí
+  
     if (manual) {
       // Calcular ganancia y mostrar el modal de victoria
       const ganancia = apuesta * multiplicador;
       fichas += ganancia; // Sumar la ganancia sin redondear
+      resultado = ganancia; // Asignar la ganancia al resultado
       actualizarFichas();
+  
       if (estaEnIngles()) {
         mostrarModal(`Congratulations! You won ${ganancia.toFixed(2)} chips 🎉`);
       } else {
@@ -646,13 +686,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else {
       // Mostrar el modal de pérdida
+      resultado = 0; // Si pierde, el resultado es 0
       if (estaEnIngles()) {
         mostrarModal(`Oh no! You lost ${apuesta.toFixed(2)} chips 😢`);
       } else {
         mostrarModal(`¡Oh no! Has perdido ${apuesta.toFixed(2)} fichas 😢`);
       }
     }
-  }
+  
+    // Registrar la tirada en la base de datos
+    registrarTiradaEnBD(apuesta, multiplicador, resultado);
+  }   
 
   function mostrarMamut() {
     if (corriendo) {
@@ -666,6 +710,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   actualizarFichas();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* TRADUCIR A INGLES */
 i18next.init({
