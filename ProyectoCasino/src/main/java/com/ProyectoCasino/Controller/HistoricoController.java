@@ -15,7 +15,6 @@ public class HistoricoController {
     // Endpoint para registrar un histórico
     @PostMapping("/registrar")
     public String registrarTirada(@RequestBody HistoricoDTO historicoDTO) {
-
         historicoService.registrarTirada(historicoDTO);
         return "¡Tirada registrada con éxito!";
     }

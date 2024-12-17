@@ -30,19 +30,16 @@ public class HistoricoImplement implements HistoricoService {
     private JuegoRepository juegoRepository;  // Para obtener el JuegoEntity
 
     public void registrarTirada(HistoricoDTO historicoDTO) {
+        
         // Obtener el UsuarioEntity a partir del DNI
         UsuarioEntity usuario = usuarioRepository.findByDni(historicoDTO.getUsuarioDni());
         if (usuario == null) {
-            // Log para indicar que no se encontró el usuario
-            System.out.println("Usuario no encontrado con DNI: " + historicoDTO.getUsuarioDni());
             return;
         }
     
         // Obtener el JuegoEntity a partir del ID del juego
         JuegoEntity juego = juegoRepository.findById(historicoDTO.getJuegoId()).orElse(null);
         if (juego == null) {
-
-            System.out.println("Juego no encontrado con ID: " + historicoDTO.getJuegoId());
             return;
         }
     
