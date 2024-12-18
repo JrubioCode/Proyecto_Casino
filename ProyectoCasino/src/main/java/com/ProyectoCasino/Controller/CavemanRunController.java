@@ -17,4 +17,9 @@ public class CavemanRunController {
         cavemanRunService.registrarTirada(cavemanRunDTO);
         return "¡Tirada registrada en CavemanRun con éxito!";
     }
+
+    @GetMapping("/historicoId")
+    public Integer obtenerHistoricoId() {
+        return cavemanRunService.obtenerHistoricoIdValido(); // Simplemente retorna el ID
+    }
 }

@@ -657,7 +657,7 @@ document.addEventListener("DOMContentLoaded", () => {
           contentType: "application/json",
           data: JSON.stringify(datos),
           success: function(response) {
-              
+            registrarTiradaCavemanRunEnBD(apuesta, multiplicador, resultado)
           },
           error: function(error) {
               
@@ -665,37 +665,49 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  function registrarTiradaCavemanRunEnBD(apuesta, multiplicador, resultado) {
-    const dni = localStorage.getItem("dni");
-    const idJuego = 1;  // Suponiendo que el ID del juego sigue siendo 1
+    function registrarTiradaCavemanRunEnBD(apuesta, multiplicador, resultado) {
+      const dni = localStorage.getItem("dni");
+      const idJuego = 1;
 
-    if (!dni) {
-        return;
-    }
+      if (!dni) {
+          return;
+      }
 
-    // Crear un objeto con los parámetros que necesitas enviar en formato JSON
-    const datos = {
-        apuesta: apuesta,
-        multiplicador: multiplicador,
-        resultado: resultado,
-        usuarioDni: dni,
-        juegoId: idJuego,
-        historicoId: 1 // Asegúrate de tener un historicoId válido. Esto debe ser dinámico o enviado desde el frontend
-    };
+      $.ajax({
+          type: "GET",
+          url: "/cavemanrun/historicoId",
+          success: function(historicoId) {
+              if (historicoId) { 
+                  const datos = {
+                      apuesta: apuesta,
+                      multiplicador: multiplicador,
+                      resultado: resultado,
+                      usuarioDni: dni,
+                      juegoId: idJuego,
+                      historicoId: historicoId
+                  };
 
-    $.ajax({
-        type: "POST",
-        url: "/cavemanrun/registrar",
-        contentType: "application/json",
-        data: JSON.stringify(datos),
-        success: function(response) {
-        },
-        error: function(error) {
-        }
-    });
+                  $.ajax({
+                      type: "POST",
+                      url: "/cavemanrun/registrar",
+                      contentType: "application/json",
+                      data: JSON.stringify(datos),
+                      success: function(response) {
+                          console.log("Tirada registrada con éxito:", response);
+                      },
+                      error: function(error) {
+                          console.error("Error al registrar la tirada:", error);
+                      }
+                  });
+              } else {
+                  console.error("No se encontró un historicoId válido.");
+              }
+          },
+          error: function(error) {
+              console.error("Error al obtener el historicoId:", error);
+          }
+      });
   }
-
-
 
   function startRunning() {
     const fondo = document.querySelector(".videoFondo");
@@ -759,8 +771,7 @@ document.addEventListener("DOMContentLoaded", () => {
         mostrarModal(`¡Felicidades! Has ganado ${ganancia.toFixed(2)} fichas 🎉`);
       }
     } else {
-      // Mostrar el modal de pérdida
-      resultado = 0; // Si pierde, el resultado es 0
+      resultado = 0;
       if (estaEnIngles()) {
         mostrarModal(`Oh no! You lost ${apuesta.toFixed(2)} chips 😢`);
       } else {
@@ -770,15 +781,13 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Registrar la tirada en la base de datos
     registrarTiradaEnBD(apuesta, multiplicador, resultado);
-    registrarTiradaCavemanRunEnBD(apuesta, multiplicador, resultado)
   }   
 
   function mostrarMamut() {
     if (corriendo) {
-      // Mostrar el mamut
+
       mamut.style.display = "flex";
 
-      // Detener el juego automáticamente y mostrar el modal de pérdida
       stopRunning(false);
     }
   }
@@ -788,7 +797,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* TRADUCIR A INGLES */
 i18next.init({
-  lng: 'es',  // Idioma por defecto
+  lng: 'es',
   resources: {
     es: {
       translation: {
@@ -850,7 +859,6 @@ i18next.init({
   }
 },
 function(err, t) {
-  // ACTUALIZAR TRADUCCIONES
   document.querySelectorAll('[data-i18n]').forEach((el) => {
     const key = el.getAttribute('data-i18n');
     el.innerHTML = t(key);
