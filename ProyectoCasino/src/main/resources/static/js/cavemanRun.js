@@ -1,3 +1,30 @@
+const imageLoaderWorker = new Worker('imageLoaderWorker.js');
+
+const imageUrls = [
+    './assets/cavemanRun/imagen1.png',
+    './assets/cavemanRun/imagen2.png',
+    './assets/cavemanRun/imagen3.png'
+];
+
+imageLoaderWorker.postMessage(imageUrls);
+
+imageLoaderWorker.onmessage = function (e) {
+    const { success, images, error } = e.data;
+
+    if (success) {
+        const contenedor = document.getElementById('contenedor-imagenes');
+        images.forEach(imageSrc => {
+            const img = document.createElement('img');
+            img.src = imageSrc;
+            contenedor.appendChild(img);
+        });
+    } else {
+        console.error('Error cargando las imágenes:', error);
+    }
+};
+
+imageLoaderWorker.terminate();
+
 /* FUNCIONALIDAD DEL RELOJ */
 var actualizarReloj = () => {
   document.getElementById("reloj").textContent = new Date().toLocaleTimeString();
@@ -850,15 +877,6 @@ function traducir() {
         el.value = t(key);
       }
     });
-
-    // CAMBIAR ICONO DEPENDIENDO DEL IDIOMA
-    if (estaEnIngles()) {
-      document.getElementById('icono-idioma').src = './assets/ajustes/ingles.png';
-      document.getElementById("cartel-premios").src = "./assets/premios/cartel-premios-ingles.png";
-    } else {
-      document.getElementById('icono-idioma').src = './assets/ajustes/español.png';
-      document.getElementById("cartel-premios").src = "./assets/premios/cartel-premios-español.png";
-    }
   });
 }
 
