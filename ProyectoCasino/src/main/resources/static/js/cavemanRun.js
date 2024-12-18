@@ -174,7 +174,6 @@ document.getElementById("boton-meter-dinero-modal").addEventListener("click", fu
                     cerrarModal(document.getElementById("modal-meter-dinero"));
                 },
                 error: function(error) {
-                    console.error("Error al obtener el saldo:", error);
                 }
             });
         }
@@ -217,7 +216,6 @@ document.getElementById("boton-retirar-dinero-modal").addEventListener("click", 
                     }
                 },
                 error: function(error) {
-                    console.error("Error al obtener el saldo:", error);
                 }
             });
         }
@@ -243,7 +241,6 @@ document.getElementById("boton-convertir-fichas").addEventListener("click", func
 
   const dni = localStorage.getItem("dni");
   if (!dni) {
-      console.error("No se encontró un DNI en el localStorage.");
       return;
   }
 
@@ -284,12 +281,10 @@ document.getElementById("boton-convertir-fichas").addEventListener("click", func
                   }
               },
               error: function (error) {
-                  console.error("Error al obtener el saldo:", error);
               }
           });
       },
       error: function (error) {
-          console.error("Error al obtener el multiplicador:", error);
           comprobacion.textContent = estaEnIngles() ? "Error getting conversion rate" : "Error al obtener la tasa de conversión.";
           comprobacion.style.color = "red";
           setTimeout(() => {
@@ -353,7 +348,6 @@ document.getElementById("boton-convertir-saldo").addEventListener("click", funct
           cerrarModal(document.getElementById("modal-conversion-saldo"));
       },
       error: function (error) {
-          console.error("Error al obtener el multiplicador:", error);
           comprobacion.textContent = estaEnIngles() ? "Error getting conversion rate" : "Error al obtener la tasa de conversión.";
           comprobacion.style.color = "red";
           setTimeout(() => {
@@ -390,7 +384,6 @@ function cargarSaldo() {
                 actualizarSaldo();
             },
             error: function(error) {
-                console.error("Error al obtener el saldo:", error);
             }
         });
     }
@@ -414,11 +407,9 @@ function actualizarSaldoEnBD(nuevoSaldo) {
             contentType: 'application/json',
             data: JSON.stringify(usuarioDTO),
             success: function(response) {
-                console.log("Saldo actualizado en la base de datos:", response);
                 cargarSaldo();
             },
             error: function(xhr, status, error) {
-                console.error("Error al actualizar el saldo:", error);
             }
         });
     }
@@ -505,30 +496,6 @@ document.querySelectorAll('.tab-button').forEach((button) => {
 // Inicialización
 renderHistorialTiradas();
 renderMejoresJugadas();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const inputApuesta = document.getElementById("apuesta");
@@ -644,7 +611,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const idJuego = 1;
 
       if (!dni) {
-          console.error("No se encontró un DNI en el localStorage.");
           return;
       }
 
@@ -677,7 +643,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const idJuego = 1;  // Suponiendo que el ID del juego sigue siendo 1
 
     if (!dni) {
-        console.error("No se encontró un DNI en el localStorage.");
         return;
     }
 
@@ -697,12 +662,8 @@ document.addEventListener("DOMContentLoaded", () => {
         contentType: "application/json",
         data: JSON.stringify(datos),
         success: function(response) {
-            console.log("Tirada registrada en CavemanRun con éxito:", response);
-            alert("¡Tirada registrada en CavemanRun con éxito!");
         },
         error: function(error) {
-            console.error("Error al registrar la tirada en CavemanRun:", error);
-            alert("Error al registrar la tirada. Por favor, inténtalo de nuevo.");
         }
     });
   }
@@ -797,21 +758,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   actualizarFichas();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* TRADUCIR A INGLES */
 i18next.init({
