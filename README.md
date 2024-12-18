@@ -132,3 +132,11 @@ Prehistoric-Jackpot/
      - Spring Boot Devtools (opcional, para desarrollo)
      - MySQL Connector Java
      - Spring Boot Starter Test (para pruebas)
+
+## ¡Gracias por jugar a **Prehistoric Jackpot**!
+
+Nos alegra que hayas elegido nuestro casino ambientado en el fascinante mundo del Paleolítico. Con dos emocionantes juegos: **Caveman Run** y una clásica **tragaperras**, estamos seguros de que encontrarás horas de diversión y emoción. 
+
+¡Que la suerte de nuestros ancestros prehistóricos te acompañe mientras exploras, apuestas y te enfrentas a los desafíos que hemos preparado para ti! No olvides invitar a tus amigos para que también vivan la experiencia. 
+
+¡Buena suerte y que disfrutes del viaje en el tiempo! 🚀🎰
