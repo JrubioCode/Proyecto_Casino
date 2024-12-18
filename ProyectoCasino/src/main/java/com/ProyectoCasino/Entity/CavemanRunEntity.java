@@ -2,7 +2,7 @@ package com.ProyectoCasino.Entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "CAVEMANRUN")
@@ -16,8 +16,7 @@ public class CavemanRunEntity implements Serializable {
     private Integer idLogCavemanRun;
 
     @Column(name = "FECHA_LOG_CAVEMANRUN", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fechaLogCavemanRun;
+    private Timestamp fechaLogCavemanRun;
 
     @Column(name = "APUESTA", nullable = false)
     private Integer apuesta;
@@ -40,7 +39,7 @@ public class CavemanRunEntity implements Serializable {
     @JoinColumn(name = "ID_JUEGO", nullable = false)
     private JuegoEntity juego;
 
-    // Getters y Setters 
+    // Getters y Setters
     public Integer getIdLogCavemanRun() {
         return idLogCavemanRun;
     }
@@ -49,11 +48,11 @@ public class CavemanRunEntity implements Serializable {
         this.idLogCavemanRun = idLogCavemanRun;
     }
 
-    public Date getFechaLogCavemanRun() {
+    public Timestamp getFechaLogCavemanRun() {
         return fechaLogCavemanRun;
     }
 
-    public void setFechaLogCavemanRun(Date fechaLogCavemanRun) {
+    public void setFechaLogCavemanRun(Timestamp fechaLogCavemanRun) {
         this.fechaLogCavemanRun = fechaLogCavemanRun;
     }
 

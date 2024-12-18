@@ -618,7 +618,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  var apuesta = 0; // Definir la variable globalmente
+  var apuesta = 0;
 
   // Manejar el clic en correr
   btnCorrer.addEventListener("click", () => {
@@ -639,9 +639,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   
-  function registrarTiradaEnBD(apuesta, multiplicador, resultado) {
+    function registrarTiradaEnBD(apuesta, multiplicador, resultado) {
+      const dni = localStorage.getItem("dni");
+      const idJuego = 1;
+
+      if (!dni) {
+          console.error("No se encontró un DNI en el localStorage.");
+          return;
+      }
+
+      // Crear un objeto con los parámetros que necesitas enviar en formato JSON
+      const datos = {
+          apuesta: apuesta,
+          multiplicador: multiplicador,
+          resultado: resultado,
+          usuarioDni: dni,
+          juegoId: idJuego,
+          fechaLogHistorico: new Date().toISOString(),
+      };
+
+      $.ajax({
+          type: "POST",
+          url: "/historico/registrar",
+          contentType: "application/json",
+          data: JSON.stringify(datos),
+          success: function(response) {
+              
+          },
+          error: function(error) {
+              
+          }
+      });
+  }
+
+  function registrarTiradaCavemanRunEnBD(apuesta, multiplicador, resultado) {
     const dni = localStorage.getItem("dni");
-    const idJuego = 1;
+    const idJuego = 1;  // Suponiendo que el ID del juego sigue siendo 1
 
     if (!dni) {
         console.error("No se encontró un DNI en el localStorage.");
@@ -655,24 +688,26 @@ document.addEventListener("DOMContentLoaded", () => {
         resultado: resultado,
         usuarioDni: dni,
         juegoId: idJuego,
-        fechaLogHistorico: new Date().toISOString(),
+        historicoId: 1 // Asegúrate de tener un historicoId válido. Esto debe ser dinámico o enviado desde el frontend
     };
 
     $.ajax({
         type: "POST",
-        url: "/historico/registrar",
+        url: "/cavemanrun/registrar",
         contentType: "application/json",
         data: JSON.stringify(datos),
         success: function(response) {
-            console.log("Tirada registrada con éxito:", response);
-            alert("¡Tirada registrada con éxito!");
+            console.log("Tirada registrada en CavemanRun con éxito:", response);
+            alert("¡Tirada registrada en CavemanRun con éxito!");
         },
         error: function(error) {
-            console.error("Error al registrar la tirada:", error);
+            console.error("Error al registrar la tirada en CavemanRun:", error);
             alert("Error al registrar la tirada. Por favor, inténtalo de nuevo.");
         }
     });
-}    
+  }
+
+
 
   function startRunning() {
     const fondo = document.querySelector(".videoFondo");
@@ -683,11 +718,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fondo.play();
 
-    if (estaEnIngles()) {
-      btnCorrer.value = "Stop";
-    } else {
-      btnCorrer.value = "Parar";
-    }
+    btnCorrer.value = "Stop";
     btnCorrer.style.backgroundColor = "red";
     btnCorrer.style.color = "white";
 
@@ -713,11 +744,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cavernicola.src = "./assets/cavemanRun/cavernicola-parado.png";
     fondo.pause();
   
-    if (estaEnIngles()) {
-      btnCorrer.value = "Run";
-    } else {
-      btnCorrer.value = "Correr";
-    }
+    btnCorrer.value = "Run";
     btnCorrer.style.backgroundColor = "";
     btnCorrer.style.color = "";
   
@@ -755,6 +782,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Registrar la tirada en la base de datos
     registrarTiradaEnBD(apuesta, multiplicador, resultado);
+    registrarTiradaCavemanRunEnBD(apuesta, multiplicador, resultado)
   }   
 
   function mostrarMamut() {

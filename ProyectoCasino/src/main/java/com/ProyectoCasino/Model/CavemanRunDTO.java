@@ -1,11 +1,11 @@
 package com.ProyectoCasino.Model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class CavemanRunDTO {
 
     private Integer idLogCavemanRun;
-    private Date fechaLogCavemanRun;
+    private Timestamp fechaLogCavemanRun;
     private Integer apuesta;
     private Double multiplicador;
     private Double resultado;
@@ -22,11 +22,11 @@ public class CavemanRunDTO {
         this.idLogCavemanRun = idLogCavemanRun;
     }
 
-    public Date getFechaLogCavemanRun() {
+    public Timestamp getFechaLogCavemanRun() {
         return fechaLogCavemanRun;
     }
 
-    public void setFechaLogCavemanRun(Date fechaLogCavemanRun) {
+    public void setFechaLogCavemanRun(Timestamp fechaLogCavemanRun) {
         this.fechaLogCavemanRun = fechaLogCavemanRun;
     }
 
@@ -78,7 +78,6 @@ public class CavemanRunDTO {
         this.juegoId = juegoId;
     }
 
-    // toString()
     @Override
     public String toString() {
         return "CavemanRunDTO [idLogCavemanRun=" + idLogCavemanRun + ", fechaLogCavemanRun=" + fechaLogCavemanRun
