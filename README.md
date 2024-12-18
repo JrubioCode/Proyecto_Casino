@@ -97,7 +97,7 @@ Prehistoric-Jackpot/
 
 1. **Clona el repositorio**:
    ```bash
-   git clone https://github.com/tu-usuario/prehistoric-jackpot.git
+   https://github.com/JrubioCode/Proyecto_Casino.git
    ```
 
 2. **Configura la base de datos**:
