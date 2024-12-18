@@ -24,10 +24,10 @@ public class HistoricoImplement implements HistoricoService {
     private HistoricoRepository historicoRepository;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;  // Para obtener el UsuarioEntity
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private JuegoRepository juegoRepository;  // Para obtener el JuegoEntity
+    private JuegoRepository juegoRepository;
 
     public void registrarTirada(HistoricoDTO historicoDTO) {
         

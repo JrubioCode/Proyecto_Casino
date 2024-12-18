@@ -19,7 +19,6 @@ imageLoaderWorker.onmessage = function (e) {
             contenedor.appendChild(img);
         });
     } else {
-        console.error('Error cargando las imágenes:', error);
     }
 };
 
@@ -693,18 +692,14 @@ document.addEventListener("DOMContentLoaded", () => {
                       contentType: "application/json",
                       data: JSON.stringify(datos),
                       success: function(response) {
-                          console.log("Tirada registrada con éxito:", response);
                       },
                       error: function(error) {
-                          console.error("Error al registrar la tirada:", error);
                       }
                   });
               } else {
-                  console.error("No se encontró un historicoId válido.");
               }
           },
           error: function(error) {
-              console.error("Error al obtener el historicoId:", error);
           }
       });
   }

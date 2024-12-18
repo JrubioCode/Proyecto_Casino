@@ -41,7 +41,6 @@ btn.addEventListener("click", function (event) {
         contentType: "application/json",
         data: JSON.stringify(formData),
         success: function (response) {
-          console.log("Respuesta del servidor:", response);
 
           if (response.includes("Error: El DNI ya está registrado")) {
             mostrarModal("El DNI ya está registrado. Por favor, verifica los datos.");

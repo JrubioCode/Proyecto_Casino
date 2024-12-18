@@ -5,9 +5,9 @@ self.onmessage = async function (e) {
         // Cargar todas las imágenes de manera concurrente
         const loadedImages = await Promise.all(
             imageUrls.map(async (url) => {
-                const response = await fetch(url);  // Obtener cada imagen
-                const blob = await response.blob();  // Convertir la respuesta en un blob
-                return URL.createObjectURL(blob);    // Crear un URL de objeto para mostrar la imagen
+                const response = await fetch(url);
+                const blob = await response.blob();
+                return URL.createObjectURL(blob);
             })
         );
 

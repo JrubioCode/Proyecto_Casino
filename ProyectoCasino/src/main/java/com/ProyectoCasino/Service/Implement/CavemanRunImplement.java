@@ -69,13 +69,12 @@ public class CavemanRunImplement implements CavemanRunService {
 
     @Override
     public Integer obtenerHistoricoIdValido() {
-        HistoricoEntity historico = historicoRepository.findTopByOrderByIdHistoricoDesc(); // Busca el último registro
+        HistoricoEntity historico = historicoRepository.findTopByOrderByIdHistoricoDesc();
         if (historico == null) {
-            // Crear un nuevo registro si no existe ninguno
             HistoricoEntity nuevoHistorico = new HistoricoEntity();
             nuevoHistorico.setFechaLogHistorico(new Timestamp(new Date().getTime()));
-            historicoRepository.save(nuevoHistorico); // Guarda el nuevo registro
-            return nuevoHistorico.getIdHistorico(); // Retorna el ID recién creado
+            historicoRepository.save(nuevoHistorico);
+            return nuevoHistorico.getIdHistorico();
         }
         return historico.getIdHistorico(); // Retorna el último ID si existe
     }    

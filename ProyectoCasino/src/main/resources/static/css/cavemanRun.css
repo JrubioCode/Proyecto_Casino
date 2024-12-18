@@ -605,7 +605,7 @@ table tbody tr:hover {
   z-index: 1000;
   justify-content: center;
   align-items: center;
-  padding: 15px; /* Añadir espacio en los bordes de la ventana */
+  padding: 15px;
 }
 
 /* Contenedor del contenido del modal */
@@ -618,19 +618,19 @@ table tbody tr:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  gap: 40px; /* Aumentar espacio entre los elementos */
+  gap: 40px;
   align-items: flex-start;
-  overflow-y: auto; /* Permitir scroll vertical si el contenido es muy largo */
-  max-height: 80vh; /* Limitar la altura máxima del modal */
+  overflow-y: auto;
+  max-height: 80vh;
   color: #f1f1f1;
-  font-family: Arial, sans-serif; /* Fuente más amigable */
+  font-family: Arial, sans-serif;
 }
 
 /* Estilos para el contenido del modal */
 .modal-content {
   color: white;
-  padding: 50px; /* Espaciado más grande dentro de los elementos */
-  border-radius: 8px; /* Bordes más suaves */
-  background-color: rgb(50, 50, 60); /* Color de fondo diferente para los contenidos */
-  margin: 5px 0; /* Espaciado entre los elementos dentro del modal */
+  padding: 50px;
+  border-radius: 8px;
+  background-color: rgb(50, 50, 60);
+  margin: 5px 0;
 }

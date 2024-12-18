@@ -9,7 +9,6 @@ function comprobaciones(event) {
       type: "GET",
       url: `/usuario/comprobarUsuario/${userName}/${userPassword}`,
       success: function (response) {
-        console.log("Respuesta del servidor (GET):", response);
 
         if (response === "OK") {
           // Hacer una segunda solicitud para obtener el DNI
@@ -19,7 +18,6 @@ function comprobaciones(event) {
             success: function(dni) {
               if (dni) {
                 localStorage.setItem("dni", dni);
-                console.log(dni);
                 mostrarModal("Usuario autenticado correctamente. Redirigiendo al lobby...");
                 setTimeout(() => {
                   window.location.pathname = "/lobby";

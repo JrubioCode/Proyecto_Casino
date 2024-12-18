@@ -20,6 +20,6 @@ public class CavemanRunController {
 
     @GetMapping("/historicoId")
     public Integer obtenerHistoricoId() {
-        return cavemanRunService.obtenerHistoricoIdValido(); // Simplemente retorna el ID
+        return cavemanRunService.obtenerHistoricoIdValido();
     }
 }
