@@ -62,7 +62,7 @@ window.addEventListener("DOMContentLoaded", () => {
 // Crear el objeto de audio
 const musicaFondo = new Audio("./audios/audio-principal.mp3");
 musicaFondo.loop = true; // La música se repetirá
-musicaFondo.volume = 0; // Volumen inicial
+musicaFondo.volume = 0.7; // Volumen inicial
 
 // Referencia al control de volumen en el HTML
 const iconoVolumen = document.getElementById('icono-volumen');

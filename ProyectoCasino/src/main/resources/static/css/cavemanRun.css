@@ -622,3 +622,8 @@ table tbody tr:hover {
   overflow-y: auto;
   color: #f1f1f1;
 }
+
+.modal-content{
+  color: white;
+  padding: 15px;
+}
