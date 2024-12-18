@@ -38,6 +38,9 @@ Los usuarios pueden registrarse, iniciar sesión, jugar a los juegos y consultar
   - **HTML**: Lenguaje de marcado para estructurar las páginas web.
   - **CSS**: Para el diseño visual y la presentación de las vistas.
   - **JavaScript**: Para la interactividad en las páginas web.
+  - **Bootstrap**: Framework CSS utilizado para un diseño responsivo y moderno.
+  - **Web Workers**: Utilizados para manejar imágenes y videos de forma asíncrona.
+  - **AJAX y jQuery**: Para realizar actualizaciones dinámicas a la base de datos sin recargar la página.
   - **Recursos multimedia**: Imágenes, audios y videos relacionados con los juegos.
 
 ---
@@ -76,6 +79,7 @@ Prehistoric-Jackpot/
 │   └── test/                                  # Pruebas unitarias y de integración
 │
 └── pom.xml                                    # Dependencias del proyecto (Maven)
+└── Database/                                  # Scripts de inicialización de la base de datos
 ```
 
 ---
@@ -87,6 +91,7 @@ Prehistoric-Jackpot/
 - **Java 17** o superior.
 - **Maven** para la gestión de dependencias.
 - **MySQL** o cualquier base de datos compatible con JPA.
+- **MySQL Workbench** para la administración de la base de datos (o una herramienta similar).
 
 ### Pasos para ejecutar el proyecto:
 
@@ -97,5 +102,34 @@ Prehistoric-Jackpot/
 
 2. **Configura la base de datos**:
    - Crea una base de datos en MySQL.
-   - Configura el archivo `application.properties` con los detalles de tu base de datos.
+   - Accede a la carpeta `Database/` ubicada fuera del directorio `Prehistoric-Jackpot/`.
+   - Ejecuta el script SQL proporcionado para inicializar las tablas y datos necesarios.
 
+3. **Configura el archivo `application.properties`**:
+   - Abre el archivo ubicado en `src/main/resources/application.properties` y configura los siguientes valores:
+     ```properties
+     spring.application.name=ProyectoCasino
+     server.port=9090
+
+     # MySQL configuration
+     spring.datasource.url=jdbc:mysql://localhost:3306/proyecto_casino?useSSL=false&serverTimezone=UTC
+     spring.datasource.username=root
+     spring.datasource.password=root
+     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+     # Hibernate configuration
+     spring.jpa.hibernate.ddl-auto=update
+     spring.jpa.show-sql=true
+     spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+     spring.jpa.properties.hibernate.format_sql=true
+     ```
+
+4. **Instala las dependencias**:
+   - Asegúrate de incluir las siguientes dependencias en el archivo `pom.xml`:
+     - Spring Boot Starter Data JDBC
+     - Spring Boot Starter Data JPA
+     - Spring Boot Starter Thymeleaf
+     - Spring Boot Starter Web
+     - Spring Boot Devtools (opcional, para desarrollo)
+     - MySQL Connector Java
+     - Spring Boot Starter Test (para pruebas)
