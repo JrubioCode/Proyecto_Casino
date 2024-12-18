@@ -771,6 +771,7 @@ document.addEventListener("DOMContentLoaded", () => {
         mostrarModal(`¡Felicidades! Has ganado ${ganancia.toFixed(2)} fichas 🎉`);
       }
     } else {
+      fondo.pause();
       resultado = 0;
       if (estaEnIngles()) {
         mostrarModal(`Oh no! You lost ${apuesta.toFixed(2)} chips 😢`);
