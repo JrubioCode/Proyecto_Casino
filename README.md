@@ -38,6 +38,7 @@ Los usuarios pueden registrarse, iniciar sesión, jugar a los juegos y consultar
   - **HTML**: Lenguaje de marcado para estructurar las páginas web.
   - **CSS**: Para el diseño visual y la presentación de las vistas.
   - **JavaScript**: Para la interactividad en las páginas web.
+  - **EmailJS**: Para enviar un correo de bienvenida al registrarse
   - **Web Workers**: Utilizados para manejar imágenes y videos de forma asíncrona.
   - **AJAX y jQuery**: Para realizar actualizaciones dinámicas a la base de datos sin recargar la página.
   - **Recursos multimedia**: Imágenes, audios y videos relacionados con los juegos.
