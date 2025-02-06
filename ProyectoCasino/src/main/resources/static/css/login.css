@@ -89,11 +89,10 @@ input {
 }
 
 /* Links */
-.registrate_aqui, .olvidar_contraseña, .acceder {
+.registrate_aqui, .olvidar_contraseña,.hazte_vip, .acceder {
     display: flex;
     justify-content: center;
     margin-top: 10px;
-
 }
 
 /* Boton */
