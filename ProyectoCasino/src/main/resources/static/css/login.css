@@ -177,3 +177,77 @@ hr {
     transition: background-color 0.3s;
     margin-top: 10px;
   }
+
+/* Para pantallas menores o iguales a 1200px */
+@media (max-width: 1200px) {
+    #contenedor_login {
+        width: 380px;
+        padding: 25px;
+    }
+    .logo-bienvenida img {
+        width: 90px;
+    }
+    .logo-bienvenida h1 {
+        font-size: 22px;
+    }
+    label {
+        font-size: 16px;
+    }
+    input {
+        font-size: 15px;
+    }
+    .acceder button {
+        font-size: 17px;
+        padding: 9px 18px;
+    }
+}
+
+/* Para pantallas menores o iguales a 768px */
+@media (max-width: 768px) {
+    body {
+        margin-top: 30px;
+    }
+
+    #contenedor_login {
+        width: 90%;
+        padding: 15px;
+    }
+   
+    .logo-bienvenida {
+        flex-direction: column;
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .logo-bienvenida img {
+        width: 80px;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .logo-bienvenida h1 {
+        font-size: 18px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    input {
+        font-size: 13px;
+    }
+
+    .acceder button {
+        font-size: 15px;
+        padding: 8px 14px;
+        margin-top: -30px;
+    }
+
+    hr {
+        margin: 20px 0;
+    }
+
+    .juego_responsable {
+        font-size: 16px;
+    }
+}
