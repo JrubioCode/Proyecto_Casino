@@ -264,7 +264,7 @@ function comprobarDNI() {
 function comprobarEdad() {
   const comprobacion = document.getElementById("comprobacionEdad");
   const fechaNacimiento = new Date(document.getElementById("nacimiento").value);
-  const edad = new Date().getFullYear() - fechaNacimiento.getFullYear();
+  var edad = new Date().getFullYear() - fechaNacimiento.getFullYear();
 
   const mes = new Date().getMonth() - fechaNacimiento.getMonth();
   const dia = new Date().getDate() - fechaNacimiento.getDate();
