@@ -11,7 +11,6 @@ body {
   display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;/
 }
 
 /* Fondo difuminado */
@@ -32,14 +31,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 700px;
   padding: 30px;
   background-color: rgba(255, 255, 255, 0.85);
   border: 2px solid #03551f;
   border-radius: 20px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   z-index: 1; /* Frente al fondo */
-  margin-top: -80px;
 }
 
 /* Logo y título centrado */
@@ -188,4 +185,107 @@ hr {
   cursor: pointer;
   transition: background-color 0.3s;
   margin-top: 10px;
+}
+
+/* Responsive para pantallas grandes */
+@media (min-width: 1200px) {
+
+  body{
+    margin-top: 50px;
+  }
+
+  #contenedor_registro {
+    width: 60%;
+    max-width: 800px;
+    margin-bottom: 40px;
+  }
+
+  .campos_registro {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .logo-bienvenida h1 {
+    font-size: 26px;
+  }
+
+  input {
+    font-size: 18px;
+  }
+
+  .registrate a {
+    font-size: 20px;
+  }
+}
+
+/* Reponsive pantallas medianas */
+@media (max-width: 1024px) {
+
+  body{
+    margin-top: 50px;
+  }
+
+  #contenedor_registro {
+    width: 85%;
+    padding: 50px;
+  }
+
+  .campos_registro {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px;
+  }
+
+  .logo-bienvenida h1 {
+    font-size: 24px;
+  }
+
+  .registrate a {
+    font-size: 18px;
+  }
+}
+
+/* Reponsive para moviles grandes */
+@media (max-width: 768px) {
+
+  body{
+    margin-top: 50px;
+  }
+
+  #contenedor_registro {
+    width: 80%;
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+
+  .campos_registro {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .logo-bienvenida img {
+    width: 80px;
+  }
+
+  .logo-bienvenida h1 {
+    font-size: 22px;
+  }
+
+  input {
+    font-size: 14px;
+  }
+
+  .registrate a {
+    font-size: 16px;
+  }
+
+  .juego_responsable {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .contenido-modal {
+    width: 90%;
+    max-width: 500px;
+  }
 }
