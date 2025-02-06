@@ -29,4 +29,10 @@ public class IndexController {
     public String cavemanRun(){
         return "cavemanRun";
     }
+
+    // Metodo para acceder a hazte vip
+    @GetMapping("/hazteVip")
+    public String hazteVip() {
+        return "hazteVip";
+    }
 }
