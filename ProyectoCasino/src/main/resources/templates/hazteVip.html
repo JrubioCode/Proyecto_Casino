@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Regístrato Vip</title>
+        <link rel="icon" href="/assets/moneda.png" type="image/icon type">
+        <link rel="stylesheet" href="/css/registroVip.css">
+        <script src="/js/hazteVip.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    </head>
+    <body>
+        <!-- Contenedor para el fondo difuminado -->
+        <div class="background"></div>
+        <div id="contenedor_registro">
+            <!-- Formulario -->
+            <form id="form">
+                <!-- Mensajes bienvenida e inicio de sesion -->
+                <div class="logo-bienvenida">
+                    <img src="./../assets/logo.webp" alt="Logo del Casino" />
+                    <h1>REGISTRO JURASSIC JACKPOT</h1>
+                </div>
+                <!-- Contenedor de los inputs -->
+                <div class="campos_registro">
+                    <div class="contenedor_nombre">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder=" Nombre" oninput="comprobarNombre()" required  />
+                        <div id="comprobacionNombre"></div>
+                    </div>
+                    <div class="contenedor_apellido1">
+                        <label for="apellido1">Primer apellido</label>
+                        <input type="text" id="apellido1" name="apellido1" placeholder=" Primer apellido" oninput="comprobarApellido1()" required />
+                        <div id="comprobacionApellido1"></div>
+                    </div>
+                    <div class="contenedor_apellido2">
+                        <label for="apellido2">Segundo apellido</label>
+                        <input type="text" id="apellido2" name="apellido2" placeholder=" Segundo apellido" oninput="comprobarApellido2()" required />
+                        <div id="comprobacionApellido2"></div>
+                    </div>
+                    <div class="contenedor_nacimiento">
+                        <label for="nacimiento">Fecha de nacimiento</label>
+                        <input type="date" id="nacimiento" name="nacimiento" onblur="comprobarEdad()" required />
+                        <div id="comprobacionEdad"></div>
+                   </div>
+                    <div class="contenedor_usuario">
+                        <label for="usuario">Usuario</label>
+                        <input type="text" id="usuario" name="usuario" placeholder=" Usuario" oninput="comprobarUsuario()" required  />
+                        <div id="comprobacionUsuario"></div>
+                    </div>
+                    <div class="contenedor_email">
+                        <label for="email">Correo electrónico</label>
+                        <input type="text" id="email" name="email" placeholder=" Correo electrónico" oninput="comprobarEmail()" required  />
+                        <div id="comprobacionEmail"></div>
+                    </div>
+                    <div class="contenedor_contraseña">
+                        <label for="contraseña">Contraseña</label>
+                        <input type="password" id="contraseña" name="contraseña" placeholder=" Contraseña" oninput="comprobarPasswd()" required  />
+                        <div id="comprobacionPasswd"></div>
+                    </div>
+                    <div class="contenedor_confirmarContraseña">
+                        <label for="confirmarContraseña">Confirmar contraseña</label>
+                        <input type="password" id="confirmarContraseña" name="confirmarContraseña" placeholder=" Confirmar contraseña" oninput="comprobarPasswd()" required  />
+                        <div id="comprobacionPasswd"></div>
+                    </div>
+                    <div class="contenedor_dni">
+                        <label for="dni">DNI</label>
+                        <input type="text" id="dni" name="dni" placeholder=" DNI" oninput="comprobarDNI()" required  />
+                        <div id="comprobacionDNI"></div>
+                    </div>
+                    <div class="contenedor_numero">
+                        <label for="numero">Número de teléfono</label>
+                        <input type="number" id="numero" name="numero" placeholder=" Número de teléfono" oninput="comprobarNumero()" required  />
+                        <div id="comprobacionNumero"></div>
+                    </div>
+                    <div class="contenedor_numeroTarjeta">
+                        <label for="numeroTarjeta">Número de tarjeta</label>
+                        <input type="number" id="numeroTarjeta" name="numeroTarjeta" placeholder=" Número de tarjeta" oninput="comprobarTarjeta()" required  />
+                        <div id="comprobacionTarjeta"></div>
+                    </div>
+                    <div class="contenedor_caducidad">
+                        <label for="caducidad">Caducidad de la tarjeta</label>
+                        <input type="number" id="caducidad" name="caducidad" placeholder=" Caducidad de la tarjeta" oninput="comprobarCaducidad()" required  />
+                        <div id="comprobacionTarjeta"></div>
+                    </div>
+                    <div class="contenedor_cvc">
+                        <label for="cvc">Cvc de la tarjeta</label>
+                        <input type="number" id="cvc" name="cvc" placeholder=" Cvc de la tarjeta" oninput="comprobarCvc()" required  />
+                        <div id="comprobacionCvc"></div>
+                    </div>
+                </div>
+                <!-- Otra informacion -->
+                <div class="terminos">
+                    <input type="checkbox" id="terminos" required />
+                    <p onclick="comprobarTerminos()">Aceptas los términos y condiciones</p>
+                </div>
+                <!-- Boton de registro -->
+                <div class="registrate">
+                    <a th:href="@{/}" id="submit">Registrate</a>
+                </div>
+                <!-- Otra informacion -->
+                <hr>
+                <div class="juego_responsable">
+                    <h3>+18</h3>
+                    <h3>Juego responsable</h3>
+                </div>
+            </form>
+            <!-- Modal -->
+            <div id="modal" class="modal">
+                <div class="contenido-modal">
+                    <p id="mensajeModal">BIENVENIDO A FRUITS PARTY 🍇 ¡REGÍSTRESE YA!</p>
+                    <input type="submit" class="close" value="cerrar"> 
+                </div>
+            </div>
+            <!-- Modal exclusivo para términos y condiciones -->
+            <div id="modalTerminos" class="modal">
+                <div class="contenido-modal">
+                <p>
+                    <h2>Términos y Condiciones</h2>
+                    <h3 id="titulo">Información sobre Protección de Datos</h3>
+                    <p id="texto">
+                        El empleo de cookies puede implicar la recopilación de datos personales de los usuarios de este sitio web. 
+                        Por este motivo, en cumplimiento de la legislación vigente, ponemos en su conocimiento la siguiente información:
+                    </p>
+                    <h4 id="titulos">1.Responsable del tratamiento</h4>
+                    <p id="texto">
+                        El Responsable del tratamiento de sus datos de navegación, obtenidos a través de las cookies en nuestra página web es Casino Spain Palace
+        
+                        Datos de contacto del responsable: Calle Libertad, 21, 13.200 – Manzanares (Ciudad Real)
+        
+                        Datos de contacto del Delegado de Protección de Datos: spinpalace@gmail.com
+                    </p>
+                    <h4 id="titulos">2.Datos tratados</h4>
+                    <p id="texto">
+                        La tipología de datos que se tratan a través de las cookies son datos identificativos, en concreto, los datos obtenidos de sus
+                        navegaciones por el sitio web y la navegación que realiza en la misma: historial de navegación (páginas visitadas y clics en contenidos).     
+                    </p>
+                    <h4 id="titulos">3.Finalidades del tratamiento y Legitimación</h4>
+                    <p id="texto">
+                        En general, utilizamos las cookies para conocer la actividad de los visitantes a nuestra página web, en concreto para obtener 
+                        información relacionada con la fecha y hora de visita, así como preferencias en sus hábitos de navegación, analizar sus hábitos
+                        de navegación para introducir cambios en el sitio web que mejora su rendimiento o el acceso a productos en los que se haya 
+                        mostrado mayor interés. También se utilizan para proporcionar información sobre la navegación de los usuarios a los 
+                        propietarios de otros sitios web y sus colaboradores, con el fin de analizar el uso que realiza nuestra página web.
+        
+                        Aquellas cookies que sean necesarias para el funcionamiento de nuestra página web se instalarán en su dispositivo. Para todos 
+                        los demás tipos de cookies necesitamos su consentimiento.
+        
+                        En particular, si acepta las cookies de publicidad y de publicidad comportamental (marketing), podremos utilizar los datos que 
+                        obtengamos de su navegación para almacenarlos y elaborar un perfil sobre usted, de manera que podamos ofrecerle publicidad que pueda ser de su interés.
+                    </p>
+                    <h4 id="titulos">4.Destinitarios de los datos</h4>
+                    <p id="texto">
+                        Serán destinatarios de sus datos los terceros proveedores de Cookies que se encuentren instalados en el presente sitio web.
+                    </p>
+                    <h4 id="titulos">5.Transferencia a terceros países</h4>
+                    <p id="texto">
+                        El tratamiento de los datos se realiza, con carácter general, en el Espacio Económico Europeo o en países que han sido 
+                        declarados con un nivel adecuado de protección.
+                    </p>
+                    <h4 id="titulos">6.Periodo de conversación de los datos</h4>
+                    <p id="texto">
+                        Las Cookies se encontrarán instaladas por el tiempo necesario para cumplir con las finalidades que persiguen.
+                    </p>
+                    <h4 id="titulos">7.Derechos de los usuarios</h4>
+                    <p id="texto">
+                        Como titular de los datos usted tiene derecho a acceder, actualizar, rectificar y suprimir los datos, así como otros derechos, o 
+                        solicitar más información sobre el tratamiento que realizamos de las cookies dirigiéndonos al correo electrónico 
+                        spinpalace@gmail.com.
+        
+                        Tiene derecho a presentar cualquier reclamación ante la autoridad de control competente, considerando que la misma es, en
+                        España, la Agencia Española de Protección de Datos. Para poder ejercitar sus derechos en materia de protección de datos 
+                        puede contactarnos a través de correo electrónico spinpalace@gmail.com.
+                    </p>
+                    <h4 id="titulos">Actualizaciones y cambios en la Política de Cookies</h4>
+                    <p id="texto">
+                        SMP realizará una revisión de la Política de cookies anualmente, salvo que existan exigencias normativas o de otra índole 
+                        que hagan necesario adaptar la Política con una periodicidad inferior. Por tanto, se aconseja a los usuarios que consulten 
+                        periódicamente su contenido, con el objetivo de estar informado adecuadamente sobre cómo y para qué utilizamos las cookies.
+        
+                        Fecha de la última actualización: Octubre de 2024.
+                    </p>
+                </p>
+                <br>
+                <input type="submit" id="aceptarTerminos" class="aceptar" value="Aceptar">
+                </div>
+            </div>
+            <!-- Scripts de emailJS y de enlace -->
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+            <script type="text/javascript"> emailjs.init("lc3NBvjj8xP5x2cjU");</script>
+            <script src="/js/registro.js"></script>
+        </div>
+    </body>
+</html>
