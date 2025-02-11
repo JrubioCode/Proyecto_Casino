@@ -19,6 +19,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    // Registro normal
     @PostMapping("/registrar")
     public String registrarUsuario(@RequestBody UsuarioDTO usuario) {
   
@@ -34,6 +35,24 @@ public class UsuarioController {
 
         usuarioService.registrarUsuario(usuario);
         return "USUARIO REGISTRADO CORRECTAMENTE";
+    }
+
+    // Registro vip
+    @PostMapping("/registrarVIP")
+    public String registrarUsuarioVIP(@RequestBody UsuarioDTO usuario) {
+  
+        if (usuarioService.usuarioExiste(usuario.getDni())) {
+            return "Error: El DNI ya está registrado.";
+        }
+        if (usuarioService.userNameExiste(usuario.getUserName())) {
+            return "Error: El nombre de usuario ya está en uso.";
+        }
+        if (usuarioService.emailExiste(usuario.getEmail())) {
+            return "Error: El correo electrónico ya está registrado.";
+        }
+
+        usuarioService.registrarUsuario(usuario);
+        return "USUARIO VIP REGISTRADO CORRECTAMENTE";
     }
 
     @GetMapping("/comprobarUsuario/{userName}/{userPassword}")
