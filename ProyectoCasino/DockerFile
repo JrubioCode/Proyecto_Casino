@@ -1,0 +1,23 @@
+# Usar una imagen base con OpenJDK 17
+FROM openjdk:17-jdk-slim
+
+# Instalar Maven
+RUN apt-get update && apt-get install -y maven
+
+# Configurar el directorio de trabajo
+WORKDIR /app
+
+# Copiar el archivo pom.xml y las dependencias
+COPY pom.xml .
+
+# Descargar las dependencias de Maven
+RUN mvn dependency:go-offline
+
+# Copiar el código fuente
+COPY src ./src
+
+# Construir el proyecto
+RUN mvn clean package -DskipTests
+
+# Comando para ejecutar la aplicación
+CMD ["java", "-jar", "target/ProyectoCasino-0.0.1-SNAPSHOT.jar"]
