@@ -60,6 +60,23 @@ public class UsuarioImplent implements UsuarioService {
     }
 
     @Override
+    public UsuarioEntity registrarUsuarioVIP(UsuarioDTO usuarioDTO) {
+        UsuarioEntity usuarioEntity = new UsuarioEntity();
+        usuarioEntity.setDni(usuarioDTO.getDni());
+        usuarioEntity.setNombre(usuarioDTO.getNombre());
+        usuarioEntity.setApellido1(usuarioDTO.getApellido1());
+        usuarioEntity.setApellido2(usuarioDTO.getApellido2());
+        usuarioEntity.setFechaNacimiento(java.sql.Date.valueOf(usuarioDTO.getFechaNacimiento()));
+        usuarioEntity.setUserName(usuarioDTO.getUserName());
+        usuarioEntity.setEmail(usuarioDTO.getEmail());
+        usuarioEntity.setUserPassword(usuarioDTO.getUserPassword());
+        usuarioEntity.setNumeroTelefono(usuarioDTO.getNumeroTelefono());
+        usuarioEntity.setDineroUsuario(0.0);
+
+        return usuarioRepository.save(usuarioEntity);
+    }
+
+    @Override
     public boolean usuarioExiste(String dni) {
         return usuarioRepository.existsById(dni);
     }

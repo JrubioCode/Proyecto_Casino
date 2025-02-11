@@ -51,7 +51,7 @@ public class UsuarioController {
             return "Error: El correo electrónico ya está registrado.";
         }
 
-        usuarioService.registrarUsuario(usuario);
+        usuarioService.registrarUsuarioVIP(usuario);
         return "USUARIO VIP REGISTRADO CORRECTAMENTE";
     }
 

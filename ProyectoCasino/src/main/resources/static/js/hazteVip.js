@@ -5,8 +5,8 @@ btn.addEventListener("click", function (event) {
   event.preventDefault();
 
   // Comprobaciones
-  if (comprobarNombre() && comprobarApellido1() && comprobarApellido2() && comprobarEdad() && comprobarUsuario() &&
-      comprobarEmail() && comprobarPasswd() && comprobarDNI() && comprobarNumero()) {
+  if (comprobarNombre() && comprobarApellido1() && comprobarApellido2() && comprobarEdad() && comprobarUsuario() && comprobarEmail() && comprobarPasswd() &&
+  comprobarDNI() && comprobarNumero() && comprobarNumeroTarjeta() && comprobarCaducidad() && comprobarCVC()) {
     // Comprobar si se han aceptado los términos
     if (!aceptarTerminos()) {
       comprobarTerminos();
@@ -89,7 +89,7 @@ btn.addEventListener("click", function (event) {
 // Comprobar si se han aceptado los términos
 function aceptarTerminos() {
   const checkboxTerminos = document.getElementById("terminos");
-  return checkboxTerminos.checked; // Retorna true si está marcado, false si no
+  return checkboxTerminos.checked;
 }
 
 // Mostrar modal de términos y condiciones
@@ -122,7 +122,7 @@ window.addEventListener("click", function (event) {
 // Aceptar términos en el modal de términos
 document.getElementById("aceptarTerminos").addEventListener("click", function () {
     const checkboxTerminos = document.getElementById("terminos");
-    checkboxTerminos.checked = true; // Marca el checkbox de términos como aceptado
+    checkboxTerminos.checked = true;
     cerrarModal();
   });
 
@@ -336,10 +336,12 @@ function comprobarNumeroTarjeta() {
         comprobacion.textContent = "Número de tarjeta válido";
         comprobacion.style.color = "green";
         comprobacion.style.fontSize = "12px";
+        return true;
     } else {
         comprobacion.textContent = "Número de tarjeta incorrecto. Debe tener el formato '#### #### #### ####'";
         comprobacion.style.color = "red";
         comprobacion.style.fontSize = "12px";
+        return false;
     }
 }
 
@@ -383,9 +385,11 @@ function comprobarCaducidad() {
     if (anioNum > anioActual || (anioNum === anioActual && mesNum >= mesActual)) {
         comprobacion.textContent = "Caducidad válida";
         comprobacion.style.color = "green";
+        return true;
     } else {
         comprobacion.textContent = "La tarjeta está caducada";
         comprobacion.style.color = "red";
+        return false;
     }
 }
 
@@ -398,10 +402,12 @@ function comprobarCVC() {
         comprobacion.textContent = "CVC válido";
         comprobacion.style.color = "green";
         comprobacion.style.fontSize = "12px";
+        return true;
     } else {
         comprobacion.textContent = "CVC inválido. Debe ser de 3 dígitos";
         comprobacion.style.color = "red";
         comprobacion.style.fontSize = "12px";
+        return false;
     }
 }
 

@@ -11,6 +11,8 @@ public interface UsuarioService {
 
     UsuarioEntity registrarUsuario(UsuarioDTO usuarioDTO);
 
+    UsuarioEntity registrarUsuarioVIP(UsuarioDTO usuarioDTO);
+
     boolean usuarioExiste(String dni);
     
     boolean userNameExiste(String userName);
