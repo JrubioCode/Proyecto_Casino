@@ -33,7 +33,7 @@
     justify-content: center;
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.85);
-    border: 3px solid #ffff00;
+    border: 4px solid #ffff00;
     border-radius: 20px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
     z-index: 1; /* Frente al fondo */
@@ -41,6 +41,7 @@
   
   /* Logo y título centrado */
   .logo-bienvenida {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -54,11 +55,21 @@
   }
   
   .logo-bienvenida h1 {
-    color: #e5e619;
+    color: #023d16;
     font-size: 24px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   }
   
+  /*Logo del vip*/
+  .iconoVip {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: rotate(15deg);
+    width: 20px;
+    height: auto;
+  }
+
   /* Campos en dos columnas */
   .campos_registro {
     display: grid;
@@ -262,12 +273,28 @@
       gap: 15px;
     }
   
-    .logo-bienvenida img {
-      width: 80px;
+    .iconoCasino {
+      display: none;
     }
   
     .logo-bienvenida h1 {
-      font-size: 22px;
+      display: none;
+    }
+
+    .contenedorVip {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .iconoVip {
+      position: static;
+      transform: none;
+      margin: 0 auto;
+      width: 80px;
+      display: block;
+      justify-content: center;
+      align-items: center;
     }
   
     input {
