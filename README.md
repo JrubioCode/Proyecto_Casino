@@ -160,7 +160,7 @@ Nos alegra que hayas elegido nuestro casino ambientado en el fascinante mundo de
 			};
 		}
 	}
-   ```
+```
 
 <p>Te tiene que quedar algo así</p>
 
