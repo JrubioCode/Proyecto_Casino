@@ -1,5 +1,13 @@
 # Prehistoric Jackpot
 
+
+VALE, TEXRO DE ARRIBA
+
+![Descripción de la imagen](./Contenido-README/Imagen1.jpg)
+
+Y DE ABAJO
+
+
 **Prehistoric Jackpot** es un proyecto de casino en línea ambientado en la era del Paleolítico. El proyecto ofrece dos emocionantes juegos: una tragaperras y otro similar al **Dinosteak**, pero con una temática adaptada al Paleolítico. Los usuarios pueden registrarse, iniciar sesión, jugar y administrar su saldo mientras disfrutan de una experiencia única de casino.
 
 ---
