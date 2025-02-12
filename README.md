@@ -144,11 +144,10 @@ Nos alegra que hayas elegido nuestro casino ambientado en el fascinante mundo de
 
 <h1 align="center">DESPLIEGUE EN RAILWAY</h1>
 
-<p align="center">
-  <p>Lo primero que tienes que hacer es abrir tu archivo Application.java el cual es el encargado de lanzar la aplicación, y una vez dentro copias esto:</p>
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen1.png" width="700" height="auto">
-  ```bash
-   @Configuration
+<p>Lo primero que tienes que hacer es abrir tu archivo Application.java el cual es el encargado de lanzar la aplicación, y una vez dentro copias esto:</p>
+
+```java
+  @Configuration
 	public static class Myconfiguration{
 		@Bean
 		public WebMvcConfigurer corsConfigurer(){
@@ -162,6 +161,37 @@ Nos alegra que hayas elegido nuestro casino ambientado en el fascinante mundo de
 		}
 	}
    ```
+
+<p>Te tiene que quedar algo así</p>
+
+```java
+@SpringBootApplication
+public class ProyectoCasinoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ProyectoCasinoApplication.class, args);
+	}
+
+	// Configuracion para el despliegue en RailWay
+	@Configuration
+	public static class Myconfiguration{
+		@Bean
+		public WebMvcConfigurer corsConfigurer(){
+			return new WebMvcConfigurer() {
+				@Override
+				public void addCorsMappings(CorsRegistry registry) {
+					registry.addMapping("/**")
+							.allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+				}
+			};
+		}
+	}
+
+}
+   ```
+
+<p align="center">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen1.png" width="700" height="auto">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen2.png" width="700" height="auto">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen4.png" width="700" height="auto">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen5.png" width="700" height="auto">
