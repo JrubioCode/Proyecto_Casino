@@ -3,7 +3,7 @@
 
 VALE, TEXRO DE ARRIBA
 
-![Descripción de la imagen]([./ContenidoREADME/Imagen1.jpg](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen1.png))
+![Descripción de la imagen](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen1.png)
 
 Y DE ABAJO
 
