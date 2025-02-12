@@ -229,23 +229,23 @@ public class ProyectoCasinoApplication {
 
 <p>Una vez configurado el archivo Application.java, nos vamos a ir a google y nos vamos a ir a la página oficial de <a href="https://railway.com/">Railway</a></p>
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen4.png" align="center" width="1000" height="auto">
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen4.png" align="justify" width="1000" height="auto">
 
 <p>Ahora lo que tienes que hacer es registrarse, para ello le vas a dar a Login. Una vez le des te aparecera una ventana en la que podrás elegir el método de Registro</p>
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen5.png" align="center" width="1000" height="auto">
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen5.png" align="justify" width="1000" height="auto">
 
 <p>Una vez te hayas registrado te aparecerá la pagina principal de Railway, en la cual te aparecerán todos los proyectos.</p>
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen6.png" align="center" width="1000" height="auto">
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen6.png" align="justify" width="1000" height="auto">
 
 <p>Lo que vamos a hacer es crear un proyecto nuevo para poder desplegar la aplicacion. Para ello le daremos a New, y una vez le demos nos debe aparecer una página como esta, en la cual lo primero que tenemos que hacer es darle a Empty project.</p>
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen7.png" align="center" width="1000" height="auto">
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen7.png" align="justify" width="1000" height="auto">
 
 <p>Ya hemos creado el proyecto donde vamos a desplegar la aplicación, pero tenemos que configurarlo, para ello lo primero que vamos a hacer es darle a Add a service y elegir la opción de Database. Aqui tienes que elegir la que estes usando, en mi caso es MySQL</p>
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen8.png" align="center" width="1000" height="auto">
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen8.png" align="justify" width="1000" height="auto">
 
 <p align="center">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen10.png" width="700" height="auto">
