@@ -3,7 +3,7 @@
 
 VALE, TEXRO DE ARRIBA
 
-![Descripción de la imagen](ContenidoREADME/Imagen1.jpg)
+![Descripción de la imagen](./ContenidoREADME/Imagen1.jpg)
 
 Y DE ABAJO
 
