@@ -144,24 +144,26 @@ Nos alegra que hayas elegido nuestro casino ambientado en el fascinante mundo de
 
 # COMO DESPLEGAR TU APLICACIÓN EN RAILWAY
 
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen1.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen2.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen4.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen5.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen6.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen7.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen8.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen9.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen10.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen11.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen12.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen13.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen14.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen15.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen16.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen17.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen18.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen19.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen20.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen21.png)
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen22.png)
+<p align="center">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen1.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen2.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen4.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen5.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen6.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen7.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen8.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen9.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen10.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen11.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen12.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen13.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen14.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen15.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen16.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen17.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen18.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen19.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen20.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen21.png" width="600">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen22.png" width="600">
+</p>
