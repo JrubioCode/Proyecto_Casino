@@ -142,7 +142,7 @@ Nos alegra que hayas elegido nuestro casino ambientado en el fascinante mundo de
 
 ¡Buena suerte y que disfrutes del viaje en el tiempo! 🚀🎰
 
-# COMO DESPLEGAR TU APLICACIÓN EN RAILWAY
+<h1 align="center">DESPLIEGUE EN RAILWAY</h1>
 
 <p align="center">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen1.png" width="700" height="auto">
