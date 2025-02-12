@@ -1,13 +1,5 @@
 # Prehistoric Jackpot
 
-
-VALE, TEXRO DE ARRIBA
-
-![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen1.png)
-
-Y DE ABAJO
-
-
 **Prehistoric Jackpot** es un proyecto de casino en línea ambientado en la era del Paleolítico. El proyecto ofrece dos emocionantes juegos: una tragaperras y otro similar al **Dinosteak**, pero con una temática adaptada al Paleolítico. Los usuarios pueden registrarse, iniciar sesión, jugar y administrar su saldo mientras disfrutan de una experiencia única de casino.
 
 ---
@@ -149,3 +141,27 @@ Nos alegra que hayas elegido nuestro casino ambientado en el fascinante mundo de
 ¡Que la suerte de nuestros ancestros prehistóricos te acompañe mientras exploras, apuestas y te enfrentas a los desafíos que hemos preparado para ti! No olvides invitar a tus amigos para que también vivan la experiencia. 
 
 ¡Buena suerte y que disfrutes del viaje en el tiempo! 🚀🎰
+
+# COMO DESPLEGAR TU APLICACIÓN EN RAILWAY
+
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen1.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen2.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen4.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen5.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen6.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen7.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen8.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen9.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen10.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen11.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen12.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen13.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen14.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen15.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen16.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen17.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen18.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen19.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen20.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen21.png)
+![](https://github.com/JrubioCode/Proyecto_Casino/blob/41c8ad65e0a5c1b83ed3b96ce2cdcc323da80b49/ContenidoREADME/Imagen22.png)
