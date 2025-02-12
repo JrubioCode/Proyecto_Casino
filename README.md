@@ -1,58 +1,47 @@
 # Prehistoric Jackpot
 
-<div align="center">
-  <!-- Puedes agregar aquí un logo o banner si lo deseas -->
-  <!-- <img src="ruta/al/logo.png" alt="Logo Prehistoric Jackpot" width="200" height="auto"> -->
-</div>
-
-**Prehistoric Jackpot** es un proyecto de casino en línea ambientado en la era del Paleolítico. El proyecto ofrece dos emocionantes juegos: una tragaperras y otro similar al **Dinosteak**, adaptado a la temática prehistórica. Los usuarios pueden registrarse, iniciar sesión, jugar y administrar su saldo, disfrutando de una experiencia única.
+**Prehistoric Jackpot** es un proyecto de casino en línea ambientado en la era del Paleolítico. El proyecto ofrece dos emocionantes juegos: una tragaperras y otro similar al **Dinosteak**, pero con una temática adaptada al Paleolítico. Los usuarios pueden registrarse, iniciar sesión, jugar y administrar su saldo mientras disfrutan de una experiencia única de casino.
 
 ---
 
 ## Descripción
 
-Este proyecto se desarrolla utilizando **Spring Boot** para el backend, integrando **Spring MVC** y **Spring Data JPA** para gestionar la lógica de negocio y la persistencia de datos. En el frontend se emplea **Thymeleaf** junto con **HTML**, **CSS** y **JavaScript** para construir vistas interactivas y manejar recursos estáticos.
+Este proyecto está construido con **Spring Boot** para el backend, utilizando **Spring MVC** y **Spring Data JPA** para el manejo de la lógica de negocios y la persistencia de datos. En el frontend, se emplean **Thymeleaf**, **HTML**, **CSS**, y **JavaScript** para la creación de las vistas interactivas y la gestión de recursos estáticos.
 
-Los usuarios pueden registrarse, iniciar sesión, jugar y consultar su historial de apuestas, contando además con funcionalidades para la gestión de cuentas, saldo y registro histórico de actividades.
+Los usuarios pueden registrarse, iniciar sesión, jugar a los juegos y consultar su historial de apuestas. La funcionalidad incluye el manejo de cuentas de usuario, gestión de saldos, y un registro histórico de las actividades de los jugadores.
 
 ---
 
 ## Características
 
-<ul>
-  <li><strong>Registro de usuarios</strong>: Permite la creación de cuentas proporcionando datos personales.</li>
-  <li><strong>Autenticación</strong>: Inicio de sesión seguro mediante nombre de usuario y contraseña.</li>
-  <li><strong>Gestión de saldo</strong>: Visualiza y actualiza el saldo en tiempo real.</li>
-  <li><strong>Historial de juegos</strong>: Se registra cada jugada para su posterior consulta.</li>
-  <li>
-    <strong>Juegos principales</strong>:
-    <ul>
-      <li><strong>Tragaperras</strong>: Máquina tragamonedas con un toque prehistórico.</li>
-      <li><strong>Caveman Run</strong>: Juego inspirado en el Dinosteak, adaptado a la era Paleolítica.</li>
-    </ul>
-  </li>
-</ul>
+- **Registro de usuarios**: Los usuarios pueden registrarse proporcionando su información personal.
+- **Autenticación de usuarios**: Los usuarios pueden iniciar sesión con sus credenciales (nombre de usuario y contraseña).
+- **Gestión de saldo**: Los jugadores pueden ver y actualizar su saldo en tiempo real.
+- **Historial de juegos**: Cada jugada o tirada se registra para que los usuarios puedan consultar su historial.
+- **Dos juegos principales**:
+  - **Tragaperras**: Una clásica máquina tragamonedas con un toque de la era prehistórica.
+  - **Caveman Run**: Un juego ambientado en el Paleolítico similar al Dinosteak, donde los jugadores pueden hacer apuestas y ganar según el multiplicador.
 
 ---
 
 ## Tecnologías Utilizadas
 
-### Backend
-- **Spring Boot**
-- **Spring MVC**
-- **Spring Data JPA**
-- **MySQL**
-- **Jakarta Persistence (JPA)**
-- **Thymeleaf**
+- **Backend**:
+  - **Spring Boot**: Framework para desarrollar aplicaciones Java.
+  - **Spring MVC**: Para gestionar las vistas y controlar el flujo de la aplicación.
+  - **Spring Data JPA**: Para el acceso a bases de datos usando Hibernate.
+  - **MySQL**: Sistema de gestión de bases de datos para almacenar la información del usuario, historial y configuraciones de los juegos.
+  - **Jakarta Persistence (JPA)**: Para la gestión de la persistencia de datos.
+  - **Thymeleaf**: Motor de plantillas para la creación de vistas dinámicas.
 
-### Frontend
-- **HTML**
-- **CSS**
-- **JavaScript**
-- **EmailJS** (envío de correo de bienvenida)
-- **Web Workers** (manejo asíncrono de imágenes y videos)
-- **AJAX y jQuery** (actualizaciones dinámicas sin recargar la página)
-- **Recursos Multimedia** (imágenes, audios y videos)
+- **Frontend**:
+  - **HTML**: Lenguaje de marcado para estructurar las páginas web.
+  - **CSS**: Para el diseño visual y la presentación de las vistas.
+  - **JavaScript**: Para la interactividad en las páginas web.
+  - **EmailJS**: Para enviar un correo de bienvenida al registrarse
+  - **Web Workers**: Utilizados para manejar imágenes y videos de forma asíncrona.
+  - **AJAX y jQuery**: Para realizar actualizaciones dinámicas a la base de datos sin recargar la página.
+  - **Recursos multimedia**: Imágenes, audios y videos relacionados con los juegos.
 
 ---
 
