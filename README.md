@@ -144,7 +144,44 @@ Nos alegra que hayas elegido nuestro casino ambientado en el fascinante mundo de
 
 <h1 align="center">DESPLIEGUE EN RAILWAY</h1>
 
-<p>Lo primero que tienes que hacer es abrir tu archivo Application.java el cual es el encargado de lanzar la aplicación, y una vez dentro copias esto:</p>
+<p>Lo primero que tienes que hacer es comprobar que tu proyecto está usando la versión de java 17. Para ello te vas a ir al pom.xml y tienes que ver algo parecido a esto.</p>
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.0</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.ProyectoCasino</groupId>
+	<artifactId>ProyectoCasino</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>ProyectoCasino</name>
+	<description>Demo project for Spring Boot</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+  <!-- Resto del codigo... -->
+```
+
+<p>Ahora lo que tienes que hacer es abrir tu archivo Application.java el cual es el encargado de lanzar la aplicación, y una vez dentro copias esto:</p>
 
 ```java
   @Configuration
@@ -188,17 +225,29 @@ public class ProyectoCasinoApplication {
 	}
 
 }
-   ```
+```
+
+<p>Una vez configurado el archivo Application.java, nos vamos a ir a google y nos vamos a ir a la página oficial de <a href="https://railway.com/">Railway</a></p>
+
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen4.png" align="center" width="1000" height="auto">
+
+<p>Ahora lo que tienes que hacer es registrarse, para ello le vas a dar a Login. Una vez le des te aparecera una ventana en la que podrás elegir el método de Registro</p>
+
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen5.png" align="center" width="1000" height="auto">
+
+<p>Una vez te hayas registrado te aparecerá la pagina principal de Railway, en la cual te aparecerán todos los proyectos.</p>
+
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen6.png" align="center" width="1000" height="auto">
+
+<p>Lo que vamos a hacer es crear un proyecto nuevo para poder desplegar la aplicacion. Para ello le daremos a New, y una vez le demos nos debe aparecer una página como esta, en la cual lo primero que tenemos que hacer es darle a Empty project.</p>
+
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen7.png" align="center" width="1000" height="auto">
+
+<p>Ya hemos creado el proyecto donde vamos a desplegar la aplicación, pero tenemos que configurarlo, para ello lo primero que vamos a hacer es darle a Add a service y elegir la opción de Database. Aqui tienes que elegir la que estes usando, en mi caso es MySQL</p>
+
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen8.png" align="center" width="1000" height="auto">
 
 <p align="center">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen1.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen2.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen4.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen5.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen6.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen7.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen8.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen9.png" width="700" height="auto">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen10.png" width="700" height="auto">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen11.png" width="700" height="auto">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen12.png" width="700" height="auto">
