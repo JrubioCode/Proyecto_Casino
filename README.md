@@ -318,7 +318,7 @@ Una vez hayas creado la conexión correctamente en Railway, en el servicio de ba
 
 <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen14.png" width="1000" height="auto" align="center">
 
-## 6. Configurar final en Railway
+## 7. Configurar final en Railway
 
 Por último lo que tienes que hacer es crear otro servicio.
 
