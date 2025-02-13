@@ -308,7 +308,7 @@ Database: railway
 
 ---
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen13.png" width="80%" height="auto">
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen13.png" width="1000" height="auto" align="center">
 
 <p align="center">
   
