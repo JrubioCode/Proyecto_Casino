@@ -308,6 +308,8 @@ Database: railway
 
 ---
 
+Aquí tendrás que rellenar los campos con los datos anteriormente recogidos. Al darle aceptar te saldrá un advertencia, la cierras y aceptas.
+
 <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen13.png" width="1000" height="auto" align="center">
 
 <p align="center">
