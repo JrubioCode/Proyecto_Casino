@@ -231,7 +231,9 @@ public class ProyectoCasinoApplication {
 3. Espera a que el servicio se despliegue y accede a la pestaña `Data`.
 4. Haz clic en `Connect` y copia la **Connection URL**.
 
-![Pantalla de conexión a la base de datos](https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen11.png)
+<p align="center">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen11.png" width="80%">
+</p>
 
 ---
 
