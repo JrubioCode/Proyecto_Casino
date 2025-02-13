@@ -142,9 +142,13 @@ Nos alegra que hayas elegido nuestro casino ambientado en el fascinante mundo de
 
 ¡Buena suerte y que disfrutes del viaje en el tiempo! 🚀🎰
 
-<h1 align="center">DESPLIEGUE EN RAILWAY</h1>
+# DESPLIEGUE EN RAILWAY
 
-<p>Lo primero que tienes que hacer es comprobar que tu proyecto está usando la versión de java 17. Para ello te vas a ir al pom.xml y tienes que ver algo parecido a esto.</p>
+## 1. Verificar la versión de Java
+
+Lo primero que tienes que hacer es comprobar que tu proyecto está usando la versión de **Java 17**. Para ello, abre el archivo `pom.xml` y asegúrate de que contenga lo siguiente:
+
+### 📄 Archivo: `pom.xml`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -162,46 +166,28 @@ Nos alegra que hayas elegido nuestro casino ambientado en el fascinante mundo de
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ProyectoCasino</name>
 	<description>Demo project for Spring Boot</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-  <!-- Resto del codigo... -->
+</project>
 ```
 
-<p>Una vez comprobada la versión del proyecto, lo que tienes que hacer es abrir tu archivo Application.java el cual es el encargado de lanzar la aplicación, y una vez dentro copias esto:</p>
+---
+
+## 2. Configurar el archivo `Application.java`
+
+Abre el archivo `Application.java`, que es el encargado de lanzar la aplicación, y agrega la siguiente configuración CORS:
+
+### 📄 Archivo: `Application.java`
 
 ```java
-  @Configuration
-	public static class Myconfiguration{
-		@Bean
-		public WebMvcConfigurer corsConfigurer(){
-			return new WebMvcConfigurer() {
-				@Override
-				public void addCorsMappings(CorsRegistry registry) {
-					registry.addMapping("/**")
-							.allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
-				}
-			};
-		}
-	}
-```
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-<p>Te tiene que quedar algo así</p>
-
-```java
 @SpringBootApplication
 public class ProyectoCasinoApplication {
 
@@ -209,7 +195,7 @@ public class ProyectoCasinoApplication {
 		SpringApplication.run(ProyectoCasinoApplication.class, args);
 	}
 
-	// Configuración para el despliegue en RailWay
+	// Configuración para el despliegue en Railway
 	@Configuration
 	public static class Myconfiguration{
 		@Bean
@@ -218,58 +204,86 @@ public class ProyectoCasinoApplication {
 				@Override
 				public void addCorsMappings(CorsRegistry registry) {
 					registry.addMapping("/**")
-							.allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+						.allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
 				}
 			};
 		}
 	}
-
 }
 ```
 
-<p align="justify">Una vez configurado el archivo Application.java, nos vamos a ir a google y nos vamos a ir a la página oficial de <a href="https://railway.com/">Railway</a></p>
+---
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen4.png" align="center" width="1000" height="auto">
+## 3. Crear un proyecto en Railway
 
-<p>Ahora lo que tienes que hacer es registrarte, para ello le vas a dar a Login. Una vez le des te aparecera una ventana en la que podrás elegir el método de Registro</p>
+1. Ve a la página oficial de **[Railway](https://railway.app/)**.
+2. Regístrate o inicia sesión.
+3. En la pantalla principal, haz clic en `New` y selecciona `Empty Project`.
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen5.png" align="center" width="1000" height="auto">
+![Pantalla de creación de proyecto](https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen7.png)
 
-<p align="justify">Una vez te hayas registrado te aparecerá la pagina principal de Railway, en la cual te aparecerán todos los proyectos.</p>
+---
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen6.png" align="center" width="1000" height="auto">
+## 4. Configurar la base de datos en Railway
 
-<p align="justify">Lo que vamos a hacer es crear un proyecto nuevo para poder desplegar la aplicacion. Para ello le daremos a New, y una vez le demos nos debe aparecer una página como esta, en la cual lo primero que tenemos que hacer es darle a Empty project.</p>
+1. En el proyecto, haz clic en `Add a Service` y selecciona **Database**.
+2. Elige **MySQL** como base de datos.
+3. Espera a que el servicio se despliegue y accede a la pestaña `Data`.
+4. Haz clic en `Connect` y copia la **Connection URL**.
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen7.png" align="center" width="1000" height="auto">
+![Pantalla de conexión a la base de datos](https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen11.png)
 
-<p align="justify">Ya hemos creado el proyecto donde vamos a desplegar la aplicación, pero tenemos que configurarlo, para ello lo primero que vamos a hacer es darle a Add a service y elegir la opción de Database. Aqui tienes que elegir la que estes usando, en mi caso es MySQL</p>
+---
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen8.png" align="center" width="1000" height="auto">
+## 5. Configurar `application.properties`
 
-<p align="justify">Una vez desplegado el servicio, lo que tenemos que hacer es hacer click sobre él y esperar un poco. Te tendrá que salir una pantalla como esta, en ella tienes que ir al apartado de Data y darle al botón de Connect</p>
+Abre el archivo `application.properties` y configura los valores correctamente.
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen10.png" align="center" width="1000" height="auto">
+### 📄 Archivo: `src/main/resources/application.properties`
 
-<p align="justify">Cuando le des a Connect, te aparecerá una pantalla como esta, en la cual lo que tienes que hacer es copiar la primera opción que te aparece, Connection URL que es la cadena de conexión que te permite conectar tu aplicación a la base de datos.</p>
+```properties
+# Configuración del proyecto
+spring.application.name=ProyectoCasino
+server.port=8080
 
-<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen11.png" align="center" width="1000" height="auto">
-
-<p align="justify">Cuando hayas copiado la Connection URL te la vas a llevar a tu proyecto, y la vas a copiar en el application.properties y la vas a copiar en el apartado de spring.datasource.url</p>
-
-```yaml
+# Configuración de MySQL
 spring.datasource.url=jdbc:mysql://root:loIbZfLFaAXZHbyACsunXNgGfrJhCPdW@viaduct.proxy.rlwy.net:32383/railway
+spring.datasource.username=root
+spring.datasource.password=loIbZfLFaAXZHbyACsunXNgGfrJhCPdW
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Configuración de Hibernate
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.properties.hibernate.format_sql=true
 ```
 
-<p align="center">
-Tiene que quedarte así. ¡¡IMPORTANTE!! En la URL viene mucha información que tienes que configurar en el properties.
-1º mysql://root --> Root es el usuario por lo que en el spring.datasource.username tendras que ponerlo
-2º loIbZfLFaAXZHbyACsunXNgGfrJhCPdW --> Lo siguiente que viene es la contraseña, por lo que lo tendrás que poner en el apartado de spring.datasource.password. Ademas esta es la contraseña que tendrás que usar en la nueva conexión de tu base de datos que crearás.
-3º viaduct.proxy.rlwy.net --> Esto lo tendrás que poner en el Hostname que tendrás que usar cuando crees una nueva conexión en tu Base de datos.
-4º 32383 --> Este es el puerto que tendras que usar en el Port cuando crees la nueva conexión en tu Base de datos.
-5º railway --> Este es el nombre de tu base de datos, el cual usarás cuando crees el script de tu modelo de datos en la conexión que tendrás que crear con los datos anteriores.
-Tiene que quedarle algo así, pero con tus datos.
-</p>
+---
+
+## 6. Configurar la conexión en el gestor de base de datos
+
+Para conectar tu base de datos en un gestor como **MySQL Workbench**, usa los siguientes valores extraídos de la **Connection URL**:
+
+- **Usuario:** `root` → Se coloca en `spring.datasource.username`
+- **Contraseña:** `loIbZfLFaAXZHbyACsunXNgGfrJhCPdW` → Se coloca en `spring.datasource.password`
+- **Hostname:** `viaduct.proxy.rlwy.net` → Se usa en la conexión al gestor
+- **Puerto:** `32383` → Se configura en el gestor de base de datos
+- **Nombre de la base de datos:** `railway` → Se usa en el script del modelo de datos
+
+Ejemplo de conexión en **MySQL Workbench**:
+
+```
+Host: viaduct.proxy.rlwy.net
+Port: 32383
+Username: root
+Password: loIbZfLFaAXZHbyACsunXNgGfrJhCPdW
+Database: railway
+```
+
+---
+
+Con esto, tu aplicación estará correctamente configurada y lista para desplegarse en **Railway**. 🎲🚀
 
 ```yaml
 #project conf
@@ -290,7 +304,6 @@ spring.jpa.properties.hibernate.format_sql=true
 ```
 
 <p align="center">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen12.png" width="700" height="auto">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen13.png" width="700" height="auto">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen14.png" width="700" height="auto">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen15.png" width="700" height="auto">
