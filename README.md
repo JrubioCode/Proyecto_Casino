@@ -312,15 +312,29 @@ Aquí tendrás que rellenar los campos con los datos anteriormente recogidos. Al
 
 <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen13.png" width="1000" height="auto" align="center">
 
-<p align="center">
-  
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen14.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen15.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen16.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen17.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen18.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen19.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen20.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen21.png" width="700" height="auto">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen22.png" width="700" height="auto">
-</p>
+---
+
+Una vez hayas creado la conexión correctamente en Railway, en el servicio de base de datos elegido tiene que salirte así.
+
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen14.png" width="1000" height="auto" align="center">
+
+## 6. Configurar final en Railway
+
+Por último lo que tienes que hacer es crear otro servicio.
+
+1. En el proyecto, haz clic en `Add a Service` y selecciona **Github Repo**.
+2. Elige **Tu proyecto**
+3. Espera a que el servicio se despliegue y dale a `Deploy`.
+4. Recuerda tener los commits al dia ya que desplegará la última version desponible en el GitHub.
+
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen19.png" width="1000" height="auto" align="center">
+
+---
+
+Una vez desplegado con exito, en el servicio donde tienes el proyecto de GitHub, te vas al apartado de **Settings**, bajas a la sección de **Networking**, le das a generate domain, tiene que quedarte así.
+
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen21.png" width="1000" height="auto" align="center">
+
+Después de generar el dominio, si lo visitas verás tu página
+
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen22.png" width="1000" height="auto" align="center">
