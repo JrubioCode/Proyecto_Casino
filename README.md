@@ -220,7 +220,10 @@ public class ProyectoCasinoApplication {
 2. Regístrate o inicia sesión.
 3. En la pantalla principal, haz clic en `New` y selecciona `Empty Project`.
 
-![Pantalla de creación de proyecto](https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen7.png)
+<p align="center">
+  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen7.png" width="70%" height="70%">
+</p>
+
 
 ---
 
