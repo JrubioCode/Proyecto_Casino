@@ -181,7 +181,7 @@ Nos alegra que hayas elegido nuestro casino ambientado en el fascinante mundo de
   <!-- Resto del codigo... -->
 ```
 
-<p>Ahora lo que tienes que hacer es abrir tu archivo Application.java el cual es el encargado de lanzar la aplicación, y una vez dentro copias esto:</p>
+<p>Una vez comprobada la versión del proyecto, lo que tienes que hacer es abrir tu archivo Application.java el cual es el encargado de lanzar la aplicación, y una vez dentro copias esto:</p>
 
 ```java
   @Configuration
@@ -209,7 +209,7 @@ public class ProyectoCasinoApplication {
 		SpringApplication.run(ProyectoCasinoApplication.class, args);
 	}
 
-	// Configuracion para el despliegue en RailWay
+	// Configuración para el despliegue en RailWay
 	@Configuration
 	public static class Myconfiguration{
 		@Bean
@@ -231,7 +231,7 @@ public class ProyectoCasinoApplication {
 
 <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen4.png" align="center" width="1000" height="auto">
 
-<p>Ahora lo que tienes que hacer es registrarse, para ello le vas a dar a Login. Una vez le des te aparecera una ventana en la que podrás elegir el método de Registro</p>
+<p>Ahora lo que tienes que hacer es registrarte, para ello le vas a dar a Login. Una vez le des te aparecera una ventana en la que podrás elegir el método de Registro</p>
 
 <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen5.png" align="center" width="1000" height="auto">
 
