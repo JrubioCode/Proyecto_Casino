@@ -276,18 +276,6 @@ Para conectar tu base de datos en un gestor como **MySQL Workbench**, usa los si
 - **Puerto:** `32383` → Se configura en el gestor de base de datos
 - **Nombre de la base de datos:** `railway` → Se usa en el script del modelo de datos
 
-Ejemplo de conexión en **MySQL Workbench**:
-
-```
-Host: viaduct.proxy.rlwy.net
-Port: 32383
-Username: root
-Password: loIbZfLFaAXZHbyACsunXNgGfrJhCPdW
-Database: railway
-```
-
----
-
 Con esto, tu aplicación estará correctamente configurada y lista para desplegarse en **Railway**. 🎲🚀
 
 ```yaml
@@ -308,8 +296,22 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 spring.jpa.properties.hibernate.format_sql=true
 ```
 
+Ejemplo de conexión en **MySQL Workbench**. Así tiene que quedar la nueva conexión de tu gestor de base de datos:
+
+```
+Host: viaduct.proxy.rlwy.net
+Port: 32383
+Username: root
+Password: loIbZfLFaAXZHbyACsunXNgGfrJhCPdW
+Database: railway
+```
+
+---
+
+<img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen13.png" width="80%" height="auto">
+
 <p align="center">
-  <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen13.png" width="700" height="auto">
+  
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen14.png" width="700" height="auto">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen15.png" width="700" height="auto">
   <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen16.png" width="700" height="auto">
