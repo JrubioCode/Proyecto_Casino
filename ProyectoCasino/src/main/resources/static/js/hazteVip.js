@@ -6,7 +6,7 @@ btn.addEventListener("click", function (event) {
 
   // Comprobaciones
   if (comprobarNombre() && comprobarApellido1() && comprobarApellido2() && comprobarEdad() && comprobarUsuario() && comprobarEmail() && comprobarPasswd() &&
-  comprobarDNI() && comprobarNumero() && comprobarNumeroTarjeta() && comprobarCaducidad() && comprobarCVC()) {
+  comprobarDNI() && comprobarNumero() && comprobartitularTarjeta() && comprobarNumeroTarjeta() && comprobarCaducidad() && comprobarCVC()) {
     // Comprobar si se han aceptado los términos
     if (!aceptarTerminos()) {
       comprobarTerminos();
@@ -23,9 +23,10 @@ btn.addEventListener("click", function (event) {
         fechaNacimiento: document.getElementById("nacimiento").value,
         email: document.getElementById("email").value,
         numeroTelefono: document.getElementById("numero").value,
+        titularTarjeta: document.getElementById("titularTarjeta").value,
         numeroTarjeta: document.getElementById("numeroTarjeta").value,
-        Caducidad: document.getElementById("caducidad").value,
-        CVC: document.getElementById("cvc").value
+        fechaExpiracion: document.getElementById("caducidadTarjeta").value,
+        cvc: document.getElementById("cvcTarjeta").value
       };
 
       // Realizar la solicitud AJAX para guardar los datos
@@ -40,7 +41,7 @@ btn.addEventListener("click", function (event) {
             mostrarModal("El DNI ya está registrado. Por favor, verifica los datos.");
           } else if (response.includes("Error: El nombre de usuario ya está en uso")) {
             mostrarModal("El nombre de usuario ya está en uso. Por favor, elige otro.");
-          } else if (response.includes("USUARIO REGISTRADO CORRECTAMENTE")) {
+          } else if (response.includes("USUARIO VIP REGISTRADO CORRECTAMENTE")) {
             mostrarModal("¡Usuario registrado correctamente!");
 
             // Restablecer el formulario
@@ -327,88 +328,147 @@ function comprobarPasswd() {
   }
 }
 
-// Función para comprobar el número de tarjeta
-function comprobarNumeroTarjeta() {
-    const numTarjeta = document.getElementById("numeroTarjeta").value;
-    const comprobacion = document.getElementById("comprobacionTarjeta");
+// Comprobar nombre
+function comprobartitularTarjeta() {
+  const nombre = document.getElementById("titularTarjeta").value;
+  const letras = /^[A-Za-zÀ-ÿ\s]+$/;
 
-    if (numTarjeta.length === 19) {
-        comprobacion.textContent = "Número de tarjeta válido";
-        comprobacion.style.color = "green";
-        comprobacion.style.fontSize = "12px";
-        return true;
-    } else {
-        comprobacion.textContent = "Número de tarjeta incorrecto. Debe tener el formato '#### #### #### ####'";
-        comprobacion.style.color = "red";
-        comprobacion.style.fontSize = "12px";
-        return false;
-    }
+  const comprobaciontitularTarjeta = document.getElementById("comprobaciontitularTarjeta");
+
+  const comprobarLetras = (variables) => letras.test(variables);
+
+  if (comprobarLetras(nombre)) {
+    comprobaciontitularTarjeta.textContent = "Nombre correcto";
+    comprobaciontitularTarjeta.style.color = "green";
+    comprobaciontitularTarjeta.style.fontSize = "12px";
+    return true;
+  } else {
+    comprobaciontitularTarjeta.textContent = "Nombre incorrecto. No puede contener numeros";
+    comprobaciontitularTarjeta.style.color = "red";
+    comprobaciontitularTarjeta.style.fontSize = "12px";
+    return false;
+  }
+}
+
+// Función que se ejecuta cada vez que el usuario escribe en el input
+document.getElementById("numeroTarjeta").addEventListener("input", function() {
+  const comprobacion = document.getElementById("comprobacionTarjeta");
+  let rawValue = this.value;
+
+  // 1. Comprobamos si se han introducido caracteres no numéricos (excluyendo espacios)
+  if (/[^0-9\s]/.test(rawValue)) {
+    comprobacion.textContent = "Solo se permiten números";
+    comprobacion.style.color = "red";
+    comprobacion.style.fontSize = "12px";
+  } else {
+    // Si no hay letras, limpiamos el mensaje de error.
+    comprobacion.textContent = "";
+  }
+
+  // 2. Eliminamos todos los caracteres que no sean dígitos (quitamos también los espacios)
+  let digits = rawValue.replace(/\D/g, '');
+
+  // 3. Agrupamos los dígitos en bloques de 4
+  let groups = digits.match(/.{1,4}/g);
+  if (groups) {
+    this.value = groups.join(' ');
+  } else {
+    this.value = '';
+  }
+});
+
+// Función para comprobar si el número de tarjeta es válido (se puede llamar, por ejemplo, al hacer blur)
+function comprobarNumeroTarjeta() {
+  const numTarjeta = document.getElementById("numeroTarjeta").value;
+  const comprobacion = document.getElementById("comprobacionTarjeta");
+
+  if (numTarjeta.length === 19) { // 16 dígitos + 3 espacios
+    comprobacion.textContent = "Número de tarjeta válido";
+    comprobacion.style.color = "green";
+    comprobacion.style.fontSize = "12px";
+    return true;
+  } else {
+    comprobacion.textContent = "Número de tarjeta incorrecto. Debe tener el formato '#### #### #### ####'";
+    comprobacion.style.color = "red";
+    comprobacion.style.fontSize = "12px";
+    return false;
+  }
 }
 
 // Función para comprobar la caducidad de la tarjeta
 function comprobarCaducidad() {
-    const caducidad = document.getElementById("caducidadTarjeta").value;
-    const comprobacion = document.getElementById("comprobacionCaducidad");
+  const caducidad = document.getElementById("caducidadTarjeta").value;
+  const comprobacion = document.getElementById("comprobacionCaducidad");
 
-    // Verifica que la longitud sea exactamente 5 caracteres
-    if (caducidad.length !== 5 || caducidad.charAt(2) !== "/") {
-        comprobacion.textContent = "Formato incorrecto. Use MM/YY";
-        comprobacion.style.color = "red";
-        return;
-    }
+  // Verifica que se haya seleccionado una fecha
+  if (!caducidad) {
+      comprobacion.textContent = "Por favor, seleccione una fecha de caducidad";
+      comprobacion.style.color = "red";
+      return false;
+  }
 
-    // Extrae mes y año
-    const mes = caducidad.substring(0, 2);
-    const anio = caducidad.substring(3, 5);
+  // Para un input type="month", el formato es "YYYY-MM"
+  const partes = caducidad.split("-");
+  if (partes.length !== 2) {
+      comprobacion.textContent = "Formato de fecha incorrecto";
+      comprobacion.style.color = "red";
+      return false;
+  }
 
-    // Verifica que sean números
-    if (isNaN(mes) || isNaN(anio)) {
-        comprobacion.textContent = "Ingrese solo números en MM/YY";
-        comprobacion.style.color = "red";
-        return;
-    }
+  const anio = parseInt(partes[0], 10);
+  const mes = parseInt(partes[1], 10);
 
-    const mesNum = parseInt(mes, 10);
-    const anioNum = parseInt("20" + anio, 10);
-    const hoy = new Date();
-    const anioActual = hoy.getFullYear();
-    const mesActual = hoy.getMonth() + 1;
+  // Verifica que año y mes sean números válidos
+  if (isNaN(anio) || isNaN(mes)) {
+      comprobacion.textContent = "La fecha contiene valores inválidos";
+      comprobacion.style.color = "red";
+      return false;
+  }
 
-    // Verifica que el mes sea válido (1 a 12)
-    if (mesNum < 1 || mesNum > 12) {
-        comprobacion.textContent = "Mes inválido";
-        comprobacion.style.color = "red";
-        return;
-    }
+  // Verifica que el mes esté entre 1 y 12
+  if (mes < 1 || mes > 12) {
+      comprobacion.textContent = "Mes inválido";
+      comprobacion.style.color = "red";
+      return false;
+  }
 
-    // Verifica si la tarjeta está caducada
-    if (anioNum > anioActual || (anioNum === anioActual && mesNum >= mesActual)) {
-        comprobacion.textContent = "Caducidad válida";
-        comprobacion.style.color = "green";
-        return true;
-    } else {
-        comprobacion.textContent = "La tarjeta está caducada";
-        comprobacion.style.color = "red";
-        return false;
-    }
+  const hoy = new Date();
+  const anioActual = hoy.getFullYear();
+  const mesActual = hoy.getMonth() + 1; // getMonth() es 0-indexado
+
+  // Verifica que la fecha de caducidad no sea anterior a la fecha actual
+  if (anio > anioActual || (anio === anioActual && mes >= mesActual)) {
+      comprobacion.textContent = "Caducidad válida";
+      comprobacion.style.color = "green";
+      return true;
+  } else {
+      comprobacion.textContent = "La tarjeta está caducada";
+      comprobacion.style.color = "red";
+      return false;
+  }
 }
+
+document.getElementById("cvcTarjeta").addEventListener("input", function() {
+  // Reemplazamos cualquier carácter que no sea dígito por una cadena vacía
+  this.value = this.value.replace(/\D/g, '');
+});
 
 // Función para comprobar el CVC
 function comprobarCVC() {
-    const cvc = document.getElementById("cvcTarjeta").value;
-    const comprobacion = document.getElementById("comprobacionCVC");
+  const cvc = document.getElementById("cvcTarjeta").value;
+  const comprobacion = document.getElementById("comprobacionCVC");
 
-    if (cvc.length === 3) {
-        comprobacion.textContent = "CVC válido";
-        comprobacion.style.color = "green";
-        comprobacion.style.fontSize = "12px";
-        return true;
-    } else {
-        comprobacion.textContent = "CVC inválido. Debe ser de 3 dígitos";
-        comprobacion.style.color = "red";
-        comprobacion.style.fontSize = "12px";
-        return false;
-    }
+  if (cvc.length === 3) {
+    comprobacion.textContent = "CVC válido";
+    comprobacion.style.color = "green";
+    comprobacion.style.fontSize = "12px";
+    return true;
+  } else {
+    comprobacion.textContent = "CVC inválido. Debe ser de 3 dígitos";
+    comprobacion.style.color = "red";
+    comprobacion.style.fontSize = "12px";
+    return false;
+  }
 }
 
 // Mostrar modal general

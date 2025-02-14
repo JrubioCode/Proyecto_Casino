@@ -74,21 +74,26 @@
                         <input type="number" id="numero" name="numero" placeholder=" Número de teléfono" oninput="comprobarNumero()" required  />
                         <div id="comprobacionNumero"></div>
                     </div>
+                    <div class="contenedor_titularTarjeta">
+                        <label for="titularTarjeta">Titular de la tarjeta</label>
+                        <input type="text" id="titularTarjeta" name="titularTarjeta" placeholder=" Titular de la tarjeta" oninput="comprobartitularTarjeta()" required  />
+                        <div id="comprobaciontitularTarjeta"></div>
+                    </div>
                     <div class="contenedor_numeroTarjeta">
                         <label for="numeroTarjeta">Número de tarjeta</label>
                         <input type="text" id="numeroTarjeta" maxlength="19" pattern="\d{4} \d{4} \d{4} \d{4}" inputmode="numeric" placeholder="1234 5678 9123 4567">
                         <div id="comprobacionTarjeta"></div>
-                    </div>
+                    </div>                      
                     <div class="contenedor_caducidad">
                         <label for="caducidad">Caducidad de la tarjeta</label>
-                        <input type="text" id="caducidadTarjeta" maxlength="5" pattern="(0[1-9]|1[0-2])/\d{2}" placeholder="MM/YY">
+                        <input type="month" id="caducidadTarjeta" name="fechaExpiracion" placeholder="MM/YY">
                         <div id="comprobacionCaducidad"></div>
-                    </div>
+                    </div>                                         
                     <div class="contenedor_cvc">
-                        <label for="cvc">Cvc de la tarjeta</label>
+                        <label for="cvcTarjeta">Cvc de la tarjeta</label>
                         <input type="text" id="cvcTarjeta" maxlength="3" pattern="\d{3}" inputmode="numeric" placeholder="123">
                         <div id="comprobacionCVC"></div>
-                    </div>
+                    </div>                      
                 </div>
                 <!-- Otra informacion -->
                 <div class="terminos">
@@ -189,7 +194,7 @@
             <!-- Scripts de emailJS y de enlace -->
             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
             <script type="text/javascript"> emailjs.init("lc3NBvjj8xP5x2cjU");</script>
-            <script src="/js/registro.js"></script>
+            <script src="/js/hazteVip.js"></script>
         </div>
     </body>
 </html>

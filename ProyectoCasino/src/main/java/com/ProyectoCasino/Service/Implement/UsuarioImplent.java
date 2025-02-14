@@ -73,8 +73,16 @@ public class UsuarioImplent implements UsuarioService {
         usuarioEntity.setNumeroTelefono(usuarioDTO.getNumeroTelefono());
         usuarioEntity.setDineroUsuario(0.0);
         usuarioEntity.setEsVip(true);
+        usuarioEntity.setTitularTarjeta(usuarioDTO.getTitularTarjeta());
         usuarioEntity.setNumeroTarjeta(usuarioDTO.getNumeroTarjeta());
-        usuarioEntity.setFechaExpiracion(usuarioDTO.getFechaExpiracion());
+        if (usuarioDTO.getFechaExpiracion() != null && !usuarioDTO.getFechaExpiracion().isEmpty()) {
+            // Añadimos "-01" para transformar "YYYY-MM" en "YYYY-MM-01"
+            String fechaExpCompleta = usuarioDTO.getFechaExpiracion() + "-01";
+            // Convertimos el String a java.sql.Date y lo asignamos a la entidad
+            usuarioEntity.setFechaExpiracion(java.sql.Date.valueOf(fechaExpCompleta));
+        } else {
+            usuarioEntity.setFechaExpiracion(null);
+        }        
         usuarioEntity.setCvc(usuarioDTO.getCvc());
 
         return usuarioRepository.save(usuarioEntity);
