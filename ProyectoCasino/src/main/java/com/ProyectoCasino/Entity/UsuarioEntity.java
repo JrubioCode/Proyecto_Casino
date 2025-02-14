@@ -46,11 +46,11 @@ public class UsuarioEntity implements Serializable {
     @Column(name = "ES_VIP")
     private Boolean esVip;
 
-    @Column(name = "NUMERO_TARJETA", length = 16)
-    private Integer numeroTarjeta;
-
     @Column(name = "TITULAR_TARJETA", length = 100)
     private String titularTarjeta;
+
+    @Column(name = "NUMERO_TARJETA", length = 19)
+    private String numeroTarjeta;
 
     @Column(name = "FECHA_EXPIRACION")
     @Temporal(TemporalType.DATE)
@@ -151,11 +151,11 @@ public class UsuarioEntity implements Serializable {
         this.esVip = esVip;
     }
 
-    public Integer getNumeroTarjeta() {
+    public String getNumeroTarjeta() {
         return numeroTarjeta;
     }
 
-    public void setNumeroTarjeta(Integer numeroTarjeta) {
+    public void setNumeroTarjeta(String numeroTarjeta) {
         this.numeroTarjeta = numeroTarjeta;
     }
 
