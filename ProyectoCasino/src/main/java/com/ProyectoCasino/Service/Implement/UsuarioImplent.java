@@ -121,4 +121,9 @@ public class UsuarioImplent implements UsuarioService {
         return usuarioRepository.findById(dni).orElse(null);
     }
 
+    @Override
+    public UsuarioEntity buscarPorDni(String dni) {
+        return usuarioRepository.findByDni(dni);
+    }
+
 }

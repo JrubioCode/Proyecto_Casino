@@ -18,17 +18,8 @@ function comprobaciones(event) {
           localStorage.setItem("dni", response.dni);
           localStorage.setItem("esVip", response.esVip);
 
-          if (response.esVip) {
-            mostrarModal("Usuario VIP autenticado correctamente. Redirigiendo al lobby VIP...");
-            setTimeout(() => {
-              window.location.pathname = "/lobbyVip";
-            }, 3000);
-          } else {
-            mostrarModal("Usuario autenticado correctamente. Redirigiendo al lobby...");
-            setTimeout(() => {
-              window.location.pathname = "/lobby";
-            }, 3000);
-          }
+          // Redirigir a /lobby con el parámetro dni
+          window.location.href = `/lobby?dni=${response.dni}`;
         }
       },
       error: function (error) {

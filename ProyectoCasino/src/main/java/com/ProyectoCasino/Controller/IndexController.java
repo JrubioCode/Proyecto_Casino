@@ -1,10 +1,19 @@
 package com.ProyectoCasino.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.ProyectoCasino.Entity.UsuarioEntity;
+import com.ProyectoCasino.Service.UsuarioService;
 
 @Controller
 public class IndexController {
+
+    @Autowired
+    UsuarioService usuarioService;
 
     // Metodo para acceder al login
     @GetMapping("/")
@@ -18,11 +27,21 @@ public class IndexController {
         return "registro";
     }
 
-    // Metodo para acceder al lobby
     @GetMapping("/lobby")
-    public String lobby() {
-        return "lobby";
+    public String lobby(@RequestParam("dni") String dni, Model model) {
+        // Buscar el usuario en la base de datos por su DNI
+        UsuarioEntity usuario = usuarioService.buscarPorDni(dni);
+
+        // Agregar el atributo "esVip" al modelo para que Thymeleaf lo use
+        if (usuario != null) {
+            model.addAttribute("esVip", usuario.getEsVip());
+        } else {
+            model.addAttribute("esVip", false);
+        }
+
+        return "lobby"; // Renderiza la vista lobby.html
     }
+
 
     // Metodo para acceder a CavemanRun
     @GetMapping("/cavemanRun")

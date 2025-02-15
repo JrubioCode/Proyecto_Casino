@@ -22,5 +22,7 @@ public interface UsuarioService {
     UsuarioDTO actualizarSaldo(UsuarioDTO usuarioDTO);
 
     UsuarioEntity obtenerUsuarioPorDni(String dni);
+
+    UsuarioEntity buscarPorDni(String dni);
     
 }
