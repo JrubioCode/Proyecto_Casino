@@ -202,9 +202,6 @@ hr {
 
 /* Responsive para tablets */
 @media (min-width: 769px) and (max-width: 1024px) {
-  body {
-    margin-top: 50px;
-  }
 
   #contenedor_registro {
     width: 85%;
@@ -227,9 +224,6 @@ hr {
 
 /* Responsive para móviles */
 @media (max-width: 768px) {
-  body {
-    margin-top: 50px;
-  }
 
   #contenedor_registro {
     width: 80%;

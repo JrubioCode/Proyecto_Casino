@@ -1,6 +1,8 @@
 /* Estilo general */
 * {
     font-family: 'Lobster', cursive;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -39,7 +41,7 @@ body {
     z-index: 1; /* Contenedor por encima del fondo difuminado */
 }
 
-/* Logo y titulo */
+/* Logo y título */
 .logo-bienvenida {
     display: flex;
     align-items: center;
@@ -80,22 +82,22 @@ input {
     font-size: 16px;
 }
 
-.comprobacionUsuario{
+.comprobacionUsuario {
     height: 25px;
 }
 
-.comprobacionPasswd{
+.comprobacionPasswd {
     height: 25px;
 }
 
 /* Links */
-.registrate_aqui, .olvidar_contraseña,.hazte_vip, .acceder {
+.registrate_aqui, .olvidar_contraseña, .hazte_vip, .acceder {
     display: flex;
     justify-content: center;
     margin-top: 10px;
 }
 
-/* Boton */
+/* Botón */
 .acceder {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -116,7 +118,7 @@ input {
     background-color: #03551f;
 }
 
-/* Linea separatoria */
+/* Línea separatoria */
 hr {
     margin: 30px 0;
     border: 2px solid black;
@@ -142,10 +144,10 @@ hr {
     justify-content: center;
     align-items: center;
     z-index: 2;
-  }
-  
-  /* Contenido del modal */
-  .contenido-modal {
+}
+
+/* Contenido del modal */
+.contenido-modal {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 30px;
     border: 2px solid #a8b8c4;
@@ -156,16 +158,16 @@ hr {
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     overflow-y: auto;
-  }
-  
-  #mensajeModal {
+}
+
+#mensajeModal {
     font-size: 18px;
     margin-bottom: 20px;
     color: #03551f;
-  }
-  
-  /* Botón de cerrar */
-  .aceptar {
+}
+
+/* Botón de cerrar */
+.aceptar {
     background-color: #03551f;
     color: white;
     border: none;
@@ -175,78 +177,96 @@ hr {
     cursor: pointer;
     transition: background-color 0.3s;
     margin-top: 10px;
-  }
+}
 
-/* Para pantallas menores o iguales a 1200px */
-@media (max-width: 1200px) {
+/* Responsive para Tablets (769px a 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
     #contenedor_login {
-        width: 380px;
+        width: 350px;
         padding: 25px;
     }
+
     .logo-bienvenida img {
         width: 90px;
     }
+
     .logo-bienvenida h1 {
         font-size: 22px;
     }
-    label {
+
+    label,
+    .juego_responsable {
         font-size: 16px;
     }
+
     input {
-        font-size: 15px;
-    }
-    .acceder button {
-        font-size: 17px;
-        padding: 9px 18px;
-    }
-}
-
-/* Para pantallas menores o iguales a 768px */
-@media (max-width: 768px) {
-    body {
-        margin-top: 30px;
-    }
-
-    #contenedor_login {
-        width: 90%;
-        padding: 15px;
-    }
-   
-    .logo-bienvenida {
-        flex-direction: column;
-        padding-left: 0;
-        text-align: center;
-    }
-
-    .logo-bienvenida img {
-        width: 80px;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    .logo-bienvenida h1 {
-        font-size: 18px;
-    }
-
-    label {
+        padding: 8px;
         font-size: 14px;
     }
 
-    input {
-        font-size: 13px;
-    }
-
     .acceder button {
-        font-size: 15px;
-        padding: 8px 14px;
-        margin-top: -30px;
+        padding: 8px 15px;
+        font-size: 16px;
+        margin-bottom: -20px;
+        margin-top: -20px;
     }
 
     hr {
         margin: 20px 0;
     }
 
+    #mensajeModal {
+        font-size: 16px;
+    }
+
+    .aceptar {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+
+/* Responsive para Móviles (hasta 768px) */
+@media (max-width: 768px) {
+    #contenedor_login {
+        width: 300px;
+        padding: 20px;
+    }
+
+    .logo-bienvenida img {
+        width: 70px;
+    }
+
+    .logo-bienvenida h1 {
+        font-size: 20px;
+    }
+
+    label,
     .juego_responsable {
         font-size: 16px;
+    }
+
+    input {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .acceder button {
+        padding: 8px 15px;
+        font-size: 16px;
+        margin-bottom: -20px;
+        margin-top: -20px;
+    }
+
+    hr {
+        margin: 20px 0;
+    }
+
+    #mensajeModal {
+        font-size: 16px;
+    }
+
+    .aceptar {
+        padding: 8px 15px;
+        font-size: 14px;
     }
 }

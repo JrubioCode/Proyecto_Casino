@@ -37,6 +37,7 @@ public class UsuarioImplent implements UsuarioService {
             usuario.setFechaNacimiento(usuarioEntity.getFechaNacimiento().toString());
             usuario.setEmail(usuarioEntity.getEmail());
             usuario.setNumeroTelefono(usuarioEntity.getNumeroTelefono());
+            usuario.setEsVip(usuarioEntity.getEsVip());
         }
 
         return usuario;
@@ -113,17 +114,6 @@ public class UsuarioImplent implements UsuarioService {
 
         usuarioDTO.setDineroUsuario(actualizado.getDineroUsuario());
         return usuarioDTO;
-    }
-
-    @Override
-    public String obtenerDni(String userName, String userPassword) {
-        UsuarioEntity usuarioEntity = usuarioRepository.findByUserName(userName).orElse(null);
-
-        if (usuarioEntity != null && usuarioEntity.getUserPassword().equals(userPassword)) {
-            return usuarioEntity.getDni();
-        } else {
-            return null;
-        }
     }
 
     @Override

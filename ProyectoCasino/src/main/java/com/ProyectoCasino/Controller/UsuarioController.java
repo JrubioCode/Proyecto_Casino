@@ -55,30 +55,23 @@ public class UsuarioController {
         return "USUARIO VIP REGISTRADO CORRECTAMENTE";
     }
 
-    @GetMapping("/comprobarUsuario/{userName}/{userPassword}")
-    public String comprobarUsuario(@PathVariable("userName") String userName, @PathVariable("userPassword") String pwd) {
-        UsuarioEntity user = usuarioService.comprobarUsuario(userName);
-        String respuesta;
-
-        if (user == null) {
-            respuesta = "404 - Usuario no encontrado";
-        } else {
-            UsuarioDTO usuarioDTO = usuarioService.validarUsuario(user, pwd);
-            if (usuarioDTO == null) {
-                respuesta = "Contraseña incorrecta";
-            } else {
-                respuesta = "OK";
-            }
+    // Login
+    @GetMapping("/autenticar/{userName}/{userPassword}")
+    public Object autenticarUsuario(@PathVariable("userName") String userName,  @PathVariable("userPassword") String userPassword) {
+        UsuarioEntity usuarioEntity = usuarioService.comprobarUsuario(userName);
+        
+        if (usuarioEntity == null) {
+            return "404 - Usuario no encontrado";
         }
         
-        return respuesta;
+        UsuarioDTO usuarioDTO = usuarioService.validarUsuario(usuarioEntity, userPassword);
+        if (usuarioDTO == null) {
+            return "Contraseña incorrecta";
+        }
+
+        return usuarioDTO;
     }
 
-    @GetMapping("/obtenerDni/{userName}/{userPassword}")
-    public String obtenerDni(@PathVariable("userName") String userName, @PathVariable("userPassword") String userPassword) {
-        String dni = usuarioService.obtenerDni(userName, userPassword);
-        return dni;
-    }
 
     @GetMapping("/obtenerSaldo/{dni}")
     public double obtenerSaldo(@PathVariable("dni") String dni) {
