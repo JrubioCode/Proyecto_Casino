@@ -3,19 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blackjack Avanzado</title>
+  <title>Blackjack savageHands</title>
   <link rel="stylesheet" href="/css/savageHands.css" />
 </head>
 <body>
-
-  <header>
-    <nav class="navbar">
-      <h1>Blackjack</h1>
-      <div class="nav-botones">
-        <button id="toggle-ayuda">?</button>
+  <!-- HEADER -->
+  <div class="contenido-header">
+    <div class="header">
+      <!-- LOGO Y TÍTULO -->
+      <div class="logo-titulo">
+        <a href="./lobby.html">
+          <img src="./assets/savageHands/logo-juego.png" alt="Logo">
+        </a>
+        <h1>CAVEMAN RUN</h1>
       </div>
-    </nav>
-  </header>
+      <div class="barra-separar"></div>
+      <!-- GESTIÓN DE SALDO -->
+      <div class="gestion-saldo">
+        <div class="botones-saldo">
+          <input type="button" id="boton-ingresar-dinero" value="Meter dinero">
+          <input type="button" id="boton-retirar-dinero" value="Sacar dinero">
+          <input type="button" id="boton-convertir-a-fichas" value="Convertir a fichas">
+          <input type="button" id="boton-convertir-a-dinero" value="Convertir a dinero">
+        </div>
+        <div class="mensajes-saldo">
+          <p id="dinero-actual" class="dinero-actual">DINERO: 1000€</p>
+          <p id="fichas-actuales" class="fichas-actuales">FICHAS: 0🎫</p>
+        </div>
+      </div>
+      <div class="barra-separar"></div>
+      <!-- RELOJ Y AJUSTES -->
+      <div class="reloj-ajustes">
+        <div class="reloj-container">
+          <div id="reloj"></div>
+        </div>
+        <!-- Botón de Información para abrir el modal -->
+        <span id="toggle-ayuda" class="info-icon">ℹ</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÁREA DE APUESTAS -->
+  <section id="area-apuestas">
+    <h2>Realiza tu apuesta</h2>
+    <div class="chips-container">
+      <img src="./assets/savageHands/ficha10.png" alt="10" class="chip" data-value="10">
+      <img src="./assets/savageHands/ficha25.png" alt="25" class="chip" data-value="25">
+      <img src="./assets/savageHands/ficha50.png" alt="50" class="chip" data-value="50">
+      <img src="./assets/savageHands/ficha100.png" alt="100" class="chip" data-value="100">
+    </div>
+    <p>Apuesta actual: <span id="apuesta-actual">0</span>€</p>
+    <button id="reiniciar-apuesta">Reiniciar Apuesta</button>
+  </section>
 
   <main>
     <section id="seccion-juego">
@@ -40,7 +79,8 @@
     </section>
   </main>
 
-  <div id="modal-ayuda" class="modal oculto">
+  <!-- MODAL DE AYUDA / INFORMACIÓN -->
+  <div id="modal-ayuda" class="modal">
     <div class="modal-contenido">
       <span class="cerrar" id="cerrar-modal">&times;</span>
       <section id="seccion-ayuda">
@@ -54,19 +94,39 @@
         </ul>
         <p><strong>Desarrollo del Juego:</strong></p>
         <ul>
-          <li>Haz clic en <strong>"Nuevo Juego"</strong> para iniciar una partida.</li>
+          <li>Realiza una apuesta utilizando tus fichas.</li>
+          <li>Haz clic en <strong>"Nuevo Juego"</strong> para iniciar una partida (debes tener una apuesta mayor a 0).</li>
           <li>Se repartirán dos cartas a cada uno (jugador y dealer).</li>
           <li>Utiliza <strong>"Pedir Carta"</strong> para solicitar una carta adicional.</li>
           <li>Utiliza <strong>"Plantarse"</strong> para finalizar tu turno y dejar que el dealer juegue.</li>
           <li>El dealer debe pedir cartas hasta alcanzar al menos 17.</li>
           <li>Si superas 21, pierdes la partida. Si el dealer se pasa, ganas.</li>
-          <li>Si ambos tienen la misma puntuación, se declara empate.</li>
+          <li>Si ambos tienen la misma puntuación, se declara empate y recuperas tu apuesta.</li>
         </ul>
         <p>¡Recuerda que el objetivo es obtener una mano lo más cercana posible a 21 sin exceder ese valor!</p>
       </section>
     </div>
-  </div>  
-  
+  </div>
+
+  <!-- Modal de Mensajes -->
+  <div id="modal-message" class="modal-message">
+    <div class="modal-message-content">
+      <p id="modal-message-text"></p>
+      <button id="modal-message-close">OK</button>
+    </div>
+  </div>
+
+  <!-- Modal de Solicitud de Número -->
+  <div id="modal-solicitud" class="modal-solicitud">
+    <div class="modal-solicitud-content">
+      <p id="modal-solicitud-text"></p>
+      <input type="number" id="modal-solicitud-input" />
+      <div>
+        <button id="modal-solicitud-aceptar">Aceptar</button>
+        <button id="modal-solicitud-cancelar">Cancelar</button>
+      </div>
+    </div>
+
   <script src="/js/savageHands.js"></script>
 </body>
 </html>
