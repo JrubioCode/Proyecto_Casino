@@ -21,8 +21,8 @@ public interface UsuarioService {
 
     UsuarioDTO actualizarSaldo(UsuarioDTO usuarioDTO);
 
-    String obtenerDni(String userName, String userPassword);
-
     UsuarioEntity obtenerUsuarioPorDni(String dni);
+
+    UsuarioEntity buscarPorDni(String dni);
     
 }

@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
+    <!-- Cargar valor oculto -->
+    <input type="hidden" th:value="${esVip}">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CASINO</title>
     <link rel="icon" href="/assets/moneda.png" type="image/icon type">
-    <link rel="stylesheet" href="/css/lobby.css" />
+    <!-- Carga el CSS en funcion del valor oculto -->
+    <link rel="stylesheet" th:if="${esVip}" href="/css/lobby_vip.css" />
+    <link rel="stylesheet" th:unless="${esVip}" href="/css/lobby_normal.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lobster&display=swap" rel="stylesheet">
   </head>
   <body>
-    <!-- Header -->
-    <div class="contenidoHeader">
-      <div class="header">
-        <img src="./assets/logo.webp" alt="Logo del Casino" />
-        <h1>PREHISTORIC JACKPOT</h1>
-        <!-- Contenedor reloj -->
-        <div class="reloj-container">
-          <div id="reloj"></div>
-        </div>
-      </div>
-    </div>
+
+    <!-- Verificamos si el usuario es VIP o no -->
+    <div th:if="${esVip}" th:insert="~{fragments/lobby_HeaderVip :: lobbyHeader}"></div>
+    <div th:unless="${esVip}" th:insert="~{fragments/lobby_HeaderNormal :: lobbyHeader}"></div>
+
     <!-- Principal -->
     <div class="contenidoCasino">
       <!-- Carrusel de Juegos -->

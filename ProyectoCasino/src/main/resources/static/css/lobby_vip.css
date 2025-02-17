@@ -1,0 +1,174 @@
+/* Estilo general */
+* {
+    font-family: 'Lobster', cursive;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: url('./../assets/lobby/fondo.png');
+}
+
+/* Estilo de la cabecera */
+.contenidoHeader {
+    background-color: rgba(255, 255, 255);
+    border: 3px solid #03551f;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px;
+}
+
+.header img {
+    width: 200px;
+    height: auto;
+    border-radius: 50%;
+    border: 5px solid #05752a;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.header h1 {
+    color: #750505;
+    font-size: 50px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    margin-left: 20px;
+}
+
+/* Contenedor para el reloj */
+.reloj-container {
+    position: absolute;
+    right: 20px;
+    top: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #03551f;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#reloj {
+    font-size: 30px;
+    color: #05752a;
+    font-weight: bold;
+    width: 100px;
+}
+
+/* Estilo del cuerpo */
+.contenidoCasino {
+    padding: 50px;
+    text-align: center;
+    border: 2px solid #03551f;
+    border-radius: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 30px rgba(139, 69, 19, 0.5);
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+/* Carrusel */
+.carrusel-juegos {
+    position: relative;
+    max-width: 800px;
+    margin: 20px auto;
+    height: 500px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.contenedor-carrusel {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carrusel-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.carrusel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #03551f;
+}
+
+.carrusel-izquierda, .carrusel-derecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.carrusel-izquierda img, .carrusel-derecha img {
+    width: 50px; 
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.carrusel-izquierda:hover img, .carrusel-derecha:hover img {
+    transform: scale(1.1);
+}
+
+/* Espaciado de los botones */
+.carrusel-izquierda {
+    left: 10px;
+}
+
+.carrusel-derecha {
+    right: 10px;
+}
+
+/* Estilo del footer */
+.contenidoFooter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-top: 2px solid #03551f;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    color: #023d16;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.links-footer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 80px;
+    margin: 20px 0;
+}
+
+.contenedores-footer h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #05752a;
+}
+
+.contenedores-footer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contenedores-footer a {
+    color: #023d16;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 16px;
+}
+
+.responsabilidad, .copyright {
+    font-size: 14px;
+    color: #023d16;
+    margin-top: 10px;
+}

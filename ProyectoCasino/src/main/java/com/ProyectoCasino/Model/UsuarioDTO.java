@@ -1,6 +1,5 @@
 package com.ProyectoCasino.Model;
 
-import java.util.Date;
 import java.util.Set;
 
 public class UsuarioDTO {
@@ -16,9 +15,9 @@ public class UsuarioDTO {
     private String numeroTelefono;
     private Double dineroUsuario;
     private Boolean esVip;
-    private Integer numeroTarjeta;
     private String titularTarjeta;
-    private Date fechaExpiracion;
+    private String numeroTarjeta;
+    private String fechaExpiracion;
     private Integer cvc;
     private Set<Integer> historicos; // ID de HistoricoEntity
 
@@ -111,11 +110,11 @@ public class UsuarioDTO {
         this.esVip = esVip;
     }
 
-    public Integer getNumeroTarjeta() {
+    public String getNumeroTarjeta() {
         return numeroTarjeta;
     }
 
-    public void setNumeroTarjeta(Integer numeroTarjeta) {
+    public void setNumeroTarjeta(String numeroTarjeta) {
         this.numeroTarjeta = numeroTarjeta;
     }
 
@@ -127,11 +126,11 @@ public class UsuarioDTO {
         this.titularTarjeta = titularTarjeta;
     }
 
-    public Date getFechaExpiracion() {
+    public String getFechaExpiracion() {
         return fechaExpiracion;
     }
 
-    public void setFechaExpiracion(Date fechaExpiracion) {
+    public void setFechaExpiracion(String fechaExpiracion) {
         this.fechaExpiracion = fechaExpiracion;
     }
 

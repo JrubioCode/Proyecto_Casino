@@ -37,6 +37,7 @@ public class UsuarioImplent implements UsuarioService {
             usuario.setFechaNacimiento(usuarioEntity.getFechaNacimiento().toString());
             usuario.setEmail(usuarioEntity.getEmail());
             usuario.setNumeroTelefono(usuarioEntity.getNumeroTelefono());
+            usuario.setEsVip(usuarioEntity.getEsVip());
         }
 
         return usuario;
@@ -73,8 +74,16 @@ public class UsuarioImplent implements UsuarioService {
         usuarioEntity.setNumeroTelefono(usuarioDTO.getNumeroTelefono());
         usuarioEntity.setDineroUsuario(0.0);
         usuarioEntity.setEsVip(true);
+        usuarioEntity.setTitularTarjeta(usuarioDTO.getTitularTarjeta());
         usuarioEntity.setNumeroTarjeta(usuarioDTO.getNumeroTarjeta());
-        usuarioEntity.setFechaExpiracion(usuarioDTO.getFechaExpiracion());
+        if (usuarioDTO.getFechaExpiracion() != null && !usuarioDTO.getFechaExpiracion().isEmpty()) {
+            // Añadimos "-01" para transformar "YYYY-MM" en "YYYY-MM-01"
+            String fechaExpCompleta = usuarioDTO.getFechaExpiracion() + "-01";
+            // Convertimos el String a java.sql.Date y lo asignamos a la entidad
+            usuarioEntity.setFechaExpiracion(java.sql.Date.valueOf(fechaExpCompleta));
+        } else {
+            usuarioEntity.setFechaExpiracion(null);
+        }        
         usuarioEntity.setCvc(usuarioDTO.getCvc());
 
         return usuarioRepository.save(usuarioEntity);
@@ -108,19 +117,13 @@ public class UsuarioImplent implements UsuarioService {
     }
 
     @Override
-    public String obtenerDni(String userName, String userPassword) {
-        UsuarioEntity usuarioEntity = usuarioRepository.findByUserName(userName).orElse(null);
-
-        if (usuarioEntity != null && usuarioEntity.getUserPassword().equals(userPassword)) {
-            return usuarioEntity.getDni();
-        } else {
-            return null;
-        }
+    public UsuarioEntity obtenerUsuarioPorDni(String dni) {
+        return usuarioRepository.findById(dni).orElse(null);
     }
 
     @Override
-    public UsuarioEntity obtenerUsuarioPorDni(String dni) {
-        return usuarioRepository.findById(dni).orElse(null);
+    public UsuarioEntity buscarPorDni(String dni) {
+        return usuarioRepository.findByDni(dni);
     }
 
 }

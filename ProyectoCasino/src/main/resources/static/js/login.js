@@ -7,42 +7,25 @@ function comprobaciones(event) {
 
     $.ajax({
       type: "GET",
-      url: `/usuario/comprobarUsuario/${userName}/${userPassword}`,
+      url: `/usuario/autenticar/${userName}/${userPassword}`,
+      // No especificamos dataType para permitir tanto texto como JSON
       success: function (response) {
+        // Si la respuesta es de tipo string, es un mensaje de error
+        if (typeof response === "string") {
+          mostrarModal(response);
+        } else if (typeof response === "object") {
+          // Se asume que es un objeto con los datos del usuario
+          localStorage.setItem("dni", response.dni);
+          localStorage.setItem("esVip", response.esVip);
 
-        if (response === "OK") {
-          // Hacer una segunda solicitud para obtener el DNI
-          $.ajax({
-            type: "GET",
-            url: `/usuario/obtenerDni/${userName}/${userPassword}`,
-            success: function(dni) {
-              if (dni) {
-                localStorage.setItem("dni", dni);
-                mostrarModal("Usuario autenticado correctamente. Redirigiendo al lobby...");
-                setTimeout(() => {
-                  window.location.pathname = "/lobby";
-                }, 3000);
-              } else {
-                mostrarModal("Error al obtener el DNI del usuario.");
-              }
-            },
-            error: function (error) {
-              console.error("Error al obtener el DNI:", error);
-              mostrarModal("Ocurrió un error al intentar obtener el DNI.");
-            }
-          });
-        } else if (response === "404 - Usuario no encontrado") {
-          mostrarModal("Usuario no encontrado.");
-        } else if (response === "Contraseña incorrecta") {
-          mostrarModal("Contraseña incorrecta.");
-        } else {
-          mostrarModal("Respuesta inesperada del servidor: " + response);
+          // Redirigir a /lobby con el parámetro dni
+          window.location.href = `/lobby?dni=${response.dni}`;
         }
       },
       error: function (error) {
         console.error("Error en la solicitud AJAX (GET):", error);
         mostrarModal("Ocurrió un error al intentar iniciar sesión. Inténtelo de nuevo.");
-      },
+      }
     });
   }
 }
