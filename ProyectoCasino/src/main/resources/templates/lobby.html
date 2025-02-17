@@ -15,8 +15,8 @@
   <body>
 
     <!-- Verificamos si el usuario es VIP o no -->
-    <div th:if="${esVip}" th:insert="fragments/lobby_HeaderVip :: lobbyHeader"></div>
-    <div th:unless="${esVip}" th:insert="fragments/lobby_HeaderNormal :: lobbyHeader"></div>
+    <div th:if="${esVip}" th:insert="~{fragments/lobby_HeaderVip :: lobbyHeader}"></div>
+    <div th:unless="${esVip}" th:insert="~{fragments/lobby_HeaderNormal :: lobbyHeader}"></div>
 
     <!-- Principal -->
     <div class="contenidoCasino">
