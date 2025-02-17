@@ -1,53 +1,195 @@
-// Configuración de la baraja
+/* =========================
+   Función para Mostrar Modal de Mensajes
+   ========================= */
+function mostrarMensajeModal(mensaje) {
+  const modal = document.getElementById("modal-message");
+  document.getElementById("modal-message-text").textContent = mensaje;
+  modal.style.display = "flex";
+}
+
+document.getElementById("modal-message-close").addEventListener("click", () => {
+  document.getElementById("modal-message").style.display = "none";
+});
+
+/* =========================
+   Modal de Ayuda (ya existente)
+   ========================= */
+const botonAyuda = document.getElementById('toggle-ayuda');
+const modalAyuda = document.getElementById('modal-ayuda');
+const cerrarModal = document.getElementById('cerrar-modal');
+
+botonAyuda.addEventListener('click', () => {
+  modalAyuda.classList.add('show');
+});
+cerrarModal.addEventListener('click', () => {
+  modalAyuda.classList.remove('show');
+});
+window.addEventListener('click', (e) => {
+  if (e.target === modalAyuda) {
+    modalAyuda.classList.remove('show');
+  }
+});
+
+/* =========================
+   Modal de Solicitud de Número
+   ========================= */
+function solicitarNumero(mensaje) {
+  return new Promise((resolver) => {
+    const modalSolicitud = document.getElementById("modal-solicitud");
+    const textoModal = document.getElementById("modal-solicitud-text");
+    const inputModal = document.getElementById("modal-solicitud-input");
+    const btnAceptar = document.getElementById("modal-solicitud-aceptar");
+    const btnCancelar = document.getElementById("modal-solicitud-cancelar");
+    
+    textoModal.textContent = mensaje;
+    inputModal.value = "";
+    modalSolicitud.style.display = "flex";
+    
+    function limpiarYResolver(valor) {
+      modalSolicitud.style.display = "none";
+      btnAceptar.removeEventListener("click", onAceptar);
+      btnCancelar.removeEventListener("click", onCancelar);
+      resolver(valor);
+    }
+    
+    function onAceptar() {
+      const valor = parseInt(inputModal.value, 10);
+      if (isNaN(valor) || valor <= 0) {
+        mostrarMensajeModal("Por favor ingresa un número válido mayor a 0.");
+      } else {
+        limpiarYResolver(valor);
+      }
+    }
+    
+    function onCancelar() {
+      limpiarYResolver(null);
+    }
+    
+    btnAceptar.addEventListener("click", onAceptar);
+    btnCancelar.addEventListener("click", onCancelar);
+  });
+}
+
+/* =========================
+   Variables Globales y Estado del Juego
+   ========================= */
+let saldoActual = 1000;
+let fichasActuales = 0;
+let apuestaActual = 0;
+
+let mazo = [];
+let manoJugador = [];
+let manoDealer = [];
+let juegoTerminado = false;    // Indica si la partida terminó
+let juegoIniciado = false;      // Indica si hay una partida en curso
+
+const imagenReversoCarta = "./assets/savageHands/card_back.png";
+const mapaPalos = {
+  "♠": "spades",
+  "♥": "hearts",
+  "♦": "diamonds",
+  "♣": "clubs"
+};
+
+/* =========================
+   Actualización del Saldo
+   ========================= */
+function actualizarSaldo() {
+  document.getElementById('dinero-actual').textContent = `DINERO: ${saldoActual}€`;
+  document.getElementById('fichas-actuales').textContent = `FICHAS: ${fichasActuales}🎫`;
+  document.getElementById('apuesta-actual').textContent = apuestaActual;
+}
+
+/* =========================
+   Funciones de Gestión de Dinero y Conversión
+   ========================= */
+document.getElementById('boton-ingresar-dinero').addEventListener('click', async () => {
+  const cantidad = await solicitarNumero("¿Cuánto dinero deseas ingresar?");
+  if (cantidad !== null) {
+    saldoActual += cantidad;
+    actualizarSaldo();
+  }
+});
+
+document.getElementById('boton-retirar-dinero').addEventListener('click', async () => {
+  const cantidad = await solicitarNumero("¿Cuánto dinero deseas retirar?");
+  if (cantidad !== null) {
+    if (cantidad <= saldoActual) {
+      saldoActual -= cantidad;
+      actualizarSaldo();
+    } else {
+      mostrarMensajeModal("Cantidad inválida o superior a tu saldo.");
+    }
+  }
+});
+
+document.getElementById('boton-convertir-a-fichas').addEventListener('click', () => {
+  if (saldoActual > 0) {
+    fichasActuales += saldoActual;
+    saldoActual = 0;
+    actualizarSaldo();
+  } else {
+    mostrarMensajeModal("No tienes dinero para convertir.");
+  }
+});
+
+document.getElementById('boton-convertir-a-dinero').addEventListener('click', () => {
+  if (fichasActuales > 0) {
+    saldoActual += fichasActuales;
+    fichasActuales = 0;
+    actualizarSaldo();
+  } else {
+    mostrarMensajeModal("No tienes fichas para convertir.");
+  }
+});
+
+/* =========================
+   Reloj
+   ========================= */
+function actualizarReloj() {
+  document.getElementById("reloj").textContent = new Date().toLocaleTimeString();
+  setTimeout(actualizarReloj, 1000);
+}
+actualizarReloj();
+
+/* =========================
+   Funciones del Mazo y Juego
+   ========================= */
 const palos = ['♠', '♥', '♦', '♣'];
 const valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 
-var baraja = [];
-var manoJugador = [];
-var manoDealer = [];
-var juegoTerminado = false;
-var jugadorPlantado = false;
-
-// Crear la baraja
 function crearBaraja() {
-  baraja = [];
-  for (var palo of palos) {
-    for (var valor of valores) {
-      var num = parseInt(valor);
-      if (valor === 'J' || valor === 'Q' || valor === 'K') {
-        num = 10;
-      } else if (valor === 'A') {
-        num = 11; // El As vale inicialmente 11
-      }
-      baraja.push({ palo, valor, num });
+  mazo = [];
+  for (let palo of palos) {
+    for (let valor of valores) {
+      let num = parseInt(valor);
+      if (['J', 'Q', 'K'].includes(valor)) num = 10;
+      else if (valor === 'A') num = 11;
+      mazo.push({ palo, valor, num });
     }
   }
 }
 
-// Mezclar la baraja con el algoritmo de Fisher-Yates
 function mezclarBaraja() {
-  for (var i = baraja.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    [baraja[i], baraja[j]] = [baraja[j], baraja[i]];
+  for (let i = mazo.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [mazo[i], mazo[j]] = [mazo[j], mazo[i]];
   }
 }
 
-// Repartir una carta a una mano determinada
 function repartirCarta(mano) {
-  if (baraja.length === 0) {
+  if (mazo.length === 0) {
     crearBaraja();
     mezclarBaraja();
   }
-  const carta = baraja.pop();
+  const carta = mazo.pop();
   mano.push(carta);
   return carta;
 }
 
-// Calcular la puntuación de una mano
 function calcularPuntuacion(mano) {
-  var total = mano.reduce((suma, carta) => suma + carta.num, 0);
-  // Ajuste para Ases: si se pasa de 21, cada As vale 1 en lugar de 11
-  var ases = mano.filter(carta => carta.valor === 'A').length;
+  let total = mano.reduce((suma, carta) => suma + carta.num, 0);
+  let ases = mano.filter(carta => carta.valor === 'A').length;
   while (total > 21 && ases > 0) {
     total -= 10;
     ases--;
@@ -55,150 +197,158 @@ function calcularPuntuacion(mano) {
   return total;
 }
 
-// Mostrar las cartas en pantalla en un elemento
-function mostrarMano(mano, idElemento) {
+function obtenerImagenCarta(carta) {
+  const nombrePalo = mapaPalos[carta.palo];
+  return `./assets/cartas/${carta.valor}_${nombrePalo}.png`;
+}
+
+function mostrarMano(mano, idElemento, ocultarPrimera = false) {
   const contenedor = document.getElementById(idElemento);
-  contenedor.innerHTML = '';
-  mano.forEach(carta => {
-    const divCarta = document.createElement('div');
-    divCarta.className = 'carta';
-    divCarta.textContent = `${carta.valor}${carta.palo}`;
-    contenedor.appendChild(divCarta);
+  contenedor.innerHTML = "";
+  mano.forEach((carta, indice) => {
+    const img = document.createElement("img");
+    img.className = "carta";
+    if (ocultarPrimera && indice === 0 && !juegoTerminado && juegoIniciado) {
+      img.src = imagenReversoCarta;
+      img.alt = "Carta oculta";
+    } else {
+      img.src = obtenerImagenCarta(carta);
+      img.alt = `${carta.valor} de ${carta.palo}`;
+    }
+    contenedor.appendChild(img);
   });
 }
 
-// Actualizar las puntuaciones en pantalla
-function actualizarPuntuaciones() {
+function actualizarPantalla() {
+  mostrarMano(manoJugador, "mano-jugador");
+  mostrarMano(manoDealer, "mano-dealer", true);
   const puntosJugador = calcularPuntuacion(manoJugador);
   const puntosDealer = calcularPuntuacion(manoDealer);
   document.getElementById('puntuacion-jugador').textContent = `Puntuación: ${puntosJugador}`;
-  
-  // Se muestra la puntuación completa del dealer solo si el juego terminó o el jugador se plantó
-  if (juegoTerminado || jugadorPlantado) {
-    document.getElementById('puntuacion-dealer').textContent = `Puntuación: ${puntosDealer}`;
-  } else {
-    document.getElementById('puntuacion-dealer').textContent = `Puntuación: ?`;
-  }
+  document.getElementById('puntuacion-dealer').textContent =
+    (juegoTerminado) ? `Puntuación: ${puntosDealer}` : "Puntuación: ?";
 }
 
-// Comprobar si el jugador se pasó de 21
-function comprobarFinJuego() {
-  const puntos = calcularPuntuacion(manoJugador);
-  if (puntos > 21) {
-    finalizarJuego();
-  }
+function deshabilitarBotonesJuego() {
+  document.getElementById("pedir-carta").disabled = true;
+  document.getElementById("plantarse").disabled = true;
 }
 
-// Turno del dealer: pide cartas hasta tener 17 o más
-function turnoDealer() {
-  var puntosDealer = calcularPuntuacion(manoDealer);
-  while (puntosDealer < 17) {
-    repartirCarta(manoDealer);
-    puntosDealer = calcularPuntuacion(manoDealer);
-  }
+function habilitarBotonesJuego() {
+  document.getElementById("pedir-carta").disabled = false;
+  document.getElementById("plantarse").disabled = false;
 }
 
-// Finalizar el juego y determinar el ganador
+/* Finaliza la partida y determina el ganador */
 function finalizarJuego() {
   juegoTerminado = true;
-  jugadorPlantado = true;
-  turnoDealer();
-  actualizarTodo();
-  
+  while (calcularPuntuacion(manoDealer) < 17) {
+    repartirCarta(manoDealer);
+  }
+  actualizarPantalla();
   const puntosJugador = calcularPuntuacion(manoJugador);
   const puntosDealer = calcularPuntuacion(manoDealer);
-  var mensaje = '';
-  
-  if (puntosJugador > 21) {
-    mensaje = '¡Te pasaste de 21! Gana el Dealer.';
-  } else if (puntosDealer > 21) {
-    mensaje = '¡El Dealer se pasó de 21! Ganaste.';
+  let mensaje = "";
+  if (puntosJugador > 21) mensaje = "¡Te pasaste de 21! Gana el Dealer.";
+  else if (puntosDealer > 21) {
+    mensaje = "¡El Dealer se pasó de 21! Ganaste.";
+    fichasActuales += apuestaActual;
   } else if (puntosJugador === puntosDealer) {
-    mensaje = '¡Empate!';
+    mensaje = "¡Empate! Recuperas tu apuesta.";
+    fichasActuales += apuestaActual;
   } else if (puntosJugador > puntosDealer) {
-    mensaje = '¡Ganaste!';
+    mensaje = "¡Ganaste!";
+    fichasActuales += apuestaActual;
   } else {
-    mensaje = 'Gana el Dealer.';
+    mensaje = "Gana el Dealer.";
   }
-  
-  document.getElementById('mensaje').textContent = mensaje;
-  desactivarBotones();
+  actualizarSaldo();
+  deshabilitarBotonesJuego();
+  mostrarMensajeModal(mensaje);
+  apuestaActual = 0;
+  juegoIniciado = false;
 }
 
-// Actualizar ambas manos y puntuaciones
-function actualizarTodo() {
-  mostrarMano(manoJugador, 'mano-jugador');
-  mostrarMano(manoDealer, 'mano-dealer');
-  actualizarPuntuaciones();
-}
-
-// Desactivar botones al finalizar la partida
-function desactivarBotones() {
-  document.getElementById('pedir-carta').disabled = true;
-  document.getElementById('plantarse').disabled = true;
-}
-
-// Iniciar un nuevo juego
+/* Inicia una nueva partida (solo si hay apuesta) */
 function nuevoJuego() {
+  if (apuestaActual <= 0) {
+    mostrarMensajeModal("Debes realizar una apuesta antes de iniciar el juego.");
+    return;
+  }
+  // Inicia la partida y bloquea las apuestas
   juegoTerminado = false;
-  jugadorPlantado = false;
   manoJugador = [];
   manoDealer = [];
-  document.getElementById('mensaje').textContent = '';
-  document.getElementById('pedir-carta').disabled = false;
-  document.getElementById('plantarse').disabled = false;
+  document.getElementById("mensaje").textContent = "";
   crearBaraja();
   mezclarBaraja();
-  // Repartir dos cartas a cada uno
   repartirCarta(manoJugador);
   repartirCarta(manoDealer);
   repartirCarta(manoJugador);
   repartirCarta(manoDealer);
-  actualizarTodo();
+  actualizarPantalla();
+  habilitarBotonesJuego();
+  juegoIniciado = true;
 }
 
-// -----------------------------
-// Eventos de control del juego
-// -----------------------------
-document.getElementById('nuevo-juego').addEventListener('click', nuevoJuego);
-document.getElementById('pedir-carta').addEventListener('click', () => {
-  if (!juegoTerminado && !jugadorPlantado) {
+/* =========================
+   Eventos de Control del Juego
+   ========================= */
+// Al pulsar "Nuevo Juego" se inicia la partida (si hay apuesta)
+document.getElementById("nuevo-juego").addEventListener("click", nuevoJuego);
+
+// Solo se permiten acciones de juego si hay partida en curso
+document.getElementById("pedir-carta").addEventListener("click", () => {
+  if (!juegoTerminado && juegoIniciado) {
     repartirCarta(manoJugador);
-    actualizarTodo();
-    comprobarFinJuego();
+    actualizarPantalla();
+    if (calcularPuntuacion(manoJugador) > 21) {
+      finalizarJuego();
+    }
   }
 });
-document.getElementById('plantarse').addEventListener('click', () => {
-  if (!juegoTerminado) {
-    jugadorPlantado = true;
+
+document.getElementById("plantarse").addEventListener("click", () => {
+  if (!juegoTerminado && juegoIniciado) {
     finalizarJuego();
   }
 });
 
-// -----------------------------
-// Lógica del Modal de Ayuda
-// -----------------------------
-const toggleAyuda = document.getElementById('toggle-ayuda');
-const modalAyuda = document.getElementById('modal-ayuda');
-const cerrarModal = document.getElementById('cerrar-modal');
-
-toggleAyuda.addEventListener('click', () => {
-  modalAyuda.classList.remove('oculto');
-  modalAyuda.classList.add('animarModal');
+/* =========================
+   Eventos de Apuestas (Chips)
+   ========================= */
+// Durante una partida no se permite modificar la apuesta
+const elementosChip = document.querySelectorAll(".chip");
+elementosChip.forEach(chip => {
+  chip.addEventListener("click", () => {
+    if (juegoIniciado) {
+      mostrarMensajeModal("No puedes apostar durante una partida.");
+      return;
+    }
+    const valor = parseInt(chip.getAttribute("data-value"), 10);
+    if (fichasActuales >= valor) {
+      apuestaActual += valor;
+      fichasActuales -= valor;
+      actualizarSaldo();
+    } else {
+      mostrarMensajeModal("No tienes suficientes fichas para apostar ese valor.");
+    }
+  });
 });
 
-cerrarModal.addEventListener('click', () => {
-  modalAyuda.classList.add('oculto');
-  modalAyuda.classList.remove('animarModal');
-});
-
-// Cerrar el modal al hacer clic fuera del contenido
-window.addEventListener('click', (e) => {
-  if (e.target == modalAyuda) {
-    modalAyuda.classList.add('oculto');
-    modalAyuda.classList.remove('animarModal');
+document.getElementById("reiniciar-apuesta").addEventListener("click", () => {
+  if (juegoIniciado) {
+    mostrarMensajeModal("No puedes reiniciar la apuesta durante una partida.");
+    return;
   }
+  fichasActuales += apuestaActual;
+  apuestaActual = 0;
+  actualizarSaldo();
 });
 
-// Iniciar el juego al cargar la página
-nuevoJuego();
+/* =========================
+   Inicialización
+   ========================= */
+// Al cargar la página, se actualiza el saldo y se deshabilitan los botones de juego
+actualizarSaldo();
+deshabilitarBotonesJuego();
