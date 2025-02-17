@@ -97,7 +97,7 @@ body{
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
-    border: 2px solid #03551f;
+    border: 2px solid #ffcc00;
 }
 
 .carrusel-izquierda, .carrusel-derecha {
@@ -133,12 +133,43 @@ body{
     flex-direction: column;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.85);
-    border-top: 2px solid #03551f;
+    border-top: 2px solid #ffcc00;
     border-radius: 10px;
     padding: 20px;
     text-align: center;
     color: #023d16;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.vip-banner {
+    background-color: #023d16; /* Fondo verde oscuro */
+    color: #fff; /* Texto blanco */
+    padding: 10px 20px;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 3px solid #FFCC00; /* Línea dorada */
+    position: fixed; /* Fija el banner en la parte inferior */
+    width: 100%;
+    bottom: 0;
+    z-index: 1000;
+}
+
+/* Icono VIP */
+.vip-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* Mensaje VIP */
+.vip-message {
+    display: flex;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .links-footer {
@@ -158,6 +189,10 @@ body{
 .contenedores-footer ul {
     list-style-type: none;
     padding: 0;
+}
+
+.contenedores-footer ul li a:hover {
+    color: #ffcc00;
 }
 
 .contenedores-footer a {
