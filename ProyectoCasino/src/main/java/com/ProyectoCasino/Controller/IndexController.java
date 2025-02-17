@@ -49,6 +49,12 @@ public class IndexController {
         return "cavemanRun";
     }
 
+    // Metodo para acceder a BlackJack
+    @GetMapping("/blackjack")
+    public String blackjack(){
+        return "savageHands";
+    }
+
     // Metodo para acceder a hazte vip
     @GetMapping("/hazteVip")
     public String hazteVip() {

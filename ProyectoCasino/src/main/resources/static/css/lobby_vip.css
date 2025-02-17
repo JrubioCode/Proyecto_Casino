@@ -11,7 +11,7 @@ body{
 /* Estilo de la cabecera */
 .contenidoHeader {
     background-color: rgba(255, 255, 255);
-    border: 3px solid #03551f;
+    border: 3px solid #ffff00;
     border-radius: 10px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -28,12 +28,12 @@ body{
     width: 200px;
     height: auto;
     border-radius: 50%;
-    border: 5px solid #05752a;
+    border: 5px solid #ffff00;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .header h1 {
-    color: #750505;
+    color: #023d16;
     font-size: 50px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     margin-left: 20px;
@@ -63,7 +63,7 @@ body{
 .contenidoCasino {
     padding: 50px;
     text-align: center;
-    border: 2px solid #03551f;
+    border: 2px solid #ffcc00;
     border-radius: 20px;
     max-width: 800px;
     margin: 20px auto;
