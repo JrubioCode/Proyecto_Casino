@@ -1,0 +1,246 @@
+   body {
+    margin: 0;
+    padding: 0;
+    background: #2e7d32; /* Fondo verde */
+    font-family: Arial, sans-serif;
+    color: #fff;
+  }
+  
+  header {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar h1 {
+    margin: 0;
+    font-size: 2em;
+  }
+  
+  .nav-botones button {
+    background: #0758c2;
+    border: none;
+    border-radius: 50%;
+    padding: 10px 15px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    font-size: 25px;
+  }
+  
+  .nav-botones button:hover {
+    background: #054496;
+  }
+  
+  main {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  
+  .area-juego {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .dealer, .jugador {
+    width: 48%;
+  }
+  
+  .mano {
+    border: 2px solid #fff;
+    padding: 10px;
+    min-height: 120px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .carta {
+    background: #fff;
+    color: #000;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    min-width: 40px;
+    text-align: center;
+    animation: slideIn 0.5s ease-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .puntuacion {
+    margin-top: 10px;
+    font-size: 1.2em;
+  }
+  
+  .controles {
+    margin-bottom: 20px;
+  }
+  
+  .controles button {
+    padding: 10px 20px;
+    margin-left: 100px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    background: #3a9bcc;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  .controles button:hover {
+    background: #3283aa;
+    transform: scale(1.05);
+  }
+  
+  .controles button:disabled {
+    background: #757575;
+    cursor: not-allowed;
+  }
+  
+  #mensaje {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  .modal {
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .modal-contenido {
+    background: #fff;
+    color: #000;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    animation: zoomIn 0.5s ease-out;
+  }
+  
+  .cerrar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+  }
+  
+  #seccion-ayuda {
+    padding: 20px;
+    border-radius: 8px;
+    animation: fadeIn 0.5s ease-out;
+    margin-bottom: 20px;
+  }
+  
+  #seccion-ayuda h2 {
+    margin-top: 0;
+  }
+  
+  #seccion-ayuda ul {
+    list-style: disc inside;
+    text-align: left;
+    margin: 10px 0;
+  }
+  
+  #seccion-ayuda button {
+    background: #d32f2f;
+    border: none;
+    padding: 10px 15px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  #seccion-ayuda button:hover {
+    background: #b71c1c;
+  }
+  
+  .oculto {
+    display: none;
+  }
+  
+  /* slideIn: Anima la entrada de las cartas deslizándolas desde arriba */
+  @keyframes slideIn {
+    from {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* fadeIn: Hace que elementos aparezcan gradualmente, pasando de opacidad 0 a 1 */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* zoomIn: Da un efecto de acercamiento para resaltar el contenido, ideal para modales */
+  @keyframes zoomIn {
+    from {
+      transform: scale(0.7);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* rotateIn: Anima un elemento rotándolo desde un ángulo negativo hasta su posición normal */
+  @keyframes rotateIn {
+    from {
+      transform: rotate(-180deg);
+      opacity: 0;
+    }
+    to {
+      transform: rotate(0deg);
+      opacity: 1;
+    }
+  }
+  
+  /* bounce: Crea un efecto de rebote para dar dinamismo a ciertos elementos */
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
