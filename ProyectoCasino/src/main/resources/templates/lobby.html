@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <!-- Cargar valor oculto -->
-    <input type="hidden" th:value="${esVip}">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CASINO</title>
@@ -14,6 +12,9 @@
   </head>
   <body>
 
+    <!-- Cargar valor oculto -->
+    <input type="hidden" th:value="${esVip}">
+
     <!-- Verificamos si el usuario es VIP o no -->
     <div th:if="${esVip}" th:insert="~{fragments/lobby_HeaderVip :: lobbyHeader}"></div>
     <div th:unless="${esVip}" th:insert="~{fragments/lobby_HeaderNormal :: lobbyHeader}"></div>
@@ -23,78 +24,10 @@
     <div th:if="${esVip}" th:insert="~{fragments/lobby_CarruselVip :: lobbyCarrusel}"></div>
     <div th:unless="${esVip}" th:insert="~{fragments/lobby_CarruselNormal :: lobbyCarrusel}"></div>
 
-    <!-- Contenido Footer -->
-    <div class="contenidoFooter">
-      <!-- Links a juegos -->
-      <div class="links-footer">
-        <div class="contenedores-footer">
-            <h3>Juegos de Casino</h3>
-            <ul>
-                <li><a href="#">Slots</a></li>
-                <li><a href="#">Ruleta</a></li>
-                <li><a href="#">Blackjack</a></li>
-                <li><a href="#">Casino en vivo</a></li>
-            </ul>
-        </div>
-        <div class="contenedores-footer">
-            <h3>Quiénes somos</h3>
-            <ul>
-                <li><a href="#">Ayuda</a></li>
-                <li><a href="#">Afiliados</a></li>
-                <li><a href="#">Spin Palace</a></li>
-                <li><a href="#">Mapa del sitio</a></li>
-            </ul>
-        </div>
-        <div class="contenedores-footer">
-            <h3>Políticas</h3>
-            <ul>
-                <li><a href="#">Juego más Seguro</a></li>
-                <li><a href="#">Política de privacidad</a></li>
-                <li><a href="#">Acuerdo con el usuario</a></li>
-                <li><a href="#">Política de bonos</a></li>
-                <li><a href="#">Porcentaje de retorno</a></li>
-                <li><a href="#">Política de desconexiones</a></li>
-                <li><a href="#">Juego autorizado</a></li>
-            </ul>
-        </div>
-        <div class="contenedores-footer">
-            <h3>Finanzas</h3>
-            <ul>
-                <li><a href="#">Dinero Real</a></li>
-                <li><a href="#">Pagos</a></li>
-                <li><a href="#">Cobros</a></li>
-                <li><a href="#">Verificar identidad</a></li>
-            </ul>
-        </div>
-        <div class="contenedores-footer">
-            <h3>Formas de Pago</h3>
-            <ul>
-                <li><a href="#">Visa</a></li>
-                <li><a href="#">Mastercard</a></li>
-                <li><a href="#">ApplePay</a></li>
-                <li><a href="#">Paypal</a></li>
-                <li><a href="#">Paysafecard</a></li>
-                <li><a href="#">Transferencia bancaria</a></li>
-            </ul>
-        </div>
-      </div>
-      <!-- Jugar con responsabilidad -->
-      <div class="responsabilidad">
-        <p>Juega Con Responsabilidad | 18+ | AutoProhibicion</p>
-        <p>PREVENCIÓN ADICCIÓN AL JUEGO, LLAMA: 900 533 788</p>
-      </div>
-      <!-- Copyright -->
-      <div class="copyright">
-        <p>
-          Copyright © 2024. Spin Palace Games España S.A.
-        </p>
-        <p>
-          La prestación y operación de servicios de juego remoto en España por
-          parte de Spin Palace Games España S.A. ha sido autorizada por la
-          Dirección General de Ordenación del Juego.
-        </p>
-      </div>
-    </div>
+    <!-- Footer -->
+    <div th:if="${esVip}" th:insert="~{fragments/lobby_FooterVip :: lobbyFooter}"></div>
+    <div th:unless="${esVip}" th:insert="~{fragments/lobby_FooterNormal :: lobbyFooter}"></div>
+
     <!-- Scripts Vercel Web Analytics -->
     <script> window.va = window.va || function () {
       (window.vaq = window.vaq || []).push(arguments);};

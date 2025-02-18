@@ -59,6 +59,21 @@ body{
     width: 100px;
 }
 
+@keyframes borderPulse {
+    0% {
+        border-color: #ffcc00;
+        box-shadow: 0px 0px 20px 5px rgba(255, 204, 0, 1);
+    }
+    50% {
+        border-color: #ff9900;
+        box-shadow: 0px 0px 30px 10px rgba(255, 204, 0, 1);
+    }
+    100% {
+        border-color: #ffcc00;
+        box-shadow: 0px 0px 20px 5px rgba(255, 204, 0, 1);
+    }
+}
+
 /* Estilo del cuerpo */
 .contenidoCasino {
     padding: 50px;
@@ -69,6 +84,7 @@ body{
     margin: 20px auto;
     box-shadow: 0 4px 30px rgba(139, 69, 19, 0.5);
     background-color: rgba(255, 255, 255, 0.85);
+    animation: borderPulse 2s ease-in-out infinite;
 }
 
 /* Carrusel */
@@ -133,12 +149,11 @@ body{
     flex-direction: column;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.85);
-    border-top: 2px solid #ffcc00;
+    border: 3px solid #ffcc00; 
+    box-shadow: 0px 0px 30px 5px rgba(255, 204, 0, 1);
     border-radius: 10px;
     padding: 20px;
     text-align: center;
-    color: #023d16;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .links-footer {
@@ -160,6 +175,10 @@ body{
     padding: 0;
 }
 
+.contenedores-footer ul li a:hover {
+    color: #ffcc00;
+}
+
 .contenedores-footer a {
     color: #023d16;
     text-decoration: none;
@@ -171,4 +190,121 @@ body{
     font-size: 14px;
     color: #023d16;
     margin-top: 10px;
+}
+
+/* Estilo para tabletas */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .contenidoHeader {
+        padding: 15px;
+        border: 2px solid #ffff00;
+    }
+    
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .header img {
+        width: 150px;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .header h1 {
+        font-size: 40px;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .contenidoCasino {
+        padding: 40px;
+        max-width: 90%;
+        margin: 20px auto;
+    }
+
+    .carrusel-juegos {
+        height: 400px;
+    }
+
+    .carrusel-izquierda, .carrusel-derecha {
+        width: 40px;
+    }
+
+    .carrusel-izquierda img, .carrusel-derecha img {
+        width: 40px;
+    }
+
+    .contenidoFooter {
+        padding: 15px;
+        gap: 20px;
+    }
+
+    .links-footer {
+        flex-direction: column;
+        gap: 40px;
+    }
+}
+
+/* Estilo para móviles */
+@media (max-width: 768px) {
+
+    .contenidoHeader {
+        padding: 10px;
+        border: 1px solid #ffff00;
+    }
+    
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .header img {
+        width: 120px;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .header h1 {
+        font-size: 30px;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .contenidoCasino {
+        padding: 30px;
+        max-width: 95%;
+        margin: 20px auto;
+    }
+
+    .carrusel-juegos {
+        height: 300px;
+    }
+
+    .carrusel-izquierda, .carrusel-derecha {
+        width: 30px;
+    }
+
+    .carrusel-izquierda img, .carrusel-derecha img {
+        width: 30px;
+    }
+
+    .contenidoFooter {
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .links-footer {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .contenedores-footer h3 {
+        font-size: 20px;
+    }
+
+    .contenedores-footer ul li a {
+        font-size: 14px;
+    }
 }
