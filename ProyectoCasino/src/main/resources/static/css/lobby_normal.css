@@ -149,18 +149,18 @@ body{
     margin: 20px 0;
 }
 
-.contenedores-footer h3 {
+.contenedores-footer1 h3, .contenedores-footer2 h3, .contenedores-footer3 h3 {
     font-size: 24px;
     margin-bottom: 10px;
     color: #05752a;
 }
 
-.contenedores-footer ul {
+.contenedores-footer1 ul, .contenedores-footer2 ul, .contenedores-footer3 ul {
     list-style-type: none;
     padding: 0;
 }
 
-.contenedores-footer a {
+.contenedores-footer1 a, .contenedores-footer2 a, .contenedores-footer3 a {
     color: #023d16;
     text-decoration: none;
     transition: color 0.3s;
@@ -173,13 +173,14 @@ body{
     margin-top: 10px;
 }
 
+
 /* Estilo para tabletas */
 @media (min-width: 769px) and (max-width: 1024px) {
     .contenidoHeader {
         padding: 15px;
         border: 2px solid #ffff00;
     }
-    
+
     .header {
         flex-direction: column;
         align-items: center;
@@ -216,16 +217,55 @@ body{
         width: 40px;
     }
 
-    .contenidoFooter {
-        padding: 15px;
-        gap: 20px;
+    .links-footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 1200px;
+        gap: 20px; 
     }
 
-    .links-footer {
-        flex-direction: column;
-        gap: 40px;
+    .contenedores-footer1,
+    .contenedores-footer2,
+    .contenedores-footer3 {
+        flex: 1 1 45%;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #05752a;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    a {
+        color: #023d16;
+        text-decoration: none;
+        transition: color 0.3s;
+        font-size: 16px;
+    }
+
+    .responsabilidad,
+    .copyright {
+        text-align: center;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .responsabilidad p,
+    .copyright p {
+        font-size: 14px;
     }
 }
+
+
 
 /* Estilo para móviles */
 @media (max-width: 768px) {
