@@ -277,20 +277,27 @@ function finalizarJuego() {
   const puntosJugador = calcularPuntuacion(manoJugador);
   const puntosDealer = calcularPuntuacion(manoDealer);
   let mensaje = "";
+  
   if (puntosJugador > 21) {
+    // El jugador se pasa y pierde su apuesta
     mensaje = "¡Te pasaste de 21! Gana el Dealer.";
   } else if (puntosDealer > 21) {
+    // Dealer se pasa: el jugador gana el doble de su apuesta
     mensaje = "¡El Dealer se pasó de 21! Ganaste.";
-    fichasActuales += apuestaActual;
+    fichasActuales += apuestaActual * 2;
   } else if (puntosJugador === puntosDealer) {
+    // Empate: el jugador recupera su apuesta
     mensaje = "¡Empate! Recuperas tu apuesta.";
     fichasActuales += apuestaActual;
   } else if (puntosJugador > puntosDealer) {
+    // El jugador gana: recibe el doble de su apuesta
     mensaje = "¡Ganaste!";
-    fichasActuales += apuestaActual;
+    fichasActuales += apuestaActual * 2;
   } else {
+    // En cualquier otro caso, gana el Dealer y el jugador pierde la apuesta
     mensaje = "Gana el Dealer.";
   }
+  
   actualizarSaldo();
   deshabilitarBotonesJuego();
   mostrarMensajeModal(mensaje);
