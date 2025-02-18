@@ -1,4 +1,4 @@
-// Modal mensajes
+// MODALES (Mensajes, Ayuda y Solicitar Número)
 function mostrarMensajeModal(mensaje) {
   const modal = document.getElementById("modal-message");
   document.getElementById("modal-message-text").textContent = mensaje;
@@ -9,7 +9,7 @@ document.getElementById("modal-message-close").addEventListener("click", () => {
   document.getElementById("modal-message").style.display = "none";
 });
 
-// Modal ayuda
+// Modal de Ayuda
 const botonAyuda = document.getElementById('toggle-ayuda');
 const modalAyuda = document.getElementById('modal-ayuda');
 const cerrarModal = document.getElementById('cerrar-modal');
@@ -26,7 +26,7 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// Modal de pedir numero
+// Modal de pedir número
 function solicitarNumero(mensaje) {
   return new Promise((resolver) => {
     const modalSolicitud = document.getElementById("modal-solicitud");
@@ -64,33 +64,33 @@ function solicitarNumero(mensaje) {
   });
 }
 
-//  Variables Globales y Estado del Juego
-let saldoActual = 1000;
+// VARIABLES Y ESTADOS
+let saldoActual = 100;
 let fichasActuales = 0;
 let apuestaActual = 0;
 
 let mazo = [];
 let manoJugador = [];
 let manoDealer = [];
-let juegoTerminado = false;    // Indica si la partida terminó
-let juegoIniciado = false;      // Indica si hay una partida en curso
+let juegoTerminado = false;
+let juegoIniciado = false;
 
 const imagenReversoCarta = "./assets/savageHands/card_back.png";
-const mapaPalos = {
-  "♠": "spades",
-  "♥": "hearts",
-  "♦": "diamonds",
-  "♣": "clubs"
-};
 
-// Actualizar saldo
+// FUNCIONES DE UTILIDAD
 function actualizarSaldo() {
   document.getElementById('dinero-actual').textContent = `DINERO: ${saldoActual}€`;
   document.getElementById('fichas-actuales').textContent = `FICHAS: ${fichasActuales}🎫`;
   document.getElementById('apuesta-actual').textContent = apuestaActual;
 }
 
-// Gestion y conversion del dinero
+function actualizarReloj() {
+  document.getElementById("reloj").textContent = new Date().toLocaleTimeString();
+  setTimeout(actualizarReloj, 1000);
+}
+actualizarReloj();
+
+// GESTIÓN Y CONVERSIÓN DEL DINERO
 document.getElementById('boton-ingresar-dinero').addEventListener('click', async () => {
   const cantidad = await solicitarNumero("¿Cuánto dinero deseas ingresar?");
   if (cantidad !== null) {
@@ -131,27 +131,69 @@ document.getElementById('boton-convertir-a-dinero').addEventListener('click', ()
   }
 });
 
-// Reloj
-function actualizarReloj() {
-  document.getElementById("reloj").textContent = new Date().toLocaleTimeString();
-  setTimeout(actualizarReloj, 1000);
-}
-actualizarReloj();
-
-// Baraja
-const palos = ['♠', '♥', '♦', '♣'];
-const valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-
+// FUNCIONES DEL JUEGO
 function crearBaraja() {
-  mazo = [];
-  for (let palo of palos) {
-    for (let valor of valores) {
-      let num = parseInt(valor);
-      if (['J', 'Q', 'K'].includes(valor)) num = 10;
-      else if (valor === 'A') num = 11;
-      mazo.push({ palo, valor, num });
-    }
-  }
+  mazo = [
+    // Spades (♠)
+    { palo: '♠', valor: '2', num: 2, imagen: './assets/savageHands/Spades-2.png' },
+    { palo: '♠', valor: '3', num: 3, imagen: './assets/savageHands/Spades-3.png' },
+    { palo: '♠', valor: '4', num: 4, imagen: './assets/savageHands/Spades-4.png' },
+    { palo: '♠', valor: '5', num: 5, imagen: './assets/savageHands/Spades-5.png' },
+    { palo: '♠', valor: '6', num: 6, imagen: './assets/savageHands/Spades-6.png' },
+    { palo: '♠', valor: '7', num: 7, imagen: './assets/savageHands/Spades-7.png' },
+    { palo: '♠', valor: '8', num: 8, imagen: './assets/savageHands/Spades-8.png' },
+    { palo: '♠', valor: '9', num: 9, imagen: './assets/savageHands/Spades-9.png' },
+    { palo: '♠', valor: '10', num: 10, imagen: './assets/savageHands/Spades-10.png' },
+    { palo: '♠', valor: 'J', num: 10, imagen: './assets/savageHands/Spades-Jack.png' },
+    { palo: '♠', valor: 'Q', num: 10, imagen: './assets/savageHands/Spades-Queen.png' },
+    { palo: '♠', valor: 'K', num: 10, imagen: './assets/savageHands/Spades-King.png' },
+    { palo: '♠', valor: 'A', num: 11, imagen: './assets/savageHands/Spades-Ace.png' },
+
+    // Hearts (♥)
+    { palo: '♥', valor: '2', num: 2, imagen: './assets/savageHands/Hearts-2.png' },
+    { palo: '♥', valor: '3', num: 3, imagen: './assets/savageHands/Hearts-3.png' },
+    { palo: '♥', valor: '4', num: 4, imagen: './assets/savageHands/Hearts-4.png' },
+    { palo: '♥', valor: '5', num: 5, imagen: './assets/savageHands/Hearts-5.png' },
+    { palo: '♥', valor: '6', num: 6, imagen: './assets/savageHands/Hearts-6.png' },
+    { palo: '♥', valor: '7', num: 7, imagen: './assets/savageHands/Hearts-7.png' },
+    { palo: '♥', valor: '8', num: 8, imagen: './assets/savageHands/Hearts-8.png' },
+    { palo: '♥', valor: '9', num: 9, imagen: './assets/savageHands/Hearts-9.png' },
+    { palo: '♥', valor: '10', num: 10, imagen: './assets/savageHands/Hearts-10.png' },
+    { palo: '♥', valor: 'J', num: 10, imagen: './assets/savageHands/Hearts-Jack.png' },
+    { palo: '♥', valor: 'Q', num: 10, imagen: './assets/savageHands/Hearts-Queen.png' },
+    { palo: '♥', valor: 'K', num: 10, imagen: './assets/savageHands/Hearts-King.png' },
+    { palo: '♥', valor: 'A', num: 11, imagen: './assets/savageHands/Hearts-Ace.png' },
+
+    // Diamonds (♦)
+    { palo: '♦', valor: '2', num: 2, imagen: './assets/savageHands/Diamond-2.png' },
+    { palo: '♦', valor: '3', num: 3, imagen: './assets/savageHands/Diamond-3.png' },
+    { palo: '♦', valor: '4', num: 4, imagen: './assets/savageHands/Diamond-4.png' },
+    { palo: '♦', valor: '5', num: 5, imagen: './assets/savageHands/Diamond-5.png' },
+    { palo: '♦', valor: '6', num: 6, imagen: './assets/savageHands/Diamond-6.png' },
+    { palo: '♦', valor: '7', num: 7, imagen: './assets/savageHands/Diamond-7.png' },
+    { palo: '♦', valor: '8', num: 8, imagen: './assets/savageHands/Diamond-8.png' },
+    { palo: '♦', valor: '9', num: 9, imagen: './assets/savageHands/Diamond-9.png' },
+    { palo: '♦', valor: '10', num: 10, imagen: './assets/savageHands/Diamond-10.png' },
+    { palo: '♦', valor: 'J', num: 10, imagen: './assets/savageHands/Diamond-Jack.png' },
+    { palo: '♦', valor: 'Q', num: 10, imagen: './assets/savageHands/Diamond-Queen.png' },
+    { palo: '♦', valor: 'K', num: 10, imagen: './assets/savageHands/Diamond-King.png' },
+    { palo: '♦', valor: 'A', num: 11, imagen: './assets/savageHands/Diamond-Ace.png' },
+
+    // Clubs (♣)
+    { palo: '♣', valor: '2', num: 2, imagen: './assets/savageHands/Clubs-2.png' },
+    { palo: '♣', valor: '3', num: 3, imagen: './assets/savageHands/Clubs-3.png' },
+    { palo: '♣', valor: '4', num: 4, imagen: './assets/savageHands/Clubs-4.png' },
+    { palo: '♣', valor: '5', num: 5, imagen: './assets/savageHands/Clubs-5.png' },
+    { palo: '♣', valor: '6', num: 6, imagen: './assets/savageHands/Clubs-6.png' },
+    { palo: '♣', valor: '7', num: 7, imagen: './assets/savageHands/Clubs-7.png' },
+    { palo: '♣', valor: '8', num: 8, imagen: './assets/savageHands/Clubs-8.png' },
+    { palo: '♣', valor: '9', num: 9, imagen: './assets/savageHands/Clubs-9.png' },
+    { palo: '♣', valor: '10', num: 10, imagen: './assets/savageHands/Clubs-10.png' },
+    { palo: '♣', valor: 'J', num: 10, imagen: './assets/savageHands/Clubs-Jack.png' },
+    { palo: '♣', valor: 'Q', num: 10, imagen: './assets/savageHands/Clubs-Queen.png' },
+    { palo: '♣', valor: 'K', num: 10, imagen: './assets/savageHands/Clubs-King.png' },
+    { palo: '♣', valor: 'A', num: 11, imagen: './assets/savageHands/Clubs-Ace.png' }
+  ];
 }
 
 function mezclarBaraja() {
@@ -182,8 +224,7 @@ function calcularPuntuacion(mano) {
 }
 
 function obtenerImagenCarta(carta) {
-  const nombrePalo = mapaPalos[carta.palo];
-  return `./assets/cartas/${carta.valor}_${nombrePalo}.png`;
+  return carta.imagen;
 }
 
 function mostrarMano(mano, idElemento, ocultarPrimera = false) {
@@ -192,7 +233,8 @@ function mostrarMano(mano, idElemento, ocultarPrimera = false) {
   mano.forEach((carta, indice) => {
     const img = document.createElement("img");
     img.className = "carta";
-    if (ocultarPrimera && indice === 0 && !juegoTerminado && juegoIniciado) {
+    // Si se indica ocultar la primera carta y el juego no ha terminado, se muestra la carta oculta
+    if (ocultarPrimera && indice === 0 && !juegoTerminado) {
       img.src = imagenReversoCarta;
       img.alt = "Carta oculta";
     } else {
@@ -205,6 +247,7 @@ function mostrarMano(mano, idElemento, ocultarPrimera = false) {
 
 function actualizarPantalla() {
   mostrarMano(manoJugador, "mano-jugador");
+  // En el dealer se oculta siempre la primera carta mientras el juego no haya finalizado
   mostrarMano(manoDealer, "mano-dealer", true);
   const puntosJugador = calcularPuntuacion(manoJugador);
   const puntosDealer = calcularPuntuacion(manoDealer);
@@ -223,9 +266,10 @@ function habilitarBotonesJuego() {
   document.getElementById("plantarse").disabled = false;
 }
 
-/* Finaliza la partida y determina el ganador */
+// Finaliza la partida y determina el ganador
 function finalizarJuego() {
   juegoTerminado = true;
+  // El dealer reparte cartas hasta alcanzar al menos 17
   while (calcularPuntuacion(manoDealer) < 17) {
     repartirCarta(manoDealer);
   }
@@ -233,8 +277,9 @@ function finalizarJuego() {
   const puntosJugador = calcularPuntuacion(manoJugador);
   const puntosDealer = calcularPuntuacion(manoDealer);
   let mensaje = "";
-  if (puntosJugador > 21) mensaje = "¡Te pasaste de 21! Gana el Dealer.";
-  else if (puntosDealer > 21) {
+  if (puntosJugador > 21) {
+    mensaje = "¡Te pasaste de 21! Gana el Dealer.";
+  } else if (puntosDealer > 21) {
     mensaje = "¡El Dealer se pasó de 21! Ganaste.";
     fichasActuales += apuestaActual;
   } else if (puntosJugador === puntosDealer) {
@@ -252,38 +297,65 @@ function finalizarJuego() {
   apuestaActual = 0;
   document.getElementById('apuesta-actual').textContent = 0;
   juegoIniciado = false;
+  // Se vuelve a habilitar el botón "Nuevo Juego"
+  document.getElementById("nuevo-juego").disabled = false;
 }
 
-/* Inicia una nueva partida (solo si hay apuesta) */
+// Inicia una nueva partida (solo si hay apuesta)
 function nuevoJuego() {
   if (apuestaActual <= 0) {
     mostrarMensajeModal("Debes realizar una apuesta antes de iniciar el juego.");
     return;
   }
-  // Inicia la partida y bloquea las apuestas
+  // Bloquea el botón "Nuevo Juego" para evitar múltiples clics
+  document.getElementById("nuevo-juego").disabled = true;
+  
+  // Reinicia el estado del juego
   juegoTerminado = false;
   manoJugador = [];
   manoDealer = [];
   document.getElementById("mensaje").textContent = "";
   crearBaraja();
   mezclarBaraja();
+  
+  // Reparte las cartas iniciales
   repartirCarta(manoJugador);
   repartirCarta(manoDealer);
   repartirCarta(manoJugador);
   repartirCarta(manoDealer);
-  actualizarPantalla();
-  habilitarBotonesJuego();
+  
+  // Importante: establecer que el juego ha iniciado ANTES de actualizar la pantalla,
+  // para que la función que muestra las cartas sepa que debe ocultar la primera carta del dealer
   juegoIniciado = true;
   
+  actualizarPantalla();
+  
+  // Verificar si el jugador tiene blackjack (21 con dos cartas)
+  if (calcularPuntuacion(manoJugador) === 21 && manoJugador.length === 2) {
+    juegoTerminado = true;
+    actualizarPantalla(); // Revela la carta oculta del dealer
+    if (calcularPuntuacion(manoDealer) === 21 && manoDealer.length === 2) {
+      mostrarMensajeModal("¡Empate! Ambos tienen 21.");
+      fichasActuales += apuestaActual; // Recuperas tu apuesta
+    } else {
+      mostrarMensajeModal("¡Blackjack! Has ganado el doble.");
+      fichasActuales += apuestaActual * 2;
+    }
+    apuestaActual = 0;
+    deshabilitarBotonesJuego();
+    actualizarSaldo();
+    // Se vuelve a habilitar el botón "Nuevo Juego"
+    document.getElementById("nuevo-juego").disabled = false;
+    return;
+  }
+  
+  habilitarBotonesJuego();
 }
 
-/* =========================
-   Eventos de Control del Juego
-   ========================= */
-// Al pulsar "Nuevo Juego" se inicia la partida (si hay apuesta)
+// Evento nuevo Juego
 document.getElementById("nuevo-juego").addEventListener("click", nuevoJuego);
 
-// Solo se permiten acciones de juego si hay partida en curso
+// Evento pedir Carta
 document.getElementById("pedir-carta").addEventListener("click", () => {
   if (!juegoTerminado && juegoIniciado) {
     repartirCarta(manoJugador);
@@ -294,16 +366,14 @@ document.getElementById("pedir-carta").addEventListener("click", () => {
   }
 });
 
+// Evento plantarse
 document.getElementById("plantarse").addEventListener("click", () => {
   if (!juegoTerminado && juegoIniciado) {
     finalizarJuego();
   }
 });
 
-/* =========================
-   Eventos de Apuestas (Chips)
-   ========================= */
-// Durante una partida no se permite modificar la apuesta
+// Apuestas
 const elementosChip = document.querySelectorAll(".chip");
 elementosChip.forEach(chip => {
   chip.addEventListener("click", () => {
@@ -332,9 +402,6 @@ document.getElementById("reiniciar-apuesta").addEventListener("click", () => {
   actualizarSaldo();
 });
 
-/* =========================
-   Inicialización
-   ========================= */
-// Al cargar la página, se actualiza el saldo y se deshabilitan los botones de juego
+// Al cargar la página se actualiza el saldo y se deshabilitan los botones de juego
 actualizarSaldo();
 deshabilitarBotonesJuego();
