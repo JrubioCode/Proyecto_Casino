@@ -345,8 +345,10 @@ function nuevoJuego() {
       mostrarMensajeModal("¡Empate! Ambos tienen 21.");
       fichasActuales += apuestaActual; // Recuperas tu apuesta
     } else {
-      mostrarMensajeModal("¡Blackjack! Has ganado el doble.");
-      fichasActuales += apuestaActual * 2;
+      mostrarMensajeModal("¡Blackjack! Has ganado el premio x4.");
+      fichasActuales += apuestaActual * 4;
+      finalizarJuego();
+
     }
     apuestaActual = 0;
     deshabilitarBotonesJuego();
