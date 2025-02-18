@@ -12,7 +12,7 @@ public class HistoricoController {
     @Autowired
     private HistoricoService historicoService;
 
-    // Endpoint para registrar un histórico
+    // Registrar un histórico
     @PostMapping("/registrar")
     public String registrarTirada(@RequestBody HistoricoDTO historicoDTO) {
         historicoService.registrarTirada(historicoDTO);

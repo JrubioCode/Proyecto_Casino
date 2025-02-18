@@ -11,7 +11,7 @@ public class ConversionController {
     @Autowired
     private ConversionService conversionService;
 
-    // Endpoint para obtener el multiplicador
+    // Obtener el multiplicador
     @GetMapping("/obtenerMultiplicador/{idJuego}")
     public String obtenerMultiplicador(@PathVariable Integer idJuego) {
         Double multiplicador = conversionService.obtenerMultiplicadorPorJuego(idJuego);
