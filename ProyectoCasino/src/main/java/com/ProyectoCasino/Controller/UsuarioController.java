@@ -22,7 +22,7 @@ public class UsuarioController {
     // Registro normal
     @PostMapping("/registrar")
     public String registrarUsuario(@RequestBody UsuarioDTO usuario) {
-  
+
         if (usuarioService.usuarioExiste(usuario.getDni())) {
             return "Error: El DNI ya está registrado.";
         }
@@ -40,7 +40,7 @@ public class UsuarioController {
     // Registro vip
     @PostMapping("/registrarVIP")
     public String registrarUsuarioVIP(@RequestBody UsuarioDTO usuario) {
-  
+
         if (usuarioService.usuarioExiste(usuario.getDni())) {
             return "Error: El DNI ya está registrado.";
         }
@@ -57,13 +57,13 @@ public class UsuarioController {
 
     // Login
     @GetMapping("/autenticar/{userName}/{userPassword}")
-    public Object autenticarUsuario(@PathVariable("userName") String userName,  @PathVariable("userPassword") String userPassword) {
+    public Object autenticarUsuario(@PathVariable("userName") String userName, @PathVariable("userPassword") String userPassword) {
         UsuarioEntity usuarioEntity = usuarioService.comprobarUsuario(userName);
-        
+
         if (usuarioEntity == null) {
             return "404 - Usuario no encontrado";
         }
-        
+
         UsuarioDTO usuarioDTO = usuarioService.validarUsuario(usuarioEntity, userPassword);
         if (usuarioDTO == null) {
             return "Contraseña incorrecta";
@@ -72,11 +72,10 @@ public class UsuarioController {
         return usuarioDTO;
     }
 
-
     @GetMapping("/obtenerSaldo/{dni}")
     public double obtenerSaldo(@PathVariable("dni") String dni) {
-    UsuarioEntity usuarioEntity = usuarioService.obtenerUsuarioPorDni(dni);
-    return usuarioEntity != null ? usuarioEntity.getDineroUsuario() : 0.0;
+        UsuarioEntity usuarioEntity = usuarioService.obtenerUsuarioPorDni(dni);
+        return usuarioEntity != null ? usuarioEntity.getDineroUsuario() : 0.0;
     }
 
     @PostMapping("/actualizar")

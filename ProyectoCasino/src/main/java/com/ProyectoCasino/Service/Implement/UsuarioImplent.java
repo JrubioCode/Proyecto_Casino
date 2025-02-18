@@ -83,7 +83,7 @@ public class UsuarioImplent implements UsuarioService {
             usuarioEntity.setFechaExpiracion(java.sql.Date.valueOf(fechaExpCompleta));
         } else {
             usuarioEntity.setFechaExpiracion(null);
-        }        
+        }
         usuarioEntity.setCvc(usuarioDTO.getCvc());
 
         return usuarioRepository.save(usuarioEntity);

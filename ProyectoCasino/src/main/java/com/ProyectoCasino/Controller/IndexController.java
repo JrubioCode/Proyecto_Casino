@@ -29,10 +29,8 @@ public class IndexController {
 
     @GetMapping("/lobby")
     public String lobby(@RequestParam("dni") String dni, Model model) {
-        // Buscar el usuario en la base de datos por su DNI
         UsuarioEntity usuario = usuarioService.buscarPorDni(dni);
-
-        // Agregar el atributo "esVip" al modelo para que Thymeleaf lo use
+        // Pasarle a la vista el atributo esVip
         if (usuario != null) {
             model.addAttribute("esVip", usuario.getEsVip());
         } else {
@@ -42,16 +40,15 @@ public class IndexController {
         return "lobby"; // Renderiza la vista lobby.html
     }
 
-
     // Metodo para acceder a CavemanRun
     @GetMapping("/cavemanRun")
-    public String cavemanRun(){
+    public String cavemanRun() {
         return "cavemanRun";
     }
 
     // Metodo para acceder a BlackJack
     @GetMapping("/blackjack")
-    public String blackjack(){
+    public String blackjack() {
         return "savageHands";
     }
 

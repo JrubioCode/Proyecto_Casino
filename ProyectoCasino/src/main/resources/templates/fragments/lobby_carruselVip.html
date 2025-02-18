@@ -1,28 +1,28 @@
 <div th:fragment="lobbyCarrusel" class="contenidoCasino">
-    <!-- Carrusel de Juegos -->
-    <div class="carrusel-juegos">
-      <div class="contenedor-carrusel">
-          <div class="carrusel-slide">
-            <a href="https://prehistoric-slot.vercel.app/">
-              <img src="./assets/lobby/juego-tragaperra.png" alt="Juego 1" />
-            </a>
-          </div>
-          <div class="carrusel-slide">
-            <a th:href="@{/cavemanRun}">
-              <img src="./assets/lobby/juego-dinosaurio.png" alt="Juego 2" />
-            </a>
-          </div>
-          <div class="carrusel-slide">
-            <a th:href="@{/blackjack}">
-              <img src="./assets/lobby/juego-blackjack.png" alt="Juego 3" />
-            </a>
-          </div>
+  <!-- Carrusel de Juegos -->
+  <div class="carrusel-juegos">
+    <div class="contenedor-carrusel">
+      <div class="carrusel-slide">
+        <a href="https://prehistoric-slot.vercel.app/">
+          <img src="./assets/lobby/juego-tragaperra.png" alt="Juego 1" />
+        </a>
       </div>
-      <div class="carrusel-izquierda" onclick="moverIzquierda()">
-          <img src="./assets/lobby/flecha-izquierda.png" alt="Anterior">
+      <div class="carrusel-slide">
+        <a th:href="@{/cavemanRun}">
+          <img src="./assets/lobby/juego-dinosaurio.png" alt="Juego 2" />
+        </a>
       </div>
-      <div class="carrusel-derecha" onclick="moverDerecha()">
-          <img src="./assets/lobby/flecha-derecha.png" alt="Siguiente">
+      <div class="carrusel-slide">
+        <a th:href="@{/blackjack}">
+          <img src="./assets/lobby/juego-blackjack.png" alt="Juego 3" />
+        </a>
       </div>
     </div>
+    <div class="carrusel-izquierda" onclick="moverIzquierda()">
+      <img src="./assets/lobby/flecha-izquierda.png" alt="Anterior" />
+    </div>
+    <div class="carrusel-derecha" onclick="moverDerecha()">
+      <img src="./assets/lobby/flecha-derecha.png" alt="Siguiente" />
+    </div>
   </div>
+</div>
