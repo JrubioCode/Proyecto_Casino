@@ -1,0 +1,406 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos Globales */
+body {
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  font-family: 'Montserrat', sans-serif;
+  color: #f0f0f0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  animation: fadeIn 1s ease;
+}
+
+/* HEADER */
+.contenido-header {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  border: 2px solid #ff1177;
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0 15px #ff1177;
+}
+.header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  animation: fadeInDown 0.8s ease-out;
+}
+.logo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.logo-titulo a img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #ff1177;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 10px #ff1177;
+}
+.logo-titulo a img:hover {
+  transform: rotate(360deg);
+  box-shadow: 0 0 20px #ff1177;
+}
+.logo-titulo h1 {
+  font-size: 2.5rem;
+  color: #ff1177;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+.barra-separar {
+  width: 3px;
+  background: #ff1177;
+  height: 100px;
+  margin: 0 20px;
+}
+
+/* Gestión de Saldo */
+.gestion-saldo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.botones-saldo {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.botones-saldo input {
+  padding: 10px 15px;
+  background: linear-gradient(45deg, #ff9800, #f44336);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s;
+}
+.botones-saldo input:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+.mensajes-saldo p {
+  font-size: 1rem;
+  margin: 3px 0;
+}
+
+/* Reloj e Ícono de Información */
+.reloj-ajustes {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.reloj-container {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+.info-icon {
+  font-size: 1.8rem;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 5px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+.info-icon:hover {
+  background: #455a64;
+  transform: scale(1.1);
+}
+
+/* ÁREA DE APUESTAS */
+#area-apuestas {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 25px 20px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+  animation: fadeInUp 0.8s ease-out;
+  border: 2px solid #ff1177;
+}
+#area-apuestas h2 {
+  margin-bottom: 15px;
+  font-size: 2rem;
+  color: #ff1177;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.chips-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+.chip {
+  width: 70px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 50%;
+  border: 2px solid #ff1177;
+  filter: drop-shadow(0 0 5px #ff1177);
+}
+.chip:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 15px #ff1177;
+}
+#area-apuestas p {
+  font-size: 1.3rem;
+  margin: 10px 0;
+}
+#area-apuestas button {
+  padding: 12px 25px;
+  background: linear-gradient(45deg, #009688, #00796b);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+#area-apuestas button:hover {
+  background: linear-gradient(45deg, #00796b, #005b4f);
+  transform: scale(1.05);
+}
+
+/* MAIN y Área de Juego */
+main {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 20px;
+  animation: fadeIn 1s ease;
+}
+.area-juego {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+.dealer, .jugador {
+  flex: 1;
+}
+.dealer h2, .jugador h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  color: #ff1177;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.mano {
+  min-height: 140px;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.carta {
+  width: 90px;
+  transition: transform 0.5s;
+  animation: flipCard 0.5s ease-out;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  border: 2px solid #ff1177;
+}
+.puntuacion {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 1.3rem;
+}
+
+/* Controles del Juego */
+.controles {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.controles button {
+  padding: 12px 25px;
+  margin: 0 10px;
+  background: linear-gradient(45deg, #3f51b5, #303f9f);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.controles button:hover {
+  background: linear-gradient(45deg, #303f9f, #1a237e);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+.controles button:disabled {
+  background: #757575;
+  cursor: not-allowed;
+}
+#mensaje {
+  text-align: center;
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+}
+
+/* Modal de Ayuda / Información */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 1000;
+}
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-contenido {
+  background: #263238;
+  padding: 35px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  animation: zoomIn 0.5s ease;
+  position: relative;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5), 0 0 15px #ff1177;
+  border: 2px solid #ff1177;
+}
+.modal-contenido h2 {
+  margin-bottom: 20px;
+  color: #ff1177;
+  font-size: 2rem;
+}
+.modal-contenido p,
+.modal-contenido ul,
+.modal-contenido li {
+  color: #eceff1;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+.modal-contenido .cerrar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.8rem;
+  color: #ff1177;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.modal-contenido .cerrar:hover {
+  transform: scale(1.2);
+}
+
+/* Modal de Mensajes */
+.modal-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none; /* Se muestra cuando se necesite */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.modal-message-content {
+  background: #222;
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 80%;
+}
+.modal-message-content p {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+.modal-message-content button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Modal de Solicitud de Número */
+.modal-solicitud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none; /* Se muestra cuando se necesite */
+  justify-content: center;
+  align-items: center;
+  z-index: 9998;
+}
+.modal-solicitud-content {
+  background: #222;
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 80%;
+}
+.modal-solicitud-content p {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+.modal-solicitud-content input {
+  padding: 10px;
+  font-size: 1rem;
+  width: 80%;
+  margin-bottom: 20px;
+}
+.modal-solicitud-content button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+/* Animaciones */
+@keyframes flipCard {
+  from { transform: rotateY(90deg); opacity: 0; }
+  to { transform: rotateY(0deg); opacity: 1; }
+}
+@keyframes zoomIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
