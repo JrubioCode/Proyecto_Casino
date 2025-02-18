@@ -404,3 +404,126 @@ main {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  /* Header */
+  .contenido-header {
+    margin: 10px;
+    padding: 15px;
+    flex-direction: column;
+    text-align: center;
+  }
+  .header {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-titulo h1 {
+    font-size: 2rem;
+  }
+  .barra-separar {
+    display: none;
+  }
+  .gestion-saldo {
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  /* Área de apuestas */
+  #area-apuestas {
+    width: 100%;
+    padding: 20px 15px;
+    margin: 10px auto;
+    box-sizing: border-box;
+  }
+  .chips-container {
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  /* Main y área de juego */
+  main {
+    width: 100%;
+    padding: 0 10px;
+    margin: 20px auto;
+    box-sizing: border-box;
+  }
+  .area-juego {
+    flex-direction: column;
+  }
+  .mano {
+    min-height: 120px;
+    padding: 10px;
+    gap: 10px;
+  }
+  .carta {
+    width: 70px;
+  }
+
+  /* Reloj e ícono de información */
+  .reloj-ajustes {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+}
+
+/* Responsive para tablets (769px a 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Header */
+  .contenido-header {
+    margin: 15px auto;
+    padding: 18px;
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+  }
+  .header {
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+  .logo-titulo h1 {
+    font-size: 2.2rem;
+  }
+  .barra-separar {
+    display: block;
+  }
+  .gestion-saldo {
+    align-items: flex-end;
+    margin-top: 0;
+  }
+
+  /* Área de apuestas */
+  #area-apuestas {
+    width: 90%;
+    padding: 20px;
+    margin: 15px auto;
+    box-sizing: border-box;
+  }
+  .chips-container {
+    gap: 15px;
+    justify-content: center;
+  }
+
+  /* Main y área de juego */
+  main {
+    width: 90%;
+    padding: 0 15px;
+    margin: 20px auto;
+    box-sizing: border-box;
+  }
+  .area-juego {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .mano {
+    padding: 12px;
+  }
+  .carta {
+    width: 80px;
+  }
+}
