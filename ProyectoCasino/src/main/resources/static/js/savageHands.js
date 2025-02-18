@@ -65,15 +65,15 @@ function solicitarNumero(mensaje) {
 }
 
 //  Variables Globales y Estado del Juego
-let saldoActual = 1000;
+let saldoActual = 100;
 let fichasActuales = 0;
 let apuestaActual = 0;
 
 let mazo = [];
 let manoJugador = [];
 let manoDealer = [];
-let juegoTerminado = false;    // Indica si la partida terminó
-let juegoIniciado = false;      // Indica si hay una partida en curso
+let juegoTerminado = false;
+let juegoIniciado = false;
 
 const imagenReversoCarta = "./assets/savageHands/card_back.png";
 const mapaPalos = {
@@ -138,20 +138,68 @@ function actualizarReloj() {
 }
 actualizarReloj();
 
-// Baraja
-const palos = ['♠', '♥', '♦', '♣'];
-const valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-
 function crearBaraja() {
-  mazo = [];
-  for (let palo of palos) {
-    for (let valor of valores) {
-      let num = parseInt(valor);
-      if (['J', 'Q', 'K'].includes(valor)) num = 10;
-      else if (valor === 'A') num = 11;
-      mazo.push({ palo, valor, num });
-    }
-  }
+  mazo = [
+    // Spades (♠)
+    { palo: '♠', valor: '2', num: 2, imagen: './assets/savageHands/Spades-2.png' },
+    { palo: '♠', valor: '3', num: 3, imagen: './assets/savageHands/Spades-3.png' },
+    { palo: '♠', valor: '4', num: 4, imagen: './assets/savageHands/Spades-4.png' },
+    { palo: '♠', valor: '5', num: 5, imagen: './assets/savageHands/Spades-5.png' },
+    { palo: '♠', valor: '6', num: 6, imagen: './assets/savageHands/Spades-6.png' },
+    { palo: '♠', valor: '7', num: 7, imagen: './assets/savageHands/Spades-7.png' },
+    { palo: '♠', valor: '8', num: 8, imagen: './assets/savageHands/Spades-8.png' },
+    { palo: '♠', valor: '9', num: 9, imagen: './assets/savageHands/Spades-9.png' },
+    { palo: '♠', valor: '10', num: 10, imagen: './assets/savageHands/Spades-10.png' },
+    { palo: '♠', valor: 'J', num: 10, imagen: './assets/savageHands/Spades-Jack.png' },
+    { palo: '♠', valor: 'Q', num: 10, imagen: './assets/savageHands/Spades-Queen.png' },
+    { palo: '♠', valor: 'K', num: 10, imagen: './assets/savageHands/Spades-King.png' },
+    { palo: '♠', valor: 'A', num: 11, imagen: './assets/savageHands/Spades-Ace.png' },
+
+    // Hearts (♥)
+    { palo: '♥', valor: '2', num: 2, imagen: './assets/savageHands/Hearts-2.png' },
+    { palo: '♥', valor: '3', num: 3, imagen: './assets/savageHands/Hearts-3.png' },
+    { palo: '♥', valor: '4', num: 4, imagen: './assets/savageHands/Hearts-4.png' },
+    { palo: '♥', valor: '5', num: 5, imagen: './assets/savageHands/Hearts-5.png' },
+    { palo: '♥', valor: '6', num: 6, imagen: './assets/savageHands/Hearts-6.png' },
+    { palo: '♥', valor: '7', num: 7, imagen: './assets/savageHands/Hearts-7.png' },
+    { palo: '♥', valor: '8', num: 8, imagen: './assets/savageHands/Hearts-8.png' },
+    { palo: '♥', valor: '9', num: 9, imagen: './assets/savageHands/Hearts-9.png' },
+    { palo: '♥', valor: '10', num: 10, imagen: './assets/savageHands/Hearts-10.png' },
+    { palo: '♥', valor: 'J', num: 10, imagen: './assets/savageHands/Hearts-Jack.png' },
+    { palo: '♥', valor: 'Q', num: 10, imagen: './assets/savageHands/Hearts-Queen.png' },
+    { palo: '♥', valor: 'K', num: 10, imagen: './assets/savageHands/Hearts-King.png' },
+    { palo: '♥', valor: 'A', num: 11, imagen: './assets/savageHands/Hearts-Ace.png' },
+
+    // Diamonds (♦)
+    { palo: '♦', valor: '2', num: 2, imagen: './assets/savageHands/Diamond-2.png' },
+    { palo: '♦', valor: '3', num: 3, imagen: './assets/savageHands/Diamond-3.png' },
+    { palo: '♦', valor: '4', num: 4, imagen: './assets/savageHands/Diamond-4.png' },
+    { palo: '♦', valor: '5', num: 5, imagen: './assets/savageHands/Diamond-5.png' },
+    { palo: '♦', valor: '6', num: 6, imagen: './assets/savageHands/Diamond-6.png' },
+    { palo: '♦', valor: '7', num: 7, imagen: './assets/savageHands/Diamond-7.png' },
+    { palo: '♦', valor: '8', num: 8, imagen: './assets/savageHands/Diamond-8.png' },
+    { palo: '♦', valor: '9', num: 9, imagen: './assets/savageHands/Diamond-9.png' },
+    { palo: '♦', valor: '10', num: 10, imagen: './assets/savageHands/Diamond-10.png' },
+    { palo: '♦', valor: 'J', num: 10, imagen: './assets/savageHands/Diamond-Jack.png' },
+    { palo: '♦', valor: 'Q', num: 10, imagen: './assets/savageHands/Diamond-Queen.png' },
+    { palo: '♦', valor: 'K', num: 10, imagen: './assets/savageHands/Diamond-King.png' },
+    { palo: '♦', valor: 'A', num: 11, imagen: './assets/savageHands/Diamond-Ace.png' },
+
+    // Clubs (♣)
+    { palo: '♣', valor: '2', num: 2, imagen: './assets/savageHands/Clubs-2.png' },
+    { palo: '♣', valor: '3', num: 3, imagen: './assets/savageHands/Clubs-3.png' },
+    { palo: '♣', valor: '4', num: 4, imagen: './assets/savageHands/Clubs-4.png' },
+    { palo: '♣', valor: '5', num: 5, imagen: './assets/savageHands/Clubs-5.png' },
+    { palo: '♣', valor: '6', num: 6, imagen: './assets/savageHands/Clubs-6.png' },
+    { palo: '♣', valor: '7', num: 7, imagen: './assets/savageHands/Clubs-7.png' },
+    { palo: '♣', valor: '8', num: 8, imagen: './assets/savageHands/Clubs-8.png' },
+    { palo: '♣', valor: '9', num: 9, imagen: './assets/savageHands/Clubs-9.png' },
+    { palo: '♣', valor: '10', num: 10, imagen: './assets/savageHands/Clubs-10.png' },
+    { palo: '♣', valor: 'J', num: 10, imagen: './assets/savageHands/Clubs-Jack.png' },
+    { palo: '♣', valor: 'Q', num: 10, imagen: './assets/savageHands/Clubs-Queen.png' },
+    { palo: '♣', valor: 'K', num: 10, imagen: './assets/savageHands/Clubs-King.png' },
+    { palo: '♣', valor: 'A', num: 11, imagen: './assets/savageHands/Clubs-Ace.png' }
+  ];
 }
 
 function mezclarBaraja() {
@@ -181,9 +229,9 @@ function calcularPuntuacion(mano) {
   return total;
 }
 
+// MODIFICACIÓN: Obtener la imagen directamente desde la propiedad 'imagen' de la carta
 function obtenerImagenCarta(carta) {
-  const nombrePalo = mapaPalos[carta.palo];
-  return `./assets/cartas/${carta.valor}_${nombrePalo}.png`;
+  return carta.imagen;
 }
 
 function mostrarMano(mano, idElemento, ocultarPrimera = false) {
@@ -332,9 +380,6 @@ document.getElementById("reiniciar-apuesta").addEventListener("click", () => {
   actualizarSaldo();
 });
 
-/* =========================
-   Inicialización
-   ========================= */
 // Al cargar la página, se actualiza el saldo y se deshabilitan los botones de juego
 actualizarSaldo();
 deshabilitarBotonesJuego();
