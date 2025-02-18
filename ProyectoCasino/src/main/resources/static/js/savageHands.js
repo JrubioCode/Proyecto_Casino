@@ -1,6 +1,4 @@
-/* =========================
-   Función para Mostrar Modal de Mensajes
-   ========================= */
+// Modal mensajes
 function mostrarMensajeModal(mensaje) {
   const modal = document.getElementById("modal-message");
   document.getElementById("modal-message-text").textContent = mensaje;
@@ -11,9 +9,7 @@ document.getElementById("modal-message-close").addEventListener("click", () => {
   document.getElementById("modal-message").style.display = "none";
 });
 
-/* =========================
-   Modal de Ayuda (ya existente)
-   ========================= */
+// Modal ayuda
 const botonAyuda = document.getElementById('toggle-ayuda');
 const modalAyuda = document.getElementById('modal-ayuda');
 const cerrarModal = document.getElementById('cerrar-modal');
@@ -30,9 +26,7 @@ window.addEventListener('click', (e) => {
   }
 });
 
-/* =========================
-   Modal de Solicitud de Número
-   ========================= */
+// Modal de pedir numero
 function solicitarNumero(mensaje) {
   return new Promise((resolver) => {
     const modalSolicitud = document.getElementById("modal-solicitud");
@@ -70,9 +64,7 @@ function solicitarNumero(mensaje) {
   });
 }
 
-/* =========================
-   Variables Globales y Estado del Juego
-   ========================= */
+//  Variables Globales y Estado del Juego
 let saldoActual = 1000;
 let fichasActuales = 0;
 let apuestaActual = 0;
@@ -91,18 +83,14 @@ const mapaPalos = {
   "♣": "clubs"
 };
 
-/* =========================
-   Actualización del Saldo
-   ========================= */
+// Actualizar saldo
 function actualizarSaldo() {
   document.getElementById('dinero-actual').textContent = `DINERO: ${saldoActual}€`;
   document.getElementById('fichas-actuales').textContent = `FICHAS: ${fichasActuales}🎫`;
   document.getElementById('apuesta-actual').textContent = apuestaActual;
 }
 
-/* =========================
-   Funciones de Gestión de Dinero y Conversión
-   ========================= */
+// Gestion y conversion del dinero
 document.getElementById('boton-ingresar-dinero').addEventListener('click', async () => {
   const cantidad = await solicitarNumero("¿Cuánto dinero deseas ingresar?");
   if (cantidad !== null) {
@@ -143,18 +131,14 @@ document.getElementById('boton-convertir-a-dinero').addEventListener('click', ()
   }
 });
 
-/* =========================
-   Reloj
-   ========================= */
+// Reloj
 function actualizarReloj() {
   document.getElementById("reloj").textContent = new Date().toLocaleTimeString();
   setTimeout(actualizarReloj, 1000);
 }
 actualizarReloj();
 
-/* =========================
-   Funciones del Mazo y Juego
-   ========================= */
+// Baraja
 const palos = ['♠', '♥', '♦', '♣'];
 const valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 
@@ -266,6 +250,7 @@ function finalizarJuego() {
   deshabilitarBotonesJuego();
   mostrarMensajeModal(mensaje);
   apuestaActual = 0;
+  document.getElementById('apuesta-actual').textContent = 0;
   juegoIniciado = false;
 }
 
@@ -289,6 +274,7 @@ function nuevoJuego() {
   actualizarPantalla();
   habilitarBotonesJuego();
   juegoIniciado = true;
+  
 }
 
 /* =========================
