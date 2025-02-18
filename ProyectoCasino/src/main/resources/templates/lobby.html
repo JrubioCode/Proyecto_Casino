@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <!-- Cargar valor oculto -->
-    <input type="hidden" th:value="${esVip}">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CASINO</title>
@@ -13,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lobster&display=swap" rel="stylesheet">
   </head>
   <body>
+
+    <!-- Cargar valor oculto -->
+    <input type="hidden" th:value="${esVip}">
 
     <!-- Verificamos si el usuario es VIP o no -->
     <div th:if="${esVip}" th:insert="~{fragments/lobby_HeaderVip :: lobbyHeader}"></div>
