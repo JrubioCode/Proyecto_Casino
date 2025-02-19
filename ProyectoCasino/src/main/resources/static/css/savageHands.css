@@ -1,11 +1,9 @@
-/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilos Globales */
 body {
   height: 100vh;
   overflow-y: hidden;
@@ -17,9 +15,7 @@ body {
   animation: fadeIn 1s ease;
 }
 
-/* ========================
-   HEADER - AJUSTADO
-   ======================== */
+/* Header */
 .contenido-header {
   display: flex;
   flex-wrap: wrap;
@@ -54,12 +50,10 @@ body {
   height: auto;
   border-radius: 50%;
   border: 2px solid #C0C0C0;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 0 8px #C0C0C0;
 }
 
 .logo-titulo a img:hover {
-  transform: scale(1.1);
   box-shadow: 0 0 12px #C0C0C0;
 }
 
@@ -72,7 +66,7 @@ body {
 .barra-separar {
   width: 2px;
   background: #C0C0C0;
-  height: 60px;
+  height: 70px;
   margin: 0 15px;
 }
 
@@ -94,7 +88,7 @@ body {
   background: linear-gradient(45deg, #333, #555);
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 19px;
   color: #fff;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -108,7 +102,7 @@ body {
 
 .mensajes-saldo{
   display: flex;
-  gap: 370px;
+  gap: 450px;
 }
 
 .mensajes-saldo p {
@@ -472,6 +466,10 @@ main {
 
 /* MÓVILES (hasta 768px) */
 @media (max-width: 768px) {
+  body {
+    overflow-y: auto;
+    height: 100%;
+  }
   .header {
     flex-direction: column;
     gap: 5px; /* Mínimo espacio entre elementos */
