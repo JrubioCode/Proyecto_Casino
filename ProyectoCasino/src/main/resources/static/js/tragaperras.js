@@ -279,11 +279,11 @@ document.getElementById("boton-convertir-saldo").addEventListener("click", funct
 });
 
 // Funcionalidad tragaperras
-var cavernicola = "./assets/tragaperras/cavernicola.png";
-var fuego = "./assets/tragaperras/fuego.png";
-var pollo = "./assets/tragaperras/pollo.png";
-var mamut = "./assets/tragaperras/mamut.png";
-var grupoCavernicolas = "./assets/tragaperras/grupoCavernicolas.png";
+var cavernicola = "/assets/prehistoricSlot/tragaperras/cavernicola.png";
+var fuego = "/assets/prehistoricSlot/tragaperras/fuego.png";
+var pollo = "/assets/prehistoricSlot/tragaperras/pollo.png";
+var mamut = "/assets/prehistoricSlot/tragaperras/mamut.png";
+var grupoCavernicolas = "/assets/prehistoricSlot/tragaperras/grupoCavernicolas.png";
 
 var premios = {
   cavernicola: 100,
@@ -303,6 +303,7 @@ document.getElementById("palanca").addEventListener("click", () => {
     girar();
     fichas -= 25;
     actualizarSaldo();
+    mostrarMensajePremio("🎰 Girando...");
   } else if (fichas < 25) {
     if (estaEnIngles()) {
       mostrarMensajePremio("¡Not enough tokens to play!");
@@ -323,6 +324,7 @@ document.addEventListener("keydown", (event) => {
       girar();
       fichas -= 25;  
       actualizarSaldo();
+      mostrarMensajePremio("🎰 Girando...");
     } else if (fichas < 25) {
       if (estaEnIngles()) {
         mostrarMensajePremio("¡Not enough tokens to play!");
@@ -335,9 +337,9 @@ document.addEventListener("keydown", (event) => {
 
 // Función para cambiar la imagen de la palanca
 function cambiarPalanca(){
-  document.getElementById("palanca").src = "./assets/tragaperras/palanca_abajo.png";
+  document.getElementById("palanca").src = "./assets/prehistoricSlot/tragaperras/palanca_abajo.png";
   setTimeout(() => {
-    document.getElementById("palanca").src = "./assets/tragaperras/palanca_arriba.png";
+    document.getElementById("palanca").src = "./assets/prehistoricSlot/tragaperras/palanca_arriba.png";
   }, 200);
 }
 
@@ -788,11 +790,11 @@ function traducir() {
 
     // CAMBIAR ICONO DEPENDIENDO DEL IDIOMA
     if (estaEnIngles()) {
-      document.getElementById('icono-idioma').src = './assets/ajustes/ingles.png';
-      document.getElementById("cartel-premios").src = "./assets/premios/cartel-premios-ingles.png";
+      document.getElementById('icono-idioma').src = './assets/prehistoricSlot/ajustes/ingles.png';
+      document.getElementById("cartel-premios").src = "./assets/prehistoricSlot/premios/cartel-premios-ingles.png";
     } else {
-      document.getElementById('icono-idioma').src = './assets/ajustes/español.png';
-      document.getElementById("cartel-premios").src = "./assets/premios/cartel-premios-español.png";
+      document.getElementById('icono-idioma').src = './assets/prehistoricSlot/ajustes/español.png';
+      document.getElementById("cartel-premios").src = "./assets/prehistoricSlot/premios/cartel-premios-español.png";
     }
   });
 }

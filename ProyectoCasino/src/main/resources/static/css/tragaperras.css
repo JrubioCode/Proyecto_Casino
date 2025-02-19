@@ -19,7 +19,7 @@ body::before {
   left: 0;
   height: 100%;
   width: 100%;
-  background-image: url("./assets/fondo.png");
+  background-image: url("/assets/prehistoricSlot/fondo.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -419,7 +419,7 @@ p {
   justify-content: center;
   align-items: center;
   width: auto;
-  background: url('./assets/tragaperras/papel_desgastado.png');
+  background: url('/assets/prehistoricSlot/tragaperras/papel_desgastado.png');
   background-position: center;
   padding: 30px;
   margin-left: 70px;
