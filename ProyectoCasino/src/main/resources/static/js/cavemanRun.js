@@ -519,10 +519,6 @@ document.querySelectorAll('.tab-button').forEach((button) => {
   });
 });
 
-// Inicialización
-renderHistorialTiradas();
-renderMejoresJugadas();
-
 document.addEventListener("DOMContentLoaded", () => {
   const inputApuesta = document.getElementById("apuesta");
   const btnMenos = document.getElementById("btn-menos");
