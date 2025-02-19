@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLOTS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/tragaperras.css">
+    <script src="https://unpkg.com/i18next@latest/i18next.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <div class="contenido-header">
+        <div class="header">
+            <!-- Logo y Título -->
+            <div class="logo-titulo">
+                <a href="https://prehistoric-jackpot.vercel.app/">
+                    <img src="./assets/logo.webp" alt="Logo">
+                </a>
+                <h1>PREHISTORIC SLOT</h1>
+            </div>
+
+            <div class="barra-separar"></div>
+
+            <!-- Gestión de saldo -->
+            <div class="gestion-saldo">
+                <!-- Botones para gestionar saldo -->
+                <div class="botones-saldo">
+                    <input type="button" name="boton-ingresar-dinero" id="boton-ingresar-dinero" value="Meter dinero" data-i18n="meterDinero">
+                    <input type="button" name="boton-retirar-dinero" id="boton-retirar-dinero" value="Sacar dinero" data-i18n="sacarDinero">
+                    <input type="button" name="boton-convertir-a-fichas" id="boton-convertir-a-fichas" value="Convertir a fichas" data-i18n="convertirFichas">
+                    <input type="button" name="boton-convertir-a-dinero" id="boton-convertir-a-dinero" value="Convertir a dinero" data-i18n="convertirDinero">
+                </div>
+                <!-- Mensajes de saldo actual -->
+                <div class="mensajes-saldo">
+                    <p id="dinero-actual" class="dinero-actual" data-i18n="dineroActual">DINERO: 0€</p>
+                    <p id="fichas-actuales" class="fichas-actuales" data-i18n="fichasActuales">FICHAS: 0🎫</p>
+                </div>
+            </div>
+
+            <div class="barra-separar"></div>
+
+            <!-- Reloj y Ajustes -->
+            <div class="reloj-ajustes">
+                <div class="reloj-container">
+                    <div id="reloj"></div>
+                </div>
+                <!-- Icono de ajustes -->
+                <span class="icono-ajustes" onclick="modalAjustes()">⚙</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal -->
+    <div class="contenedor">
+        <!-- Contenedor de premios -->
+        <div class="premios" id="lista-premios">
+            <img id="cartel-premios" src="./assets/premios/cartel-premios-español.png" alt="Premios" data-i18n="premios">
+        </div>
+        <!-- Contenedor de la tragaperras -->
+        <div class="tragaperras">
+            <!-- Pantalla y palanca -->
+            <div class="pantalla-palanca">
+                <div class="pantalla">
+                    <div class="carril" id="carril1">
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                        <img src="./assets/tragaperras/fuego.png" />
+                        <img src="./assets/tragaperras/pollo.png" />
+                    </div>
+                    <div class="carril" id="carril2">
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                        <img src="./assets/tragaperras/fuego.png" />
+                        <img src="./assets/tragaperras/pollo.png" />
+                    </div>
+                    <div class="carril" id="carril3">
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                        <img src="./assets/tragaperras/fuego.png" />
+                        <img src="./assets/tragaperras/pollo.png" />
+                    </div>
+                </div>
+                <!-- Palanca -->
+                <div class="palanca">
+                    <img id="palanca" src="./assets/tragaperras/palanca_arriba.png" alt="Palanca">
+                </div>
+            </div>
+            <!-- Mensaje de premio -->
+            <p id="mensajePremio" class="mensajePremio" data-i18n="mensajePremio"></p>
+        </div>
+    </div>
+
+    <!-- Filtro Blanco y Negro -->
+    <div id="blancoYnegro" class="filtro-blanco-negro"></div>
+    <!-- Modal de ajustes -->
+    <div class="modal-ajustes" id="modal-ajustes">
+        <div class="contenido-modal-ajustes">
+            <!-- Idioma -->
+            <p data-i18n="idioma">Idioma</p>
+            <div class="contenedor-imagenes">
+                <img id="icono-idioma" src="./assets/ajustes/español.png" onclick="traducir()" />
+            </div>
+            <!-- Volumen -->
+            <p data-i18n="volumenPrincipal">Volumen principal</p>
+            <div class="musica" id="control-volumen">
+                <img id="icono-volumen" src="./assets/ajustes/volumen.png" alt="Icono de volumen">
+            </div>
+            <!-- Modo blanco y negro -->
+            <p data-i18n="blancoYNegro">Modo de color</p>
+            <label for="switch" class="switch">
+                <input id="switch" type="checkbox" checked />
+                <span class="slider"></span>
+            </label>
+            <!-- Botón de información -->
+            <div class="info-button">
+                <p>Info</p>
+                <img id="infoBtn" src="./assets/ajustes/informacion.png" alt="Información">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para meter dinero -->
+    <div class="modal-meter-dinero" id="modal-meter-dinero">
+        <div class="contenido-modal">
+            <p id="parrafo-introducir-dinero" data-i18n="introducirDineroLabel">Introduce dinero que quieres ingresar</p>
+            <div id="comprobacion-meter-dinero" class="comprobacion-meter-dinero"></div>
+            <input type="number" id="input-introducir-dinero" name="input-introducir-dinero">
+            <input type="button" id="boton-meter-dinero-modal" value="Aceptar" data-i18n="aceptar">
+            <input type="button" id="boton-cerrar-meter-dinero-modal" value="Cerrar" data-i18n="cerrarModal">
+        </div>
+    </div>
+
+    <!-- Modal para retirar dinero -->
+    <div class="modal-retirar-dinero" id="modal-retirar-dinero">
+        <div class="contenido-modal">
+            <p id="parrafo-retirar-dinero" data-i18n="introducirDineroLabel">Introduce dinero que quieres retirar</p>
+            <div id="comprobacion-retirar-dinero" class="comprobacion-retirar-dinero"></div>
+            <input type="number" id="input-retirar-dinero" name="input-retirar-dinero">
+            <input type="button" id="boton-retirar-dinero-modal" value="Aceptar" data-i18n="aceptar">
+            <input type="button" id="boton-cerrar-retirar-dinero-modal" value="Cerrar" data-i18n="cerrarModal">
+        </div>
+    </div>
+
+    <!-- Modal para conversión a fichas -->
+    <div class="modal-conversion-fichas" id="modal-conversion-fichas">
+        <div class="contenido-modal">
+            <p data-i18n="convertirFichas">Convertir dinero a fichas</p>
+            <div id="comprobacion-convertir-a-fichas" class="comprobacion-convertir-a-fichas"></div>
+            <input type="number" id="input-cantidad-conversion-fichas" name="cantidadConversionFichas">
+            <input type="button" id="boton-convertir-fichas" value="Aceptar" data-i18n="aceptar">
+            <input type="button" id="boton-cerrar-conversion-fichas" value="Cerrar" data-i18n="cerrarModal">
+        </div>
+    </div>
+
+    <!-- Modal para conversión a saldo -->
+    <div class="modal-conversion-saldo" id="modal-conversion-saldo">
+        <div class="contenido-modal">
+            <p data-i18n="convertirDinero">Convertir fichas en dinero</p>
+            <div id="comprobacion-convertir-a-dinero" class="comprobacion-convertir-a-dinero"></div>
+            <input type="number" id="input-cantidad-conversion-saldo" name="cantidadConversionSaldo">
+            <input type="button" id="boton-convertir-saldo" value="Aceptar" data-i18n="aceptar">
+            <input type="button" id="boton-cerrar-conversion-saldo" value="Cerrar" data-i18n="cerrarModal">
+        </div>
+    </div>
+
+    <!-- Modal información -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <h2 data-i18n="h2Manual">Manual de la Tragaperras</h2>
+            <p data-i18n="pManual">¡Bienvenido! Aquí están las combinaciones ganadoras y cómo lograrlas:</p>
+            <!-- Jackpot -->
+            <section class="combinacion">
+                <h3 data-i18n="jackpotTitle">1. Jackpot</h3>
+                <p data-i18n="jackpotDescription">Cuando todos los símbolos en los tres carriles sean iguales, ¡obtienes el JACKPOT!</p>
+                <div class="tabla-combinaciones">
+                    <div class="carril-modal">
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                    </div>
+                    <div class="carril-modal">
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                    </div>
+                    <div class="carril-modal">
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                    </div>
+                </div>
+            </section>
+            <!-- Línea Horizontal -->
+            <section class="combinacion">
+                <h3 data-i18n="horizontalLineTitle">2. Línea Horizontal</h3>
+                <p data-i18n="horizontalLineDescription">Una fila horizontal con los mismos símbolos en los tres carriles es ganadora.</p>
+                <div class="tabla-combinaciones">
+                    <div class="carril-modal">
+                        <img src="./assets/tragaperras/mamut.png" />
+                        <img src="./assets/tragaperras/fuego.png" />
+                        <img src="./assets/tragaperras/pollo.png" />
+                    </div>
+                    <div class="carril-modal">
+                        <img src="./assets/tragaperras/mamut.png" />
+                        <img src="./assets/tragaperras/fuego.png" />
+                        <img src="./assets/tragaperras/pollo.png" />
+                    </div>
+                    <div class="carril-modal">
+                        <img src="./assets/tragaperras/mamut.png" />
+                        <img src="./assets/tragaperras/fuego.png" />
+                        <img src="./assets/tragaperras/pollo.png" />
+                    </div>
+                </div>
+            </section>
+            <!-- Diagonal -->
+            <section class="combinacion">
+                <h3 data-i18n="diagonalLineTitle">3. Línea Diagonal</h3>
+                <p data-i18n="diagonalLineDescription">Una línea diagonal con los mismos símbolos es una combinación ganadora.</p>
+                <div class="tabla-combinaciones">
+                    <div class="carril-modal">
+                        <img src="./assets/tragaperras/pollo.png" />
+                        <img src="./assets/tragaperras/fuego.png" />
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                    </div>
+                    <div class="carril-modal">
+                        <img src="./assets/tragaperras/fuego.png" />
+                        <img src="./assets/tragaperras/pollo.png" />
+                        <img src="./assets/tragaperras/fuego.png" />
+                    </div>
+                    <div class="carril-modal">
+                        <img src="./assets/tragaperras/cavernicola.png" />
+                        <img src="./assets/tragaperras/fuego.png" />
+                        <img src="./assets/tragaperras/pollo.png" />
+                    </div>
+                </div>
+            </section>
+            <!-- Intenta de nuevo -->
+            <section class="combinacion">
+                <h3 data-i18n="tryAgainTitle">4. Intenta de nuevo</h3>
+                <p data-i18n="tryAgainDescription">Si no logras ninguna combinación ganadora, ¡sigue intentándolo!</p>
+            </section>
+        </div>
+    </div>
+    <script src="/js/tragaperras.js"></script>
+</body>
+</html>

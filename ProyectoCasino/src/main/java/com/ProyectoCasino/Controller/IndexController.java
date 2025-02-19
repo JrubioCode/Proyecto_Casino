@@ -41,6 +41,12 @@ public class IndexController {
     }
 
     // Metodo para acceder a CavemanRun
+    @GetMapping("/prehistoricSlot")
+    public String prehistoricSlot() {
+        return "tragaperras";
+    }
+
+    // Metodo para acceder a CavemanRun
     @GetMapping("/cavemanRun")
     public String cavemanRun() {
         return "cavemanRun";
