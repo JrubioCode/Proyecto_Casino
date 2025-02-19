@@ -284,6 +284,7 @@ var fuego = "/assets/prehistoricSlot/tragaperras/fuego.png";
 var pollo = "/assets/prehistoricSlot/tragaperras/pollo.png";
 var mamut = "/assets/prehistoricSlot/tragaperras/mamut.png";
 var grupoCavernicolas = "/assets/prehistoricSlot/tragaperras/grupoCavernicolas.png";
+var comodin = "/assets/prehistoricSlot/tragaperras/comodin.jpg";
 
 var premios = {
   cavernicola: 100,
@@ -293,7 +294,7 @@ var premios = {
   grupoCavernicolas: 1000
 };
 
-var simbolos = [cavernicola, fuego, pollo, mamut, grupoCavernicolas];
+var simbolos = [cavernicola, fuego, pollo, mamut, grupoCavernicolas, comodin];
 
 // Evento para el clic en la palanca
 document.getElementById("palanca").addEventListener("click", () => {
