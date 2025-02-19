@@ -635,35 +635,166 @@ table tbody tr:hover {
   margin: 5px 0;
 }
 
+/* Tablets: entre 769px y 1024px */
 @media (min-width: 769px) and (max-width: 1024px) {
   .header {
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
+    gap: 30px;
   }
 
   .logo-titulo {
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
+  }
+
+  .logo-titulo h1 {
+    font-size: 16px;
   }
 
   .logo-titulo img {
     height: 100px;
   }
 
-  .gestor-saldo {
-    flex-direction: column;
-    gap: 10px;
+  .gestor-saldo,
+  .botones-saldo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
   }
 
-  .botones-saldo {
-    flex-direction: column;
+  .mensajes-saldo p {
+    font-size: 15px;
+    text-align: center;
+    margin-top: -20px;
+  }
+
+  .icono-ajustes {
+    margin-right: -20px;
+    margin-top: -10px;
+  }
+
+  /* Modal ajustes */
+  .modal-ajustes {
+    display: none;
+    position: absolute;
+    top: 140px;
+    right: -5px;
+    width: 210px;
+    height: 60px;
+    z-index: 10;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .contenido-modal-ajustes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: transparent;
+    padding: 15px;
+    gap: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .contenido-modal-ajustes p {
+    display: none;
+  }
+  
+  .contenedor-imagenes {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .contenido-modal-ajustes img {
+    width: 25px;
+    height: auto;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .musica img {
+    width: 25px;
+    height: auto;
+  }
+  
+  .switch {
+    font-size: 9px;
+    position: relative;
+    display: inline-block;
+    width: 3.9em;
+    height: 2.7em;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .slider {
+    --background: #20262c;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--background);
+    transition: 0.5s;
+    border-radius: 30px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    border-radius: 50%;
+    left: 10%;
+    bottom: 15%;
+    box-shadow: inset 8px -4px 0px 0px #ececd9, -4px 1px 4px 0px #dadada;
+    background: var(--background);
+    transition: 0.5s;
+  }
+  
+  input:checked+.slider {
+    background-color: #5494de;
+  }
+  
+  input:checked+.slider:before {
+    transform: translateX(100%);
+    box-shadow: inset 15px -4px 0px 15px #efdf2b, 0 0 10px 0px #efdf2b;
+  }
+  
+  #blancoYnegro {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+    backdrop-filter: grayscale(100%);
+    transition: backdrop-filter 0.3s ease, display 0.3s ease;
+  }
+
+  .contenido {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
+    margin-top: 25px;
   }
 
   .juego {
-    width: 100%;
+    width: 98%;
     height: 500px;
+    margin-top: -15px;
+  }
+
+  .multiplicador{
+    margin-top: 120px;
+    font-size: 35px;
   }
 
   .cavernicolaCorriendo {
@@ -679,53 +810,223 @@ table tbody tr:hover {
     height: 250px;
     top: 150px;
     left: 50%;
+    transform: translateX(-70%);
+  }
+
+  .controles-juego {
+    padding: 7px;
+  }
+
+  /* Fondo oscuro para el área de estadísticas */
+  .analiticas {
+    border: none;
+    background-color: rgb(34, 34, 44);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.6), 0 4px 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 98%;
+    margin: 0 auto;
+    height: 400px;
+    overflow: auto;
+  }
+}
+
+/* Móviles: hasta 768px */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .logo-titulo {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .logo-titulo h1 {
+    font-size: 20px;
+  }
+
+  .logo-titulo img {
+    height: 100px;
+  }
+
+  .gestor-saldo,
+  .botones-saldo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    margin-top: -30px;
+  }
+
+  .mensajes-saldo p {
+    font-size: 15px;
+    text-align: center;
+    margin-top: -20px;
+  }
+
+  .icono-ajustes {
+    margin: 0 auto;
+    margin-top: -50px;
+    margin-bottom: 20px;
+  }
+
+  .reloj-container {
+    display: none;
+  }
+
+  /* Modal ajustes */
+  .modal-ajustes {
+    display: none;
+    position: absolute;
+    top: 400px;
+    left: 100px;
+    width: 210px;
+    height: 60px;
+    z-index: 10;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .contenido-modal-ajustes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: transparent;
+    padding: 15px;
+    gap: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .contenido-modal-ajustes p {
+    display: none;
+  }
+  
+  .contenedor-imagenes {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .contenido-modal-ajustes img {
+    width: 25px;
+    height: auto;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .musica img {
+    width: 25px;
+    height: auto;
+  }
+  
+  .switch {
+    font-size: 9px;
+    position: relative;
+    display: inline-block;
+    width: 3.9em;
+    height: 2.7em;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .slider {
+    --background: #20262c;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--background);
+    transition: 0.5s;
+    border-radius: 30px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    border-radius: 50%;
+    left: 10%;
+    bottom: 15%;
+    box-shadow: inset 8px -4px 0px 0px #ececd9, -4px 1px 4px 0px #dadada;
+    background: var(--background);
+    transition: 0.5s;
+  }
+  
+  input:checked+.slider {
+    background-color: #5494de;
+  }
+  
+  input:checked+.slider:before {
+    transform: translateX(100%);
+    box-shadow: inset 15px -4px 0px 15px #efdf2b, 0 0 10px 0px #efdf2b;
+  }
+  
+  #blancoYnegro {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+    backdrop-filter: grayscale(100%);
+    transition: backdrop-filter 0.3s ease, display 0.3s ease;
+  }
+
+  .contenido {
+    flex-direction: column-reverse;
+    gap: 1px;
+    margin-top: 5px;
+  }
+
+  /* Ajustes para el juego */
+  .juego {
+    width: 98%;
+    height: 400px;
+  }
+
+  .cavernicolaCorriendo {
+    width: 100px;
+    height: 100px;
+    top: 60px;
+    left: 50%;
     transform: translateX(-50%);
+  }
+
+  .mamut {
+    width: 250px;
+    height: 250px;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-70%);
   }
 
   .controles-juego {
     flex-direction: column;
+    gap: 20px;
+    padding: 17px;
+  }
+
+  .analiticas {
+    width: 95%;
+    height: 300px;
     padding: 15px;
+    margin: 10px auto 0 auto;
   }
-}
-
-@media (max-width: 768px) {
-  .header {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-  }
-
-  .logo-titulo {
-      flex-direction: column;
-  }
-
-  .botones-saldo {
-      flex-direction: column;
-      gap: 5px;
-  }
-
-  .reloj-ajustes {
-      flex-direction: column;
-      gap: 5px;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .header {
-      flex-wrap: wrap;
-      justify-content: center;
-  }
-
-  .botones-saldo input {
-      font-size: 12px;
-      padding: 4px 8px;
-  }
-
-  .reloj-container {
-      font-size: 14px;
-  }
-
-  h1 {
-      font-size: 20px;
+  
+  .multiplicador {
+    margin-top: 20px;
+    font-size: 30px;
   }
 }
