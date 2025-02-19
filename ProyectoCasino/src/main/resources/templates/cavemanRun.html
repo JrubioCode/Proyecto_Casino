@@ -85,7 +85,13 @@
                             </tr>
                         </thead>
                         <tbody id="historial-tiradas">
-                            <!-- RELLENADO DINÁMICAMENTE -->
+                            <tr th:each="tirada : ${historialTiradas}">
+                                <td th:text="${tirada.idLogCavemanRun}">ID</td>
+                                <td th:text="${tirada.usuarioDni}">Jugador</td>
+                                <td th:text="${tirada.apuesta}">Apuesta</td>
+                                <td th:text="${tirada.multiplicador}">Multi</td>
+                                <td th:text="${tirada.resultado}">Premio</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

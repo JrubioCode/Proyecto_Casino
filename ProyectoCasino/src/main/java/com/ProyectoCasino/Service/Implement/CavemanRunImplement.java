@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -77,6 +79,27 @@ public class CavemanRunImplement implements CavemanRunService {
             return nuevoHistorico.getIdHistorico();
         }
         return historico.getIdHistorico(); // Retorna el último ID si existe
-    }    
+    }
+
+     @Override
+    public List<CavemanRunDTO> obtenerHistoricoTiradas() {
+        // 1. Recuperamos todas las entidades de la base de datos.
+        List<CavemanRunEntity> entities = cavemanRunRepository.findAll();
+        
+        // 2. Convertimos cada entidad a DTO.
+        List<CavemanRunDTO> dtos = entities.stream().map(entity -> {
+            CavemanRunDTO dto = new CavemanRunDTO();
+            dto.setIdLogCavemanRun(entity.getIdLogCavemanRun());;
+            dto.setFechaLogCavemanRun(entity.getFechaLogCavemanRun());;
+            dto.setApuesta(entity.getApuesta());
+            dto.setMultiplicador(entity.getMultiplicador());
+            dto.setResultado(entity.getResultado());
+            dto.setUsuarioDni(entity.getUsuario().getNombre());
+            return dto;
+        }).collect(Collectors.toList());
+        
+        // 3. Retornamos la lista de DTOs.
+        return dtos;
+    }
 
 }
