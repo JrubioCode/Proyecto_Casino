@@ -175,67 +175,79 @@ document.getElementById("boton-cerrar-conversion-saldo").addEventListener("click
 });
 
 // Ingresar dinero
-document.getElementById('boton-ingresar-dinero').addEventListener('click', async () => {
-  const cantidad = await solicitarNumero("¿Cuánto dinero deseas ingresar?");
-  if (cantidad !== null) {
-    saldoActual += cantidad;
-    actualizarSaldo();
-  } else {
-       // Obtener el saldo actual de la base de datos
-       const dni = localStorage.getItem("dni");
-       if (dni) {
-           $.ajax({
-               type: "GET",
-               url: `/usuario/obtenerSaldo/${dni}`,
-               success: function(saldoActual) {
-                   saldoActual = parseFloat(saldoActual);
-                   const nuevoSaldo = saldoActual + cantidadDinero;
-                   actualizarSaldoEnBD(nuevoSaldo);
-                   actualizarSaldo();
-                   cerrarModal(document.getElementById("modal-meter-dinero"));
-               },
-               error: function(error) {
-               }
-           });
-       }
-  }
+document.getElementById("boton-meter-dinero-modal").addEventListener("click", function () {
+    const cantidadDinero = parseFloat(document.getElementById("input-introducir-dinero").value);
+    const comprobacion = document.getElementById("comprobacion-meter-dinero");
+
+    if (cantidadDinero <= 0 || isNaN(cantidadDinero)) {
+        comprobacion.textContent = estaEnIngles() ? "Please introduce a correct quantity" : "Por favor, ingresa una cantidad válida.";
+        comprobacion.style.color = "red";
+        setTimeout(() => {
+            comprobacion.textContent = "";
+        }, 1500);
+    } else {
+        // Obtener el saldo actual de la base de datos
+        const dni = localStorage.getItem("dni");
+        if (dni) {
+            $.ajax({
+                type: "GET",
+                url: `/usuario/obtenerSaldo/${dni}`,
+                success: function(saldoActual) {
+                    saldoActual = parseFloat(saldoActual);
+                    const nuevoSaldo = saldoActual + cantidadDinero;
+                    actualizarSaldoEnBD(nuevoSaldo);
+                    actualizarSaldo();
+                    cerrarModal(document.getElementById("modal-meter-dinero"));
+                },
+                error: function(error) {
+                }
+            });
+        }
+    }
+
+    document.getElementById("input-introducir-dinero").value = '';
 });
 
 // Retirar dinero
-document.getElementById('boton-retirar-dinero').addEventListener('click', async () => {
-  const cantidad = await solicitarNumero("¿Cuánto dinero deseas retirar?");
-  if (cantidad !== null) {
-    if (cantidad <= saldoActual) {
-      saldoActual -= cantidad;
-      actualizarSaldo();
+document.getElementById("boton-retirar-dinero-modal").addEventListener("click", function () {
+    const cantidadDinero = parseFloat(document.getElementById("input-retirar-dinero").value);
+    const comprobacion = document.getElementById("comprobacion-retirar-dinero");
+
+    if (cantidadDinero <= 0 || isNaN(cantidadDinero)) {
+        comprobacion.textContent = estaEnIngles() ? "Please introduce a correct quantity" : "Por favor, ingresa una cantidad válida.";
+        comprobacion.style.color = "red";
+        setTimeout(() => {
+            comprobacion.textContent = "";
+        }, 1500);
     } else {
-       // Obtener el saldo actual de la base de datos
-       const dni = localStorage.getItem("dni");
-       if (dni) {
-           $.ajax({
-               type: "GET",
-               url: `/usuario/obtenerSaldo/${dni}`,
-               success: function(saldoActual) {
-                   saldoActual = parseFloat(saldoActual);
-                   if (cantidadDinero > saldoActual) {
-                       comprobacion.textContent = estaEnIngles() ? "Not enough money" : "No tienes suficiente saldo.";
-                       comprobacion.style.color = "red";
-                       setTimeout(() => {
-                           comprobacion.textContent = "";
-                       }, 1500);
-                   } else {
-                       const nuevoSaldo = saldoActual - cantidadDinero;
-                       actualizarSaldoEnBD(nuevoSaldo);
-                       actualizarSaldo();
-                       cerrarModal(document.getElementById("modal-retirar-dinero"));
-                   }
-               },
-               error: function(error) {
-               }
-           });
-       }
+        // Obtener el saldo actual de la base de datos
+        const dni = localStorage.getItem("dni");
+        if (dni) {
+            $.ajax({
+                type: "GET",
+                url: `/usuario/obtenerSaldo/${dni}`,
+                success: function(saldoActual) {
+                    saldoActual = parseFloat(saldoActual);
+                    if (cantidadDinero > saldoActual) {
+                        comprobacion.textContent = estaEnIngles() ? "Not enough money" : "No tienes suficiente saldo.";
+                        comprobacion.style.color = "red";
+                        setTimeout(() => {
+                            comprobacion.textContent = "";
+                        }, 1500);
+                    } else {
+                        const nuevoSaldo = saldoActual - cantidadDinero;
+                        actualizarSaldoEnBD(nuevoSaldo);
+                        actualizarSaldo();
+                        cerrarModal(document.getElementById("modal-retirar-dinero"));
+                    }
+                },
+                error: function(error) {
+                }
+            });
+        }
     }
-  }
+
+    document.getElementById("input-retirar-dinero").value = '';
 });
 
 // Convertir saldo a fichas
