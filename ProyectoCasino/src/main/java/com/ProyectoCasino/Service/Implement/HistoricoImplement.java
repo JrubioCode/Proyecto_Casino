@@ -52,4 +52,10 @@ public class HistoricoImplement implements HistoricoService {
         historicoRepository.save(nuevoHistorico);
     }
 
+    @Override
+    public Long obtenerUltimoHistoricoId() {
+        Long ultimoHistorico = historicoRepository.obtenerUltimoHistoricoId();
+        return ultimoHistorico;
+    }
+
 }

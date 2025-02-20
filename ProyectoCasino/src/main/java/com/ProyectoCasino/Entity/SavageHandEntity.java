@@ -110,5 +110,5 @@ public class SavageHandEntity {
         return "SavageHandEntity [idLogSavageHands=" + idLogSavageHands + ", fechaLogSavageHands=" + fechaLogSavageHands
                 + ", apuesta=" + apuesta + ", resultado=" + resultado + ", idHistorico=" + idHistorico + ", dni=" + dni
                 + ", idJuego=" + idJuego + "]";
-    } 
+    }
 }
