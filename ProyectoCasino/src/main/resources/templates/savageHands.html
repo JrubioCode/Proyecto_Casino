@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Blackjack savageHands</title>
   <link rel="stylesheet" href="/css/savageHands.css" />
-  <!-- <link rel="stylesheet" href="./../static/css/savageHands.css" /> -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
   <!-- HEADER -->
@@ -22,13 +22,13 @@
       <!-- GESTIÓN DE SALDO -->
       <div class="gestion-saldo">
         <div class="botones-saldo">
-          <input type="button" id="boton-ingresar-dinero" value="Meter dinero">
-          <input type="button" id="boton-retirar-dinero" value="Sacar dinero">
-          <input type="button" id="boton-convertir-a-fichas" value="Convertir a fichas">
-          <input type="button" id="boton-convertir-a-dinero" value="Convertir a dinero">
+          <input type="button" id="boton-ingresar-dinero" name="boton-ingresar-dinero" value="Meter dinero">
+          <input type="button" id="boton-retirar-dinero" name="boton-retirar-dinero" value="Sacar dinero">
+          <input type="button" id="boton-convertir-a-fichas" name="boton-convertir-a-fichas" value="Convertir a fichas">
+          <input type="button" id="boton-convertir-a-dinero" name="boton-convertir-a-dinero" value="Convertir a dinero">
         </div>
         <div class="mensajes-saldo">
-          <p id="dinero-actual" class="dinero-actual">DINERO: 1000€</p>
+          <p id="dinero-actual" class="dinero-actual">DINERO: 0€</p>
           <p id="fichas-actuales" class="fichas-actuales">FICHAS: 0🎫</p>
         </div>
       </div>
@@ -129,6 +129,5 @@
     </div>
 
   <script src="/js/savageHands.js"></script>
-  <!-- <script src="./../static/js/savageHands.js"></script> -->
 </body>
 </html>

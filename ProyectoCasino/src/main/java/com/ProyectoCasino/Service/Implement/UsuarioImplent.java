@@ -72,7 +72,7 @@ public class UsuarioImplent implements UsuarioService {
         usuarioEntity.setEmail(usuarioDTO.getEmail());
         usuarioEntity.setUserPassword(usuarioDTO.getUserPassword());
         usuarioEntity.setNumeroTelefono(usuarioDTO.getNumeroTelefono());
-        usuarioEntity.setDineroUsuario(0.0);
+        usuarioEntity.setDineroUsuario(50.0);
         usuarioEntity.setEsVip(true);
         usuarioEntity.setTitularTarjeta(usuarioDTO.getTitularTarjeta());
         usuarioEntity.setNumeroTarjeta(usuarioDTO.getNumeroTarjeta());

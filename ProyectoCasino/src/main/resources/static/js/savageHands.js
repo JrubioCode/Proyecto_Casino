@@ -1,4 +1,4 @@
-// MODALES (Mensajes, Ayuda y Solicitar Número)
+// FUNCIONES DE MODALES
 function mostrarMensajeModal(mensaje) {
   const modal = document.getElementById("modal-message");
   document.getElementById("modal-message-text").textContent = mensaje;
@@ -12,12 +12,12 @@ document.getElementById("modal-message-close").addEventListener("click", () => {
 // Modal de Ayuda
 const botonAyuda = document.getElementById('toggle-ayuda');
 const modalAyuda = document.getElementById('modal-ayuda');
-const cerrarModal = document.getElementById('cerrar-modal');
+const btnCerrarAyuda = document.getElementById('cerrar-modal');  // Renombramos para evitar conflicto
 
 botonAyuda.addEventListener('click', () => {
   modalAyuda.classList.add('show');
 });
-cerrarModal.addEventListener('click', () => {
+btnCerrarAyuda.addEventListener('click', () => {
   modalAyuda.classList.remove('show');
 });
 window.addEventListener('click', (e) => {
@@ -64,25 +64,23 @@ function solicitarNumero(mensaje) {
   });
 }
 
-// VARIABLES Y ESTADOS
-let saldoActual = 100;
-let fichasActuales = 0;
-let apuestaActual = 0;
+// FUNCIONES PARA CERRAR MODALES (para evitar conflicto con btnCerrarAyuda)
+function cerrarModalCustom(modalElement) {
+  modalElement.style.display = "none";
+}
 
-let mazo = [];
-let manoJugador = [];
-let manoDealer = [];
-let juegoTerminado = false;
-let juegoIniciado = false;
+// VARIABLES GLOBALES
+var saldo = 0;
+var fichas = 0;
+var apuestaActual = 0;
+
+var mazo = [];
+var manoJugador = [];
+var manoDealer = [];
+var juegoTerminado = false;
+var juegoIniciado = false;
 
 const imagenReversoCarta = "./assets/savageHands/card_back.png";
-
-// FUNCIONES DE UTILIDAD
-function actualizarSaldo() {
-  document.getElementById('dinero-actual').textContent = `DINERO: ${saldoActual}€`;
-  document.getElementById('fichas-actuales').textContent = `FICHAS: ${fichasActuales}🎫`;
-  document.getElementById('apuesta-actual').textContent = apuestaActual;
-}
 
 function actualizarReloj() {
   document.getElementById("reloj").textContent = new Date().toLocaleTimeString();
@@ -90,46 +88,173 @@ function actualizarReloj() {
 }
 actualizarReloj();
 
-// GESTIÓN Y CONVERSIÓN DEL DINERO
+// Ingresar dinero
 document.getElementById('boton-ingresar-dinero').addEventListener('click', async () => {
   const cantidad = await solicitarNumero("¿Cuánto dinero deseas ingresar?");
   if (cantidad !== null) {
-    saldoActual += cantidad;
-    actualizarSaldo();
+      saldo += cantidad;
+      actualizarSaldo();
+      actualizarSaldoEnBD(saldo);
   }
 });
 
+// Retirar dinero
 document.getElementById('boton-retirar-dinero').addEventListener('click', async () => {
   const cantidad = await solicitarNumero("¿Cuánto dinero deseas retirar?");
   if (cantidad !== null) {
-    if (cantidad <= saldoActual) {
-      saldoActual -= cantidad;
+      if (cantidad <= saldo) {
+          saldo -= cantidad;
+          actualizarSaldo();
+          actualizarSaldoEnBD(saldo);
+      } else {
+          mostrarMensajeModal("No tienes suficiente saldo.");
+      }
+  }
+});
+
+// Convertir saldo a fichas automáticamente (convierte todo el saldo)
+document.getElementById("boton-convertir-a-fichas").addEventListener("click", function () {
+  const idJuego = 1;
+  const dni = localStorage.getItem("dni");
+  if (!dni) { 
+      console.error("No se encontró el dni en localStorage.");
+      return; 
+  }
+  
+  // Obtener la tasa de conversión desde el backend
+  $.ajax({
+      type: "GET",
+      url: `/conversion/obtenerMultiplicador/${idJuego}`,
+      success: function (multiplicador) {
+          multiplicador = parseFloat(multiplicador);
+          if (isNaN(multiplicador) || multiplicador <= 0) {
+              console.error("Tasa de conversión no disponible.");
+              return;
+          }
+          
+          // Obtener el saldo actual del usuario desde la base de datos
+          $.ajax({
+              type: "GET",
+              url: `/usuario/obtenerSaldo/${dni}`,
+              success: function (response) {
+                  let saldoBackend = parseFloat(response);
+                  // Convertir TODO el saldo a fichas
+                  const cantidadFichas = saldoBackend * multiplicador;
+                  fichas += cantidadFichas;
+                  saldo = 0; // se ha convertido todo el saldo
+                  
+                  // Actualizamos en la BD e interfaz
+                  actualizarSaldoEnBD(saldo);
+                  actualizarSaldo();
+              },
+              error: function (error) {
+                  console.error("Error al obtener el saldo del usuario:", error);
+              }
+          });
+      },
+      error: function (error) {
+          console.error("Error al obtener la tasa de conversión:", error);
+      }
+  });
+});
+
+
+// Convertir fichas a saldo automáticamente (convierte todas las fichas)
+document.getElementById("boton-convertir-a-dinero").addEventListener("click", function () {
+  const idJuego = 1;
+  
+  // Obtener la tasa de conversión desde el backend
+  $.ajax({
+      type: "GET",
+      url: `/conversion/obtenerMultiplicador/${idJuego}`,
+      success: function (multiplicador) {
+          multiplicador = parseFloat(multiplicador);
+          if (isNaN(multiplicador) || multiplicador <= 0) {
+              console.error("Tasa de conversión no disponible.");
+              return;
+          }
+          
+          // Convertir todas las fichas a saldo
+          const cantidadDinero = fichas / multiplicador;
+          saldo += cantidadDinero;
+          fichas = 0;
+          
+          // Actualizamos en la BD e interfaz
+          actualizarSaldoEnBD(saldo);
+          actualizarSaldo();
+      },
+      error: function (error) {
+          console.error("Error al obtener la tasa de conversión:", error);
+      }
+  });
+});
+
+// ACTUALIZAR SALDO EN LA PANTALLA (solo actualiza la vista)
+function actualizarSaldo() {
+  document.getElementById("dinero-actual").textContent = "DINERO: " + saldo + "€";
+  document.getElementById("fichas-actuales").textContent = "FICHAS: " + fichas + "🎫";
+}
+
+// Cargar saldo desde la base de datos
+function cargarSaldo() {
+  const dni = localStorage.getItem("dni");
+  if (dni) {
+      $.ajax({
+          type: "GET",
+          url: `/usuario/obtenerSaldo/${dni}`,
+          success: function(response) {
+              saldo = parseFloat(response);
+              actualizarSaldo();
+          },
+          error: function(error) {
+              console.error("Error al cargar el saldo:", error);
+          }
+      });
+  }
+}
+cargarSaldo();
+
+// Actualizar saldo en la base de datos
+function actualizarSaldoEnBD(nuevoSaldo) {
+  const dni = localStorage.getItem("dni");
+  if (dni && nuevoSaldo !== undefined) {
+      const usuarioDTO = {
+          dni: dni,
+          dineroUsuario: nuevoSaldo
+      };
+      $.ajax({
+          url: '/usuario/actualizar',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(usuarioDTO),
+          success: function(response) {
+              // Si es necesario, recarga el saldo actualizado
+              cargarSaldo();
+          },
+          error: function(xhr, status, error) {
+              console.error("Error al actualizar el saldo en BD:", error);
+          }
+      });
+  }
+}
+
+// Convertir fichas a dinero al salir
+function convertirFichasADinero() {
+  if (fichas > 0) {
+      const cantidadDinero = fichas / 100;
+      saldo += cantidadDinero;
+      fichas = 0;
+      actualizarSaldoEnBD(saldo);
       actualizarSaldo();
-    } else {
-      mostrarMensajeModal("Cantidad inválida o superior a tu saldo.");
-    }
+  }
+}
+
+window.addEventListener("beforeunload", function(event) {
+  if (fichas > 0) {
+      convertirFichasADinero();
   }
 });
 
-document.getElementById('boton-convertir-a-fichas').addEventListener('click', () => {
-  if (saldoActual > 0) {
-    fichasActuales += saldoActual;
-    saldoActual = 0;
-    actualizarSaldo();
-  } else {
-    mostrarMensajeModal("No tienes dinero para convertir.");
-  }
-});
-
-document.getElementById('boton-convertir-a-dinero').addEventListener('click', () => {
-  if (fichasActuales > 0) {
-    saldoActual += fichasActuales;
-    fichasActuales = 0;
-    actualizarSaldo();
-  } else {
-    mostrarMensajeModal("No tienes fichas para convertir.");
-  }
-});
 
 // FUNCIONES DEL JUEGO
 function crearBaraja() {
