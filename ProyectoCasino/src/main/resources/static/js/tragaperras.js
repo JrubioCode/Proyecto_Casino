@@ -249,7 +249,7 @@ document.getElementById("boton-retirar-dinero-modal").addEventListener("click", 
 document.getElementById("boton-convertir-fichas").addEventListener("click", function () {
   const cantidadEuros = parseFloat(document.getElementById("input-cantidad-conversion-fichas").value);
   const comprobacion = document.getElementById("comprobacion-convertir-a-fichas");
-  const idJuego = 1;
+  const idJuego = 2;
 
   if (cantidadEuros <= 0 || isNaN(cantidadEuros)) {
       comprobacion.textContent = estaEnIngles() ? "Please introduce a correct quantity" : "Por favor, ingresa una cantidad válida.";
@@ -321,7 +321,7 @@ document.getElementById("boton-convertir-fichas").addEventListener("click", func
 document.getElementById("boton-convertir-saldo").addEventListener("click", function () {
   const cantidadFichas = parseInt(document.getElementById("input-cantidad-conversion-saldo").value);
   const comprobacion = document.getElementById("comprobacion-convertir-a-dinero");
-  const idJuego = 1;
+  const idJuego = 2;
 
   if (cantidadFichas <= 0 || isNaN(cantidadFichas)) {
       // Verificar que se introduzca una cantidad válida
@@ -390,7 +390,6 @@ function registrarTiradaEnBD(apuesta, combinacion, resultado) {
       return;
   }
 
-  // Crear un objeto con los parámetros que necesitas enviar en formato JSON
   const datos = {
       usuarioDni: dni,
       juegoId: idJuego,
@@ -413,7 +412,7 @@ function registrarTiradaEnBD(apuesta, combinacion, resultado) {
 
 function registrarTiradaPrehistoricSlotRunEnBD(apuesta, combinacion, resultado) {
   const dni = localStorage.getItem("dni");
-  const idJuego = 2;  // ID del juego correspondiente
+  const idJuego = 2;
 
   if (!dni) {
     return;
@@ -424,7 +423,6 @@ function registrarTiradaPrehistoricSlotRunEnBD(apuesta, combinacion, resultado) 
     url: "/prehistoricSlot/historicoId",
     success: function(historicoId) {
       if (historicoId) { 
-        // Se arma el objeto de datos incluyendo la combinación (ya sea ganadora o "SIN_COMBINACION")
         const datos = {
           apuesta: apuesta, 
           combinacion: combinacion, 
@@ -469,7 +467,8 @@ var premios = {
   fuego: 200,
   pollo: 300,
   mamut: 500,
-  grupoCavernicolas: 1000
+  grupoCavernicolas: 1000,
+  comodin: 5000
 };
 
 var simbolos = [cavernicola, fuego, pollo, mamut, grupoCavernicolas, comodin];
@@ -535,7 +534,7 @@ function girar() {
   var carril3 = document.getElementById("carril3");
 
   // Bloquear la interacción mientras gira
-  bloquearInteraccion(true);
+  bloquearGiro(true);
 
   function actualizarCarril(carril) {
     const imagenes = carril.querySelectorAll('img');
@@ -563,17 +562,16 @@ function girar() {
   // Esperar a que termine el giro para comprobar el premio
   setTimeout(() => {
     comprobarPremio();
-    bloquearInteraccion(false);
+    bloquearGiro(false);
   }, 4500); // Después de 4 segundos, que es el tiempo del giro más largo
 }
 
 function comprobarPremio() {
-  // 1. Variables básicas
   let apuesta = 25;
   let resultado = 0;
-  let combinacion = "SIN_COMBINACION"; // Valor por defecto si no gana
+  let combinacion = "SIN_COMBINACION";
 
-  // 2. Obtención de elementos e imágenes de cada carril
+  // Obtener de elementos e imágenes de cada carril
   const carril1Elem = document.getElementById("carril1");
   const carril2Elem = document.getElementById("carril2");
   const carril3Elem = document.getElementById("carril3");
@@ -582,12 +580,11 @@ function comprobarPremio() {
   const imagenCarril2 = Array.from(carril2Elem.querySelectorAll('img')).map(img => img.src);
   const imagenCarril3 = Array.from(carril3Elem.querySelectorAll('img')).map(img => img.src);
 
-  // 3. Función auxiliar para extraer el nombre del símbolo desde la URL
-  function getSymbolName(src) {
+  function obtenerNombreSimbolo(src) {
     return src.split("/").pop().split(".")[0];
   }
 
-  // 4. Función auxiliar para comprobar una línea ganadora permitiendo solo 1 comodín
+  // Comprobar una línea ganadora permitiendo solo 1 comodín
   function checkLine(sym1, sym2, sym3) {
     let countWild = 0;
     if (sym1 === "comodin") countWild++;
@@ -622,7 +619,7 @@ function comprobarPremio() {
       imagenCarril1[1] === imagenCarril2[1] && imagenCarril1[1] === imagenCarril3[1] &&
       imagenCarril1[2] === imagenCarril2[2] && imagenCarril1[2] === imagenCarril3[2]
   ) {
-    let simbolo = getSymbolName(imagenCarril1[0]);
+    let simbolo = obtenerNombreSimbolo(imagenCarril1[0]);
     if (simbolo !== "comodin") {
       resultado = premios[simbolo] * 5;
       combinacion = simbolo + "-" + simbolo + "-" + simbolo;
@@ -638,7 +635,7 @@ function comprobarPremio() {
       imagenesPremiadas.forEach(img => img.classList.add("recuadro-premio"));
       setTimeout(() => {
           imagenesPremiadas.forEach(img => img.classList.remove("recuadro-premio"));
-          bloquearInteraccion(false);  // Desbloquea la palanca al terminar el efecto
+          bloquearGiro(false);  // Desbloquea la palanca al terminar el efecto
       }, 3000);
 
       if (estaEnIngles()) {
@@ -656,9 +653,9 @@ function comprobarPremio() {
   // 8. Comprobación manual de líneas ganadoras (diagonales y filas)
 
   // a) Diagonal: carril1[0], carril2[1], carril3[2]
-  let symA = getSymbolName(imagenCarril1[0]);
-  let symB = getSymbolName(imagenCarril2[1]);
-  let symC = getSymbolName(imagenCarril3[2]);
+  let symA = obtenerNombreSimbolo(imagenCarril1[0]);
+  let symB = obtenerNombreSimbolo(imagenCarril2[1]);
+  let symC = obtenerNombreSimbolo(imagenCarril3[2]);
   if (checkLine(symA, symB, symC)) {
     let base = baseSymbol(symA, symB, symC);
     resultado = premios[base];
@@ -671,7 +668,7 @@ function comprobarPremio() {
     setTimeout(() => {
       [carril1Elem.children[0], carril2Elem.children[1], carril3Elem.children[2]]
         .forEach(img => img.classList.remove("recuadro-premio"));
-      bloquearInteraccion(false);
+      bloquearGiro(false);
     }, 3000);
 
     if (estaEnIngles()) {
@@ -686,9 +683,9 @@ function comprobarPremio() {
   }
 
   // b) Diagonal: carril1[2], carril2[1], carril3[0]
-  symA = getSymbolName(imagenCarril1[2]);
-  symB = getSymbolName(imagenCarril2[1]);
-  symC = getSymbolName(imagenCarril3[0]);
+  symA = obtenerNombreSimbolo(imagenCarril1[2]);
+  symB = obtenerNombreSimbolo(imagenCarril2[1]);
+  symC = obtenerNombreSimbolo(imagenCarril3[0]);
   if (checkLine(symA, symB, symC)) {
     let base = baseSymbol(symA, symB, symC);
     resultado = premios[base];
@@ -701,7 +698,7 @@ function comprobarPremio() {
     setTimeout(() => {
       [carril1Elem.children[2], carril2Elem.children[1], carril3Elem.children[0]]
         .forEach(img => img.classList.remove("recuadro-premio"));
-      bloquearInteraccion(false);
+      bloquearGiro(false);
     }, 3000);
 
     if (estaEnIngles()) {
@@ -716,9 +713,9 @@ function comprobarPremio() {
   }
 
   // c) Fila 1: carril1[0], carril2[0], carril3[0]
-  symA = getSymbolName(imagenCarril1[0]);
-  symB = getSymbolName(imagenCarril2[0]);
-  symC = getSymbolName(imagenCarril3[0]);
+  symA = obtenerNombreSimbolo(imagenCarril1[0]);
+  symB = obtenerNombreSimbolo(imagenCarril2[0]);
+  symC = obtenerNombreSimbolo(imagenCarril3[0]);
   if (checkLine(symA, symB, symC)) {
     let base = baseSymbol(symA, symB, symC);
     resultado = premios[base];
@@ -731,7 +728,7 @@ function comprobarPremio() {
     setTimeout(() => {
       [carril1Elem.children[0], carril2Elem.children[0], carril3Elem.children[0]]
         .forEach(img => img.classList.remove("recuadro-premio"));
-      bloquearInteraccion(false);
+      bloquearGiro(false);
     }, 3000);
 
     if (estaEnIngles()) {
@@ -746,9 +743,9 @@ function comprobarPremio() {
   }
 
   // d) Fila 2: carril1[1], carril2[1], carril3[1]
-  symA = getSymbolName(imagenCarril1[1]);
-  symB = getSymbolName(imagenCarril2[1]);
-  symC = getSymbolName(imagenCarril3[1]);
+  symA = obtenerNombreSimbolo(imagenCarril1[1]);
+  symB = obtenerNombreSimbolo(imagenCarril2[1]);
+  symC = obtenerNombreSimbolo(imagenCarril3[1]);
   if (checkLine(symA, symB, symC)) {
     let base = baseSymbol(symA, symB, symC);
     resultado = premios[base];
@@ -761,7 +758,7 @@ function comprobarPremio() {
     setTimeout(() => {
       [carril1Elem.children[1], carril2Elem.children[1], carril3Elem.children[1]]
         .forEach(img => img.classList.remove("recuadro-premio"));
-      bloquearInteraccion(false);
+      bloquearGiro(false);
     }, 3000);
 
     if (estaEnIngles()) {
@@ -776,9 +773,9 @@ function comprobarPremio() {
   }
 
   // e) Fila 3: carril1[2], carril2[2], carril3[2]
-  symA = getSymbolName(imagenCarril1[2]);
-  symB = getSymbolName(imagenCarril2[2]);
-  symC = getSymbolName(imagenCarril3[2]);
+  symA = obtenerNombreSimbolo(imagenCarril1[2]);
+  symB = obtenerNombreSimbolo(imagenCarril2[2]);
+  symC = obtenerNombreSimbolo(imagenCarril3[2]);
   if (checkLine(symA, symB, symC)) {
     let base = baseSymbol(symA, symB, symC);
     resultado = premios[base];
@@ -791,7 +788,7 @@ function comprobarPremio() {
     setTimeout(() => {
       [carril1Elem.children[2], carril2Elem.children[2], carril3Elem.children[2]]
         .forEach(img => img.classList.remove("recuadro-premio"));
-      bloquearInteraccion(false);
+      bloquearGiro(false);
     }, 3000);
 
     if (estaEnIngles()) {
@@ -824,8 +821,7 @@ function mostrarMensajePremio(mensaje) {
   }, 3000); 
 }
 
-// Función para bloquear o desbloquear la interacción (palanca o tecla espacio)
-function bloquearInteraccion(bloquear) {
+function bloquearGiro(bloquear) {
   const palanca = document.getElementById("palanca");
 
   if (bloquear) {
