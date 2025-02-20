@@ -546,3 +546,80 @@ document.getElementById("reiniciar-apuesta").addEventListener("click", () => {
 // Al cargar la página se actualiza el saldo y se deshabilitan los botones de juego
 actualizarSaldo();
 deshabilitarBotonesJuego();
+
+function registrarTiradaEnBD(apuesta, resultado) {
+  const dni = localStorage.getItem("dni");
+  const idJuego = 3; // SavageHands
+
+  if (!dni) {
+    return;
+  }
+
+  // Objeto con los datos para el registro general en HISTORICO
+  const datos = {
+    apuesta: apuesta,
+    resultado: resultado,
+    usuarioDni: dni,
+    juegoId: idJuego,
+    fechaLogHistorico: new Date().toISOString()
+  };
+
+  $.ajax({
+    type: "POST",
+    url: "/historico/registrar",
+    contentType: "application/json",
+    data: JSON.stringify(datos),
+    success: function(response) {
+      // Una vez registrado en el histórico, se registra la jugada en SavageHands
+      registrarTiradaSavageHandsEnBD(apuesta, resultado);
+      console.log('Entra en el success');
+    },
+    error: function(error) {
+      console.error("Error registrando en el histórico general", error);
+    }
+  });
+}
+
+function registrarTiradaSavageHandsEnBD(apuesta, resultado) {
+  const dni = localStorage.getItem("dni");
+  const idJuego = 3; // SavageHands
+
+  if (!dni) {
+    return;
+  }
+
+  // Se solicita el id del registro en HISTORICO para relacionarlo con la jugada
+  $.ajax({
+    type: "GET",
+    url: "/savagehands/historicoId",
+    success: function(historicoId) {
+      if (historicoId) {
+        const datos = {
+          apuesta: apuesta,
+          resultado: resultado,
+          dni: dni,       // Nombre que debe coincidir en el DTO
+          idJuego: idJuego, // Id del juego (3)
+          historicoId: historicoId
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "/savagehands/registrar",
+          contentType: "application/json",
+          data: JSON.stringify(datos),
+          success: function(response) {
+            console.log("Registro en SavageHands exitoso:", response);
+          },
+          error: function(error) {
+            console.error("Error registrando en SavageHands", error);
+          }
+        });
+      } else {
+        console.error("historicoId no obtenido");
+      }
+    },
+    error: function(error) {
+      console.error("Error obteniendo historicoId", error);
+    }
+  });
+}
