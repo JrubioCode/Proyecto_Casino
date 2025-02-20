@@ -73,6 +73,7 @@ function cerrarModalCustom(modalElement) {
 var saldo = 0;
 var fichas = 0;
 var apuestaActual = 0;
+var fichasActuales = 0;
 
 var mazo = [];
 var manoJugador = [];
@@ -403,31 +404,32 @@ function finalizarJuego() {
   const puntosDealer = calcularPuntuacion(manoDealer);
   let mensaje = "";
   
-  if (puntosJugador > 21) {
-    // El jugador se pasa y pierde su apuesta
-    mensaje = "¡Te pasaste de 21! Gana el Dealer.";
+    if (puntosJugador > 21) {
+      // El jugador se pasa y pierde su apuesta
+      mensaje = "¡Te pasaste de 21! Gana el Dealer.";
   } else if (puntosDealer > 21) {
-    // Dealer se pasa: el jugador gana el doble de su apuesta
-    mensaje = "¡El Dealer se pasó de 21! Ganaste.";
-    fichasActuales += apuestaActual * 2;
+      // Dealer se pasa: el jugador gana el doble de su apuesta
+      mensaje = "¡El Dealer se pasó de 21! Ganaste.";
+      fichas += apuestaActual * 2;
   } else if (puntosJugador === puntosDealer) {
-    // Empate: el jugador recupera su apuesta
-    mensaje = "¡Empate! Recuperas tu apuesta.";
-    fichasActuales += apuestaActual;
+      // Empate: el jugador recupera su apuesta
+      mensaje = "¡Empate! Recuperas tu apuesta.";
+      fichas += apuestaActual;
   } else if (puntosJugador > puntosDealer) {
-    // El jugador gana: recibe el doble de su apuesta
-    mensaje = "¡Ganaste!";
-    fichasActuales += apuestaActual * 2;
+      // El jugador gana: recibe el doble de su apuesta
+      mensaje = "¡Ganaste!";
+      fichas += apuestaActual * 2;
   } else {
-    // En cualquier otro caso, gana el Dealer y el jugador pierde la apuesta
-    mensaje = "Gana el Dealer.";
+      // En cualquier otro caso, gana el Dealer y el jugador pierde la apuesta
+      mensaje = "Gana el Dealer.";
   }
-  
+
   actualizarSaldo();
   deshabilitarBotonesJuego();
   mostrarMensajeModal(mensaje);
   apuestaActual = 0;
   document.getElementById('apuesta-actual').textContent = 0;
+  document.getElementById("fichas-actuales").textContent = `FICHAS: ${fichas}🎫`;
   juegoIniciado = false;
   // Se vuelve a habilitar el botón "Nuevo Juego"
   document.getElementById("nuevo-juego").disabled = false;
@@ -516,10 +518,13 @@ elementosChip.forEach(chip => {
       return;
     }
     const valor = parseInt(chip.getAttribute("data-value"), 10);
-    if (fichasActuales >= valor) {
+    if (fichas >= valor) {
       apuestaActual += valor;
-      fichasActuales -= valor;
-      actualizarSaldo();
+      fichas -= valor;
+      actualizarSaldo(); // Actualiza el saldo y las fichas en pantalla
+      // Actualiza la apuesta actual en pantalla
+      document.getElementById("apuesta-actual").textContent = apuestaActual;
+      mostrarMensajeModal("Apuesta actualizada: " + apuestaActual + "€");
     } else {
       mostrarMensajeModal("No tienes suficientes fichas para apostar ese valor.");
     }
@@ -531,9 +536,11 @@ document.getElementById("reiniciar-apuesta").addEventListener("click", () => {
     mostrarMensajeModal("No puedes reiniciar la apuesta durante una partida.");
     return;
   }
-  fichasActuales += apuestaActual;
+  fichas += apuestaActual;
   apuestaActual = 0;
-  actualizarSaldo();
+  actualizarSaldo(); // Actualiza saldo y fichas en pantalla
+  document.getElementById("apuesta-actual").textContent = apuestaActual;
+  mostrarMensajeModal("Apuesta reiniciada.");
 });
 
 // Al cargar la página se actualiza el saldo y se deshabilitan los botones de juego
