@@ -8,14 +8,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ProyectoCasino.Entity.CavemanRunEntity;
 import com.ProyectoCasino.Entity.CavernSlotsEntity;
 import com.ProyectoCasino.Entity.HistoricoEntity;
 import com.ProyectoCasino.Entity.JuegoEntity;
 import com.ProyectoCasino.Entity.UsuarioEntity;
-import com.ProyectoCasino.Model.CavemanRunDTO;
 import com.ProyectoCasino.Model.CavernSlotsDTO;
-import com.ProyectoCasino.Repository.CavemanRunRepository;
 import com.ProyectoCasino.Repository.HistoricoRepository;
 import com.ProyectoCasino.Repository.JuegoRepository;
 import com.ProyectoCasino.Repository.TragaperrasRepository;
@@ -90,7 +87,6 @@ public class TragaperrasServiceImplement implements TragaperrasService{
         List<CavernSlotsDTO> dtos = entities.stream().map(entity -> {
             CavernSlotsDTO dto = new CavernSlotsDTO();
             dto.setIdLogCavernSlots(entity.getIdLogCavernSlots());
-            dto.setFechaLogCavernSlots(entity.getFechaLogCavernSlots());
             dto.setApuesta(entity.getApuesta());
             dto.setCombinacion(entity.getCombinacion());
             dto.setResultado(entity.getResultado());

@@ -381,6 +381,81 @@ document.getElementById("boton-convertir-saldo").addEventListener("click", funct
   document.getElementById("input-cantidad-conversion-saldo").value = '';
 });
 
+// Registrar tiradas en base de datos
+function registrarTiradaEnBD(apuesta, combinacion, resultado) {
+  const dni = localStorage.getItem("dni");
+  const idJuego = 2;
+
+  if (!dni) {
+      return;
+  }
+
+  // Crear un objeto con los parámetros que necesitas enviar en formato JSON
+  const datos = {
+      usuarioDni: dni,
+      juegoId: idJuego,
+      fechaLogHistorico: new Date().toISOString(),
+  };
+
+  $.ajax({
+      type: "POST",
+      url: "/historico/registrar",
+      contentType: "application/json",
+      data: JSON.stringify(datos),
+      success: function(response) {
+        registrarTiradaPrehistoricSlotRunEnBD(apuesta, combinacion, resultado)
+      },
+      error: function(error) {
+          
+      }
+  });
+}
+
+function registrarTiradaPrehistoricSlotRunEnBD(apuesta, combinacion, resultado) {
+  const dni = localStorage.getItem("dni");
+  const idJuego = 2;  // ID del juego correspondiente
+
+  if (!dni) {
+    return;
+  }
+
+  $.ajax({
+    type: "GET",
+    url: "/prehistoricSlot/historicoId",
+    success: function(historicoId) {
+      if (historicoId) { 
+        // Se arma el objeto de datos incluyendo la combinación (ya sea ganadora o "SIN_COMBINACION")
+        const datos = {
+          apuesta: apuesta, 
+          combinacion: combinacion, 
+          resultado: resultado,
+          usuarioDni: dni,
+          juegoId: idJuego,
+          historicoId: historicoId
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "/prehistoricSlot/registrar",
+          contentType: "application/json",
+          data: JSON.stringify(datos),
+          success: function(response) {
+            console.log("Tirada registrada en CavemanRun con éxito");
+          },
+          error: function(error) {
+            console.error("Error registrando tirada en CavemanRun", error);
+          }
+        });
+      } else {
+        console.error("No se obtuvo historicoId");
+      }
+    },
+    error: function(error) {
+      console.error("Error al obtener historicoId", error);
+    }
+  });
+}
+
 // Funcionalidad tragaperras
 var cavernicola = "/assets/prehistoricSlot/tragaperras/cavernicola.png";
 var fuego = "/assets/prehistoricSlot/tragaperras/fuego.png";
@@ -492,275 +567,251 @@ function girar() {
   }, 4500); // Después de 4 segundos, que es el tiempo del giro más largo
 }
 
-// Función para comprobar el premio
 function comprobarPremio() {
+  // 1. Variables básicas
+  let apuesta = 25;
+  let resultado = 0;
+  let combinacion = "SIN_COMBINACION"; // Valor por defecto si no gana
 
-  // Comprobamos JACPOT
-  var carril1 = document.getElementById("carril1");
-  var carril2 = document.getElementById("carril2");
-  var carril3 = document.getElementById("carril3");
+  // 2. Obtención de elementos e imágenes de cada carril
+  const carril1Elem = document.getElementById("carril1");
+  const carril2Elem = document.getElementById("carril2");
+  const carril3Elem = document.getElementById("carril3");
 
-  var imagenCarril1 = Array.from(carril1.querySelectorAll('img')).map(img => img.src);
-  var imagenCarril2 = Array.from(carril2.querySelectorAll('img')).map(img => img.src);
-  var imagenCarril3 = Array.from(carril3.querySelectorAll('img')).map(img => img.src);
+  const imagenCarril1 = Array.from(carril1Elem.querySelectorAll('img')).map(img => img.src);
+  const imagenCarril2 = Array.from(carril2Elem.querySelectorAll('img')).map(img => img.src);
+  const imagenCarril3 = Array.from(carril3Elem.querySelectorAll('img')).map(img => img.src);
 
-  // Comprobación de Jackpot (todas las imágenes deben ser iguales en todos los carriles y en todas las posiciones)
-  if (imagenCarril1[0] === imagenCarril2[0] && imagenCarril1[0] === imagenCarril3[0] &&
+  // 3. Función auxiliar para extraer el nombre del símbolo desde la URL
+  function getSymbolName(src) {
+    return src.split("/").pop().split(".")[0];
+  }
+
+  // 4. Función auxiliar para comprobar una línea ganadora permitiendo solo 1 comodín
+  function checkLine(sym1, sym2, sym3) {
+    let countWild = 0;
+    if (sym1 === "comodin") countWild++;
+    if (sym2 === "comodin") countWild++;
+    if (sym3 === "comodin") countWild++;
+    if (countWild > 1) return false; // Máximo 1 comodín permitido
+    if (countWild === 0 && sym1 === sym2 && sym2 === sym3) return true;
+    if (countWild === 1) {
+      if (sym1 === "comodin" && sym2 === sym3) return true;
+      if (sym2 === "comodin" && sym1 === sym3) return true;
+      if (sym3 === "comodin" && sym1 === sym2) return true;
+    }
+    return false;
+  }
+
+  // 5. Función auxiliar para obtener el símbolo base (el que no es comodín)
+  function baseSymbol(sym1, sym2, sym3) {
+    if (sym1 !== "comodin") return sym1;
+    if (sym2 !== "comodin") return sym2;
+    if (sym3 !== "comodin") return sym3;
+    return "";
+  }
+
+  // 6. Función auxiliar para formar el string de la combinación
+  function combinationString(sym1, sym2, sym3) {
+    return sym1 + "-" + sym2 + "-" + sym3;
+  }
+
+  // 7. Comprobación del Jackpot: todas las posiciones iguales (no comodín)
+  if (
+      imagenCarril1[0] === imagenCarril2[0] && imagenCarril1[0] === imagenCarril3[0] &&
       imagenCarril1[1] === imagenCarril2[1] && imagenCarril1[1] === imagenCarril3[1] &&
-      imagenCarril1[2] === imagenCarril2[2] && imagenCarril1[2] === imagenCarril3[2]) {
-
-      var simbolo = imagenCarril1[0].split("/").pop().split(".")[0];  // Extraemos el nombre del símbolo
-      var premioJackpot = premios[simbolo] * 5; 
-      
-      fichas += premioJackpot;
+      imagenCarril1[2] === imagenCarril2[2] && imagenCarril1[2] === imagenCarril3[2]
+  ) {
+    let simbolo = getSymbolName(imagenCarril1[0]);
+    if (simbolo !== "comodin") {
+      resultado = premios[simbolo] * 5;
+      combinacion = simbolo + "-" + simbolo + "-" + simbolo;
+      fichas += resultado;
       actualizarSaldo();
 
-      // Aplicar efecto a todas las imágenes premiadas
+      // Aplica efecto visual a todas las imágenes
       const imagenesPremiadas = [
-          carril1.children[0], carril1.children[1], carril1.children[2],
-          carril2.children[0], carril2.children[1], carril2.children[2],
-          carril3.children[0], carril3.children[1], carril3.children[2]
+        ...carril1Elem.children,
+        ...carril2Elem.children,
+        ...carril3Elem.children
       ];
-
       imagenesPremiadas.forEach(img => img.classList.add("recuadro-premio"));
       setTimeout(() => {
           imagenesPremiadas.forEach(img => img.classList.remove("recuadro-premio"));
+          bloquearInteraccion(false);  // Desbloquea la palanca al terminar el efecto
       }, 3000);
 
       if (estaEnIngles()) {
-        mostrarMensajePremio(`¡JACKPOT! PRIZE x5 You win ${premioJackpot} tokens!`);
+        mostrarMensajePremio(`¡JACKPOT! PRIZE x5 You win ${resultado} tokens!`);
       } else {
-        mostrarMensajePremio(`¡JACKPOT! PREMIO x5 Has ganado ${premioJackpot} fichas!`);
+        mostrarMensajePremio(`¡JACKPOT! PREMIO x5 Has ganado ${resultado} fichas!`);
       }
       sonidoPremio();
-      return;  // Terminamos la ejecución si se detecta el Jackpot
-  }
-
-    // Definimos los carriles
-    var carril1 = document.getElementById("carril1");
-    var carril2 = document.getElementById("carril2");
-    var carril3 = document.getElementById("carril3");
-  
-    var imagenCarril1 = Array.from(carril1.querySelectorAll('img')).map(img => img.src);
-    var imagenCarril2 = Array.from(carril2.querySelectorAll('img')).map(img => img.src);
-    var imagenCarril3 = Array.from(carril3.querySelectorAll('img')).map(img => img.src);
-  
-    // *** DIAGONAL SUPERIOR-IZQUIERDA A INFERIOR-DERECHA ***
-    if (imagenCarril1[0] === imagenCarril2[1] && imagenCarril1[0] === imagenCarril3[2]) {
-      var simbolo = imagenCarril1[0].split("/").pop().split(".")[0];
-      var premio = premios[simbolo];
-  
-      fichas += premio;
-      actualizarSaldo();
-  
-      const imagenesPremiadas = [
-        carril1.children[0],
-        carril2.children[1],
-        carril3.children[2],
-      ];
-  
-      imagenesPremiadas.forEach(img => img.classList.add("recuadro-premio"));
-      setTimeout(() => {
-        imagenesPremiadas.forEach(img => img.classList.remove("recuadro-premio"));
-      }, 3000);
-  
-      if (estaEnIngles()) {
-        mostrarMensajePremio(`DIAGONAL PRIZE! You win ${premio} tokens!`);
-      } else {
-        mostrarMensajePremio(`¡PREMIO DIAGONAL! Has ganado ${premio} fichas!`);
-      }
-      sonidoPremio();
+      registrarTiradaEnBD(apuesta, combinacion, resultado);
+      registrarTiradaCavemanRunEnBD(apuesta, combinacion, resultado);
       return;
     }
-  
-    // *** DIAGONAL INFERIOR-IZQUIERDA A SUPERIOR-DERECHA ***
-    if (imagenCarril1[2] === imagenCarril2[1] && imagenCarril1[2] === imagenCarril3[0]) {
-      var simbolo = imagenCarril1[2].split("/").pop().split(".")[0];
-      var premio = premios[simbolo];
-  
-      fichas += premio;
-      actualizarSaldo();
-  
-      const imagenesPremiadas = [
-        carril1.children[2],
-        carril2.children[1],
-        carril3.children[0],
-      ];
-  
-      imagenesPremiadas.forEach(img => img.classList.add("recuadro-premio"));
-      setTimeout(() => {
-        imagenesPremiadas.forEach(img => img.classList.remove("recuadro-premio"));
-      }, 3000);
-  
-      if (estaEnIngles()) {
-        mostrarMensajePremio(`DIAGONAL PRIZE! You win ${premio} tokens!`);
-      } else {
-        mostrarMensajePremio(`¡PREMIO DIAGONAL! Has ganado ${premio} fichas!`);
-      }
-      sonidoPremio();
-      return;
-    }
-
-    // Comprobamos las imágenes de la segunda posición de cada carril (1,1,1)
-    if (imagenCarril1[1] === imagenCarril2[1] && imagenCarril1[1] === imagenCarril3[1]) {
-      var simbolo = imagenCarril1[1].split("/").pop().split(".")[0];  // Extraemos el nombre del símbolo
-      var premio = premios[simbolo];  // Calculamos el premio
-
-      fichas += premio;  // Sumamos el premio al saldo
-      actualizarSaldo();  // Actualizamos el saldo visualmente
-
-      // Aplicar efecto a las imágenes premiadas
-      const imagenesPremiadas = [
-        carril1.children[1],
-        carril2.children[1],
-        carril3.children[1],
-      ];
-
-      imagenesPremiadas.forEach(img => img.classList.add("recuadro-premio"));
-      setTimeout(() => {
-        imagenesPremiadas.forEach(img => img.classList.remove("recuadro-premio"));
-      }, 3000);
-
-      if (estaEnIngles()) {
-        mostrarMensajePremio(`3 IMAGES PRIZE! You win ${premio} fichas!`);
-      } else {
-        mostrarMensajePremio(`¡PREMIO DE 3 IMÁGENES! Has ganado ${premio} fichas!`);
-      }
-      sonidoPremio();
-      return;  // Terminamos la ejecución si se detecta el premio
-    }
-
-  // Comprobamos las imágenes de la primera posición de cada carril (0,0,0)
-  if (imagenCarril1[0] === imagenCarril2[0] && imagenCarril1[0] === imagenCarril3[0]) {
-    var simbolo = imagenCarril1[0].split("/").pop().split(".")[0];  // Extraemos el nombre del símbolo
-    var premio = premios[simbolo];  // Calculamos el premio
-
-    fichas += premio;  // Sumamos el premio al saldo
-    actualizarSaldo();  // Actualizamos el saldo visualmente
-
-    // Aplicar efecto a las imágenes premiadas
-    const imagenesPremiadas = [
-      carril1.children[0],
-      carril2.children[0],
-      carril3.children[0],
-    ];
-
-    imagenesPremiadas.forEach(img => img.classList.add("recuadro-premio"));
-    setTimeout(() => {
-      imagenesPremiadas.forEach(img => img.classList.remove("recuadro-premio"));
-    }, 3000);
-
-    if (estaEnIngles()) {
-      mostrarMensajePremio(`3 IMAGES PRIZE! You win ${premio} fichas!`);
-    } else {
-      mostrarMensajePremio(`¡PREMIO DE 3 IMÁGENES! Has ganado ${premio} fichas!`);
-    }
-    sonidoPremio();
-    return;  // Terminamos la ejecución si se detecta el premio
   }
 
-  // Obtener las imágenes de cada carril
-  var carril1 = document.getElementById("carril1");
-  var carril2 = document.getElementById("carril2");
-  var carril3 = document.getElementById("carril3");
+  // 8. Comprobación manual de líneas ganadoras (diagonales y filas)
 
-  var imagenCarril1 = Array.from(carril1.querySelectorAll('img')).map(img => img.src);
-  var imagenCarril2 = Array.from(carril2.querySelectorAll('img')).map(img => img.src);
-  var imagenCarril3 = Array.from(carril3.querySelectorAll('img')).map(img => img.src);
-
-  // Comprobamos las imágenes de la segunda posición de cada carril (1,1,1)
-  if (imagenCarril1[1] === imagenCarril2[1] && imagenCarril1[1] === imagenCarril3[1]) {
-    var simbolo = imagenCarril1[1].split("/").pop().split(".")[0];  // Extraemos el nombre del símbolo
-    var premio = premios[simbolo];  // Calculamos el premio
-  
-    fichas += premio;  // Sumamos el premio al saldo
-    actualizarSaldo();  // Actualizamos el saldo visualmente
-  
-    // Aplicar efecto a las imágenes premiadas
-    const imagenesPremiadas = [
-       carril1.children[1],
-      carril2.children[1],
-      carril3.children[1],
-    ];
-  
-    imagenesPremiadas.forEach(img => img.classList.add("recuadro-premio"));
-    setTimeout(() => {
-      imagenesPremiadas.forEach(img => img.classList.remove("recuadro-premio"));
-    }, 3000);
-  
-    if (estaEnIngles()) {
-      mostrarMensajePremio(`3 IMAGES PRIZE! You win ${premio} fichas!`);
-    } else {
-      mostrarMensajePremio(`¡PREMIO DE 3 IMÁGENES! Has ganado ${premio} fichas!`);
-    }
-    sonidoPremio();
-    return;  // Terminamos la ejecución si se detecta el premio
-  }
-
-  // Comprobamos las imágenes de la primera posición de cada carril (0,0,0)
-  if (imagenCarril1[0] === imagenCarril2[0] && imagenCarril1[0] === imagenCarril3[0]) {
-    var simbolo = imagenCarril1[0].split("/").pop().split(".")[0];  // Extraemos el nombre del símbolo
-    var premio = premios[simbolo];  // Calculamos el premio
-
-    fichas += premio;
+  // a) Diagonal: carril1[0], carril2[1], carril3[2]
+  let symA = getSymbolName(imagenCarril1[0]);
+  let symB = getSymbolName(imagenCarril2[1]);
+  let symC = getSymbolName(imagenCarril3[2]);
+  if (checkLine(symA, symB, symC)) {
+    let base = baseSymbol(symA, symB, symC);
+    resultado = premios[base];
+    combinacion = combinationString(symA, symB, symC);
+    fichas += resultado;
     actualizarSaldo();
 
-    // Aplicar efecto a las imágenes premiadas
-    const imagenesPremiadas = [
-      carril1.children[0],
-      carril2.children[0],
-      carril3.children[0],
-    ];
-
-    imagenesPremiadas.forEach(img => img.classList.add("recuadro-premio"));
+    [carril1Elem.children[0], carril2Elem.children[1], carril3Elem.children[2]]
+      .forEach(img => img.classList.add("recuadro-premio"));
     setTimeout(() => {
-      imagenesPremiadas.forEach(img => img.classList.remove("recuadro-premio"));
+      [carril1Elem.children[0], carril2Elem.children[1], carril3Elem.children[2]]
+        .forEach(img => img.classList.remove("recuadro-premio"));
+      bloquearInteraccion(false);
     }, 3000);
 
     if (estaEnIngles()) {
-      mostrarMensajePremio(`3 IMAGES PRIZE! You win ${premio} tokens!`);
+      mostrarMensajePremio(`3 IMAGES PRIZE! You win ${resultado} tokens!`);
     } else {
-      mostrarMensajePremio(`¡PREMIO DE 3 IMÁGENES! Has ganado ${premio} fichas!`);
+      mostrarMensajePremio(`¡PREMIO DE 3 IMÁGENES! Has ganado ${resultado} fichas!`);
     }
     sonidoPremio();
-    return;  // Terminamos la ejecución si se detecta el premio
+    registrarTiradaEnBD(apuesta, combinacion, resultado);
+    registrarTiradaCavemanRunEnBD(apuesta, combinacion, resultado);
+    return;
   }
 
-  // Comprobamos las imágenes de la tercera posición de cada carril (2,2,2)
-  if (imagenCarril1[2] === imagenCarril2[2] && imagenCarril1[2] === imagenCarril3[2]) {
-    var simbolo = imagenCarril1[2].split("/").pop().split(".")[0];  // Extraemos el nombre del símbolo
-    var premio = premios[simbolo];  // Calculamos el premio
-
-    fichas += premio;
+  // b) Diagonal: carril1[2], carril2[1], carril3[0]
+  symA = getSymbolName(imagenCarril1[2]);
+  symB = getSymbolName(imagenCarril2[1]);
+  symC = getSymbolName(imagenCarril3[0]);
+  if (checkLine(symA, symB, symC)) {
+    let base = baseSymbol(symA, symB, symC);
+    resultado = premios[base];
+    combinacion = combinationString(symA, symB, symC);
+    fichas += resultado;
     actualizarSaldo();
 
-    // Aplicar efecto a las imágenes premiadas
-    const imagenesPremiadas = [
-      carril1.children[2],
-      carril2.children[2],
-      carril3.children[2],
-    ];
-
-    imagenesPremiadas.forEach(img => img.classList.add("recuadro-premio"));
+    [carril1Elem.children[2], carril2Elem.children[1], carril3Elem.children[0]]
+      .forEach(img => img.classList.add("recuadro-premio"));
     setTimeout(() => {
-      imagenesPremiadas.forEach(img => img.classList.remove("recuadro-premio"));
+      [carril1Elem.children[2], carril2Elem.children[1], carril3Elem.children[0]]
+        .forEach(img => img.classList.remove("recuadro-premio"));
+      bloquearInteraccion(false);
     }, 3000);
 
     if (estaEnIngles()) {
-      mostrarMensajePremio(`3 IMAGES PRIZE! You win ${premio} tokens!`);
+      mostrarMensajePremio(`3 IMAGES PRIZE! You win ${resultado} tokens!`);
     } else {
-      mostrarMensajePremio(`¡PREMIO DE 3 IMÁGENES! Has ganado ${premio} fichas!`);
+      mostrarMensajePremio(`¡PREMIO DE 3 IMÁGENES! Has ganado ${resultado} fichas!`);
     }
     sonidoPremio();
-    return;  // Terminamos la ejecución si se detecta el premio
+    registrarTiradaEnBD(apuesta, combinacion, resultado);
+    registrarTiradaCavemanRunEnBD(apuesta, combinacion, resultado);
+    return;
   }
 
-  // Si no hay premio, mostramos el mensaje de "Intenta de nuevo"
+  // c) Fila 1: carril1[0], carril2[0], carril3[0]
+  symA = getSymbolName(imagenCarril1[0]);
+  symB = getSymbolName(imagenCarril2[0]);
+  symC = getSymbolName(imagenCarril3[0]);
+  if (checkLine(symA, symB, symC)) {
+    let base = baseSymbol(symA, symB, symC);
+    resultado = premios[base];
+    combinacion = combinationString(symA, symB, symC);
+    fichas += resultado;
+    actualizarSaldo();
+
+    [carril1Elem.children[0], carril2Elem.children[0], carril3Elem.children[0]]
+      .forEach(img => img.classList.add("recuadro-premio"));
+    setTimeout(() => {
+      [carril1Elem.children[0], carril2Elem.children[0], carril3Elem.children[0]]
+        .forEach(img => img.classList.remove("recuadro-premio"));
+      bloquearInteraccion(false);
+    }, 3000);
+
+    if (estaEnIngles()) {
+      mostrarMensajePremio(`3 IMAGES PRIZE! You win ${resultado} tokens!`);
+    } else {
+      mostrarMensajePremio(`¡PREMIO DE 3 IMÁGENES! Has ganado ${resultado} fichas!`);
+    }
+    sonidoPremio();
+    registrarTiradaEnBD(apuesta, combinacion, resultado);
+    registrarTiradaCavemanRunEnBD(apuesta, combinacion, resultado);
+    return;
+  }
+
+  // d) Fila 2: carril1[1], carril2[1], carril3[1]
+  symA = getSymbolName(imagenCarril1[1]);
+  symB = getSymbolName(imagenCarril2[1]);
+  symC = getSymbolName(imagenCarril3[1]);
+  if (checkLine(symA, symB, symC)) {
+    let base = baseSymbol(symA, symB, symC);
+    resultado = premios[base];
+    combinacion = combinationString(symA, symB, symC);
+    fichas += resultado;
+    actualizarSaldo();
+
+    [carril1Elem.children[1], carril2Elem.children[1], carril3Elem.children[1]]
+      .forEach(img => img.classList.add("recuadro-premio"));
+    setTimeout(() => {
+      [carril1Elem.children[1], carril2Elem.children[1], carril3Elem.children[1]]
+        .forEach(img => img.classList.remove("recuadro-premio"));
+      bloquearInteraccion(false);
+    }, 3000);
+
+    if (estaEnIngles()) {
+      mostrarMensajePremio(`3 IMAGES PRIZE! You win ${resultado} tokens!`);
+    } else {
+      mostrarMensajePremio(`¡PREMIO DE 3 IMÁGENES! Has ganado ${resultado} fichas!`);
+    }
+    sonidoPremio();
+    registrarTiradaEnBD(apuesta, combinacion, resultado);
+    registrarTiradaCavemanRunEnBD(apuesta, combinacion, resultado);
+    return;
+  }
+
+  // e) Fila 3: carril1[2], carril2[2], carril3[2]
+  symA = getSymbolName(imagenCarril1[2]);
+  symB = getSymbolName(imagenCarril2[2]);
+  symC = getSymbolName(imagenCarril3[2]);
+  if (checkLine(symA, symB, symC)) {
+    let base = baseSymbol(symA, symB, symC);
+    resultado = premios[base];
+    combinacion = combinationString(symA, symB, symC);
+    fichas += resultado;
+    actualizarSaldo();
+
+    [carril1Elem.children[2], carril2Elem.children[2], carril3Elem.children[2]]
+      .forEach(img => img.classList.add("recuadro-premio"));
+    setTimeout(() => {
+      [carril1Elem.children[2], carril2Elem.children[2], carril3Elem.children[2]]
+        .forEach(img => img.classList.remove("recuadro-premio"));
+      bloquearInteraccion(false);
+    }, 3000);
+
+    if (estaEnIngles()) {
+      mostrarMensajePremio(`3 IMAGES PRIZE! You win ${resultado} tokens!`);
+    } else {
+      mostrarMensajePremio(`¡PREMIO DE 3 IMÁGENES! Has ganado ${resultado} fichas!`);
+    }
+    sonidoPremio();
+    registrarTiradaEnBD(apuesta, combinacion, resultado);
+    registrarTiradaCavemanRunEnBD(apuesta, combinacion, resultado);
+    return;
+  }
+
+  // 9. Sin premio: mostramos mensaje y registramos la tirada como pérdida, desbloqueamos inmediatamente.
   if (estaEnIngles()) {
     mostrarMensajePremio("¡Try again!");
   } else {
     mostrarMensajePremio("¡Intenta de nuevo!");
   }
+  registrarTiradaEnBD(apuesta, "SIN_COMBINACION", 0);
 }
 
 // Función para mostrar el mensaje de premio
