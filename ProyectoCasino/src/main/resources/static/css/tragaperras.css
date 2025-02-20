@@ -513,3 +513,399 @@ p {
   border: 2px solid green;
   border-radius: 5px;
 }
+
+/* Tablets: entre 769px y 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .header {
+    gap: 30px;
+  }
+
+  .logo-titulo {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .logo-titulo h1 {
+    font-size: 16px;
+  }
+
+  .logo-titulo img {
+    height: 100px;
+  }
+
+  .botones-saldo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+  }
+
+  .mensajes-saldo p {
+    font-size: 15px;
+    text-align: center;
+    margin-top: -20px;
+  }
+
+  .icono-ajustes {
+    margin-right: -20px;
+    margin-top: -10px;
+  }
+
+  .modal-ajustes {
+    display: none;
+    position: absolute;
+    top: 140px;
+    right: -5px;
+    width: 210px;
+    height: 60px;
+    z-index: 10;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .contenido-modal-ajustes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: transparent;
+    padding: 15px;
+    gap: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .contenido-modal-ajustes p {
+    display: none;
+  }
+  
+  .contenedor-imagenes {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .contenido-modal-ajustes img {
+    width: 25px;
+    height: auto;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .musica img {
+    width: 25px;
+    height: auto;
+  }
+  
+  .switch {
+    font-size: 9px;
+    position: relative;
+    display: inline-block;
+    width: 3.9em;
+    height: 2.7em;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .slider {
+    --background: #20262c;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--background);
+    transition: 0.5s;
+    border-radius: 30px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    border-radius: 50%;
+    left: 10%;
+    bottom: 15%;
+    box-shadow: inset 8px -4px 0px 0px #ececd9, -4px 1px 4px 0px #dadada;
+    background: var(--background);
+    transition: 0.5s;
+  }
+  
+  input:checked+.slider {
+    background-color: #5494de;
+  }
+  
+  input:checked+.slider:before {
+    transform: translateX(100%);
+    box-shadow: inset 15px -4px 0px 15px #efdf2b, 0 0 10px 0px #efdf2b;
+  }
+  
+  #blancoYnegro {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+    backdrop-filter: grayscale(100%);
+    transition: backdrop-filter 0.3s ease, display 0.3s ease;
+  }
+
+  .contenedor {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .premios {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tragaperras {
+    margin-left: 0;
+    width: 90%;
+    max-height: 400px;
+  }
+
+  .palanca {
+    position: relative;
+    right: 0;
+  }
+
+  .carril {
+    width: 100px;
+    height: 250px;
+  }
+
+  .carril img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .palanca img {
+    width: 90px;
+  }
+
+  .mensajePremio {
+    font-size: 20px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Móviles: hasta 768px */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .logo-titulo {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .logo-titulo h1 {
+    font-size: 20px;
+  }
+
+  .logo-titulo img {
+    height: 100px;
+  }
+
+  .gestor-saldo,
+  .botones-saldo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    margin-top: -30px;
+  }
+
+  .mensajes-saldo p {
+    font-size: 15px;
+    text-align: center;
+    margin-top: -20px;
+  }
+
+  .icono-ajustes {
+    margin: 0 auto;
+    margin-top: -50px;
+    margin-bottom: 20px;
+  }
+
+  .reloj-container {
+    display: none;
+  }
+
+  /* Modal ajustes */
+  .modal-ajustes {
+    display: none;
+    position: absolute;
+    top: 400px;
+    left: 100px;
+    width: 210px;
+    height: 60px;
+    z-index: 10;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .contenido-modal-ajustes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: transparent;
+    padding: 15px;
+    gap: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .contenido-modal-ajustes p {
+    display: none;
+  }
+  
+  .contenedor-imagenes {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .contenido-modal-ajustes img {
+    width: 25px;
+    height: auto;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .musica img {
+    width: 25px;
+    height: auto;
+  }
+  
+  .switch {
+    font-size: 9px;
+    position: relative;
+    display: inline-block;
+    width: 3.9em;
+    height: 2.7em;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .slider {
+    --background: #20262c;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--background);
+    transition: 0.5s;
+    border-radius: 30px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    border-radius: 50%;
+    left: 10%;
+    bottom: 15%;
+    box-shadow: inset 8px -4px 0px 0px #ececd9, -4px 1px 4px 0px #dadada;
+    background: var(--background);
+    transition: 0.5s;
+  }
+  
+  input:checked+.slider {
+    background-color: #5494de;
+  }
+  
+  input:checked+.slider:before {
+    transform: translateX(100%);
+    box-shadow: inset 15px -4px 0px 15px #efdf2b, 0 0 10px 0px #efdf2b;
+  }
+  
+  #blancoYnegro {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+    backdrop-filter: grayscale(100%);
+    transition: backdrop-filter 0.3s ease, display 0.3s ease;
+  }
+
+  .contenido {
+    flex-direction: column-reverse;
+    gap: 1px;
+    margin-top: 5px;
+  }
+
+  .contenedor {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .premios {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tragaperras {
+    margin-left: 0;
+    width: 100%;
+    max-height: 380px;
+    padding: 15px;
+  }
+
+  .pantalla {
+    width: 90%;
+    max-width: 400px;
+    padding: 15px;
+  }
+
+  .carril {
+    width: 80px;
+    height: 200px;
+  }
+
+  .carril img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .palanca {
+    position: relative;
+    margin-left: 0;
+  }
+
+  .palanca img {
+    width: 80px;
+  }
+
+  .mensajePremio {
+    font-size: 18px;
+    height: 25px; /* Ajuste de altura para evitar desplazamientos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
