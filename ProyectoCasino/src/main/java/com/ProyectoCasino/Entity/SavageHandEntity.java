@@ -23,31 +23,32 @@ public class SavageHandEntity {
     @Column(name = "RESULTADO", nullable = false, precision = 10, scale = 2)
     private BigDecimal resultado;
     
-    @Column(name = "ID_HISTORICO", nullable = false)
-    private Integer idHistorico;
-    
-    @Column(name = "DNI", nullable = false, length = 9)
-    private String dni;
-    
-    @Column(name = "ID_JUEGO", nullable = false)
-    private Integer idJuego;
+    @ManyToOne
+    @JoinColumn(name = "ID_HISTORICO", nullable = false)
+    private HistoricoEntity historico;
 
-    // Constructores sin atrubutos
+    @ManyToOne
+    @JoinColumn(name = "DNI", nullable = false)
+    private UsuarioEntity usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_JUEGO", nullable = false)
+    private JuegoEntity juego;
+
     public SavageHandEntity() {
+
     }
 
-    // Constructores con atrubutos
-    public SavageHandEntity(Integer idLogSavageHands, Timestamp fechaLogSavageHands, Integer apuesta, BigDecimal resultado, Integer idHistorico, String dni, Integer idJuego) {
+    public SavageHandEntity(Integer idLogSavageHands, Timestamp fechaLogSavageHands, Integer apuesta, BigDecimal resultado, HistoricoEntity historico, UsuarioEntity usuario, JuegoEntity juego) {
         this.idLogSavageHands = idLogSavageHands;
         this.fechaLogSavageHands = fechaLogSavageHands;
         this.apuesta = apuesta;
         this.resultado = resultado;
-        this.idHistorico = idHistorico;
-        this.dni = dni;
-        this.idJuego = idJuego;
+        this.historico = historico;
+        this.usuario = usuario;
+        this.juego = juego;
     }
 
-    // Getters y Setters
     public Integer getIdLogSavageHands() {
         return idLogSavageHands;
     }
@@ -80,35 +81,35 @@ public class SavageHandEntity {
         this.resultado = resultado;
     }
 
-    public Integer getIdHistorico() {
-        return idHistorico;
+    public HistoricoEntity getHistorico() {
+        return historico;
     }
 
-    public void setIdHistorico(Integer idHistorico) {
-        this.idHistorico = idHistorico;
+    public void setHistorico(HistoricoEntity historico) {
+        this.historico = historico;
     }
 
-    public String getDni() {
-        return dni;
+    public UsuarioEntity getUsuario() {
+        return usuario;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
     }
 
-    public Integer getIdJuego() {
-        return idJuego;
+    public JuegoEntity getJuego() {
+        return juego;
     }
 
-    public void setIdJuego(Integer idJuego) {
-        this.idJuego = idJuego;
+    public void setJuego(JuegoEntity juego) {
+        this.juego = juego;
     }
 
-    // toString
     @Override
     public String toString() {
         return "SavageHandEntity [idLogSavageHands=" + idLogSavageHands + ", fechaLogSavageHands=" + fechaLogSavageHands
-                + ", apuesta=" + apuesta + ", resultado=" + resultado + ", idHistorico=" + idHistorico + ", dni=" + dni
-                + ", idJuego=" + idJuego + "]";
+                + ", apuesta=" + apuesta + ", resultado=" + resultado + ", historico=" + historico + ", usuario="
+                + usuario + ", juego=" + juego + "]";
     }
+    
 }

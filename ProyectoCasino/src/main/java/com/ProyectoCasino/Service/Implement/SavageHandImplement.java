@@ -1,10 +1,21 @@
 package com.ProyectoCasino.Service.Implement;
 
+import com.ProyectoCasino.Entity.HistoricoEntity;
+import com.ProyectoCasino.Entity.JuegoEntity;
 import com.ProyectoCasino.Entity.SavageHandEntity;
+import com.ProyectoCasino.Entity.UsuarioEntity;
 import com.ProyectoCasino.Model.SavageHandDTO;
 import com.ProyectoCasino.Repository.HistoricoRepository;
+import com.ProyectoCasino.Repository.JuegoRepository;
 import com.ProyectoCasino.Repository.SavageHandRepository;
+import com.ProyectoCasino.Repository.UsuarioRepository;
 import com.ProyectoCasino.Service.SavageHandService;
+
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,30 +23,73 @@ import org.springframework.stereotype.Service;
 public class SavageHandImplement implements SavageHandService {
 
     @Autowired
-    private SavageHandRepository savageHandsRepository;
-    
+    private SavageHandRepository savageHandRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private JuegoRepository juegoRepository;
+
     @Autowired
     private HistoricoRepository historicoRepository;
 
     @Override
-    public String registrarSavageHand(SavageHandDTO savageHandsDTO) {
-        // Mapear los datos del DTO a la entidad
-        SavageHandEntity savageHands = new SavageHandEntity();
-        savageHands.setApuesta(savageHandsDTO.getApuesta());
-        savageHands.setResultado(savageHandsDTO.getResultado());
-        savageHands.setDni(savageHandsDTO.getDni());
-        savageHands.setIdJuego(savageHandsDTO.getIdJuego());
-        savageHands.setIdHistorico(savageHandsDTO.getIdHistorico());
-        
-        savageHandsRepository.save(savageHands);
-        System.out.println("Se guardó en SAVAGEHANDS: " + savageHands);
-        return "Registro en SavageHands exitoso";
+    public void registrarTirada(SavageHandDTO savageHandDTO) {
+
+        UsuarioEntity usuario = usuarioRepository.findByDni(savageHandDTO.getDni());
+        if (usuario == null) {
+            return;
+        }
+
+        JuegoEntity juego = juegoRepository.findById(savageHandDTO.getIdJuego()).orElse(null);
+        if (juego == null) {
+            return;
+        }
+
+        HistoricoEntity historico = historicoRepository.findById(savageHandDTO.getIdHistorico()).orElse(null);
+        if (historico == null) {
+            return;
+        }
+
+        // Crear una nueva entidad CavemanRun
+        SavageHandEntity savageHandEntity = new SavageHandEntity();
+        savageHandEntity.setApuesta(savageHandDTO.getApuesta());
+        savageHandEntity.setResultado(savageHandDTO.getResultado());
+        savageHandEntity.setUsuario(usuario);
+        savageHandEntity.setJuego(juego);
+        savageHandEntity.setHistorico(historico);
+
+        // Guardar el nuevo registro en la tabla CAVERNSLOTS
+        savageHandRepository.save(savageHandEntity);
     }
 
     @Override
-    public Long obtenerUltimoHistoricoId() {
-        Long ultimoHistorico = historicoRepository.obtenerUltimoHistoricoId();
-        System.out.println("Ultimo historico id obtenido en SavageHandService: " + ultimoHistorico);
-        return ultimoHistorico;
+    public Integer obtenerHistoricoIdValido() {
+        HistoricoEntity historico = historicoRepository.findTopByOrderByIdHistoricoDesc();
+        if (historico == null) {
+            HistoricoEntity nuevoHistorico = new HistoricoEntity();
+            nuevoHistorico.setFechaLogHistorico(new Timestamp(new Date().getTime()));
+            historicoRepository.save(nuevoHistorico);
+            return nuevoHistorico.getIdHistorico();
+        }
+        return historico.getIdHistorico();
+    }
+
+     @Override
+    public List<SavageHandDTO> obtenerHistoricoTiradas() {
+
+        List<SavageHandEntity> entities = savageHandRepository.findAll();
+        
+        List<SavageHandDTO> dtos = entities.stream().map(entity -> {
+            SavageHandDTO dto = new SavageHandDTO();
+            dto.setIdLogSavageHands(entity.getIdLogSavageHands());
+            dto.setApuesta(entity.getApuesta());
+            dto.setResultado(entity.getResultado());
+            dto.setDni(entity.getUsuario().getDni());
+            return dto;
+        }).collect(Collectors.toList());
+        
+        return dtos;
     }
 }

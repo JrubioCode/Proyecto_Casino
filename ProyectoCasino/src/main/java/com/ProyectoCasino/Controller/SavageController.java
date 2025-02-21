@@ -14,14 +14,14 @@ public class SavageController {
     @Autowired
     private SavageHandService savageHandService;
 
-    // Endpoint para registrar la jugada en SAVAGEHANDS
     @PostMapping("/registrar")
     public String registrarSavageHands(@RequestBody SavageHandDTO savageHandsDTO) {
-        return savageHandService.registrarSavageHand(savageHandsDTO);
+        savageHandService.registrarTirada(savageHandsDTO);
+        return "¡Tirada registrada en CavemanRun con éxito!";
     }
 
     @GetMapping("/historicoId")
-    public Long obtenerHistoricoId() {
-        return savageHandService.obtenerUltimoHistoricoId();
+    public Integer obtenerHistoricoId() {
+        return savageHandService.obtenerHistoricoIdValido();
     }
 }

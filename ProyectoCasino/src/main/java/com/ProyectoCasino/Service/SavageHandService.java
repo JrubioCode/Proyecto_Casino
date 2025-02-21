@@ -1,9 +1,15 @@
 package com.ProyectoCasino.Service;
 
+import java.util.List;
+
 import com.ProyectoCasino.Model.SavageHandDTO;
 
 public interface SavageHandService {
-    String registrarSavageHand(SavageHandDTO savageHandsDTO);
-    
-    Long obtenerUltimoHistoricoId();
+   
+    void registrarTirada(SavageHandDTO savageHandDTO);
+
+    Integer obtenerHistoricoIdValido();
+
+    List<SavageHandDTO> obtenerHistoricoTiradas();
+
 }
