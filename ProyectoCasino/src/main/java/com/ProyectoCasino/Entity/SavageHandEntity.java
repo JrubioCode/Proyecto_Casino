@@ -15,6 +15,7 @@ public class SavageHandEntity {
     private Integer idLogSavageHands;
     
     @Column(name = "FECHA_LOG_SAVAGEHANDS", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Timestamp fechaLogSavageHands;
     
     @Column(name = "APUESTA", nullable = false)

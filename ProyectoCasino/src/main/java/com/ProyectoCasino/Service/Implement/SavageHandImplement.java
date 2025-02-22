@@ -55,6 +55,7 @@ public class SavageHandImplement implements SavageHandService {
         // Crear una nueva entidad CavemanRun
         SavageHandEntity savageHandEntity = new SavageHandEntity();
         savageHandEntity.setApuesta(savageHandDTO.getApuesta());
+        savageHandEntity.setFechaLogSavageHands(new Timestamp(System.currentTimeMillis()));
         savageHandEntity.setResultado(savageHandDTO.getResultado());
         savageHandEntity.setUsuario(usuario);
         savageHandEntity.setJuego(juego);

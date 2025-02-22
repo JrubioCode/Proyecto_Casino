@@ -41,12 +41,12 @@ function solicitarNumero(mensaje) {
     
     function limpiarYResolver(valor) {
       modalSolicitud.style.display = "none";
-      btnAceptar.removeEventListener("click", onAceptar);
-      btnCancelar.removeEventListener("click", onCancelar);
+      btnAceptar.removeEventListener("click", botonAceptar);
+      btnCancelar.removeEventListener("click", botonCancelar);
       resolver(valor);
     }
     
-    function onAceptar() {
+    function botonAceptar() {
       const valor = parseInt(inputModal.value, 10);
       if (isNaN(valor) || valor <= 0) {
         mostrarMensajeModal("Por favor ingresa un número válido mayor a 0.");
@@ -55,12 +55,12 @@ function solicitarNumero(mensaje) {
       }
     }
     
-    function onCancelar() {
+    function botonCancelar() {
       limpiarYResolver(null);
     }
     
-    btnAceptar.addEventListener("click", onAceptar);
-    btnCancelar.addEventListener("click", onCancelar);
+    btnAceptar.addEventListener("click", botonAceptar);
+    btnCancelar.addEventListener("click", botonCancelar);
   });
 }
 
@@ -115,79 +115,31 @@ document.getElementById('boton-retirar-dinero').addEventListener('click', async 
 
 // Convertir saldo a fichas automáticamente (convierte todo el saldo)
 document.getElementById("boton-convertir-a-fichas").addEventListener("click", function () {
-  const idJuego = 1;
-  const dni = localStorage.getItem("dni");
-  if (!dni) { 
-      console.error("No se encontró el dni en localStorage.");
-      return; 
-  }
+  // Definir el multiplicador fijo (por ejemplo, 2 fichas por cada unidad de dinero)
+  const multiplicador = 100;
   
-  // Obtener la tasa de conversión desde el backend
-  $.ajax({
-      type: "GET",
-      url: `/conversion/obtenerMultiplicador/${idJuego}`,
-      success: function (multiplicador) {
-          multiplicador = parseFloat(multiplicador);
-          if (isNaN(multiplicador) || multiplicador <= 0) {
-              console.error("Tasa de conversión no disponible.");
-              return;
-          }
-          
-          // Obtener el saldo actual del usuario desde la base de datos
-          $.ajax({
-              type: "GET",
-              url: `/usuario/obtenerSaldo/${dni}`,
-              success: function (response) {
-                  let saldoBackend = parseFloat(response);
-                  // Convertir TODO el saldo a fichas
-                  const cantidadFichas = saldoBackend * multiplicador;
-                  fichas += cantidadFichas;
-                  saldo = 0; // se ha convertido todo el saldo
-                  
-                  // Actualizamos en la BD e interfaz
-                  actualizarSaldoEnBD(saldo);
-                  actualizarSaldo();
-              },
-              error: function (error) {
-                  console.error("Error al obtener el saldo del usuario:", error);
-              }
-          });
-      },
-      error: function (error) {
-          console.error("Error al obtener la tasa de conversión:", error);
-      }
-  });
+  // Convertir todo el saldo a fichas
+  fichas += saldo * multiplicador;
+  saldo = 0;
+  
+  // Actualizar en la base de datos e interfaz
+  actualizarSaldoEnBD(saldo);
+  actualizarSaldo();
 });
-
 
 // Convertir fichas a saldo automáticamente (convierte todas las fichas)
 document.getElementById("boton-convertir-a-dinero").addEventListener("click", function () {
-  const idJuego = 1;
+  // Definir el multiplicador fijo (mismo valor que en la conversión anterior)
+  const multiplicador = 100;
   
-  // Obtener la tasa de conversión desde el backend
-  $.ajax({
-      type: "GET",
-      url: `/conversion/obtenerMultiplicador/${idJuego}`,
-      success: function (multiplicador) {
-          multiplicador = parseFloat(multiplicador);
-          if (isNaN(multiplicador) || multiplicador <= 0) {
-              console.error("Tasa de conversión no disponible.");
-              return;
-          }
-          
-          // Convertir todas las fichas a saldo
-          const cantidadDinero = fichas / multiplicador;
-          saldo += cantidadDinero;
-          fichas = 0;
-          
-          // Actualizamos en la BD e interfaz
-          actualizarSaldoEnBD(saldo);
-          actualizarSaldo();
-      },
-      error: function (error) {
-          console.error("Error al obtener la tasa de conversión:", error);
-      }
-  });
+  // Convertir todas las fichas a saldo
+  const cantidadDinero = fichas / multiplicador;
+  saldo += cantidadDinero;
+  fichas = 0;
+  
+  // Actualizar en la base de datos e interfaz
+  actualizarSaldoEnBD(saldo);
+  actualizarSaldo();
 });
 
 // ACTUALIZAR SALDO EN LA PANTALLA (solo actualiza la vista)
@@ -214,6 +166,82 @@ function cargarSaldo() {
   }
 }
 cargarSaldo();
+
+function registrarTiradaEnBD(apuesta, resultado) {
+  const dni = localStorage.getItem("dni");
+  const idJuego = 3; // SavageHands
+
+  if (!dni) {
+    return;
+  }
+
+  // Objeto con los datos para el registro general en HISTORICO
+  const datos = {
+    apuesta: apuesta,
+    resultado: resultado,
+    usuarioDni: dni,
+    juegoId: idJuego,
+    fechaLogHistorico: new Date().toISOString()
+  };
+
+  $.ajax({
+    type: "POST",
+    url: "/historico/registrar",
+    contentType: "application/json",
+    data: JSON.stringify(datos),
+    success: function(response) {
+      // Una vez registrado en el histórico, se registra la jugada en SavageHands
+      registrarTiradaSavageHandsEnBD(apuesta, resultado);
+      console.log('Entra en el success');
+    },
+    error: function(error) {
+      console.error("Error registrando en el histórico general", error);
+    }
+  });
+}
+
+function registrarTiradaSavageHandsEnBD(apuesta, resultado) {
+  const dni = localStorage.getItem("dni");
+  const idJuego = 3; // SavageHands
+
+  if (!dni) {
+    return;
+  }
+
+  $.ajax({
+    type: "GET",
+    url: "/savagehands/historicoId",
+    success: function(historicoId) {
+      if (historicoId) {
+        const datos = {
+          apuesta: apuesta,
+          resultado: resultado,   // Ahora es numérico
+          dni: dni,
+          idJuego: idJuego,
+          idHistorico: historicoId  // Clave correctamente nombrada
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "/savagehands/registrar",
+          contentType: "application/json",
+          data: JSON.stringify(datos),
+          success: function(response) {
+            console.log("Registro en SavageHands exitoso:", response);
+          },
+          error: function(error) {
+            console.error("Error registrando en SavageHands", error);
+          }
+        });
+      } else {
+        console.error("historicoId no obtenido");
+      }
+    },
+    error: function(error) {
+      console.error("Error obteniendo historicoId", error);
+    }
+  });
+}
 
 // Actualizar saldo en la base de datos
 function actualizarSaldoEnBD(nuevoSaldo) {
@@ -395,35 +423,44 @@ function habilitarBotonesJuego() {
 // Finaliza la partida y determina el ganador
 function finalizarJuego() {
   juegoTerminado = true;
+  
   // El dealer reparte cartas hasta alcanzar al menos 17
   while (calcularPuntuacion(manoDealer) < 17) {
     repartirCarta(manoDealer);
   }
   actualizarPantalla();
+  
   const puntosJugador = calcularPuntuacion(manoJugador);
   const puntosDealer = calcularPuntuacion(manoDealer);
   let mensaje = "";
+  let resultadoNumerico = 0; // Valor que se enviará a la BD
   
-    if (puntosJugador > 21) {
-      // El jugador se pasa y pierde su apuesta
-      mensaje = "¡Te pasaste de 21! Gana el Dealer.";
+  if (puntosJugador > 21) {
+    mensaje = "¡Te pasaste de 21! Gana el Dealer.";
+    resultadoNumerico = 0; // Por ejemplo, 0 para perder
   } else if (puntosDealer > 21) {
-      // Dealer se pasa: el jugador gana el doble de su apuesta
-      mensaje = "¡El Dealer se pasó de 21! Ganaste.";
-      fichas += apuestaActual * 2;
+    mensaje = "¡El Dealer se pasó de 21! Ganaste.";
+    fichas += apuestaActual * 2;
+    resultadoNumerico = 2; // Por ejemplo, 2 para ganar doble
   } else if (puntosJugador === puntosDealer) {
-      // Empate: el jugador recupera su apuesta
-      mensaje = "¡Empate! Recuperas tu apuesta.";
-      fichas += apuestaActual;
+    mensaje = "¡Empate! Recuperas tu apuesta.";
+    fichas += apuestaActual;
+    resultadoNumerico = 1; // 1 indica que recuperas tu apuesta
   } else if (puntosJugador > puntosDealer) {
-      // El jugador gana: recibe el doble de su apuesta
-      mensaje = "¡Ganaste!";
-      fichas += apuestaActual * 2;
+    mensaje = "¡Ganaste!";
+    fichas += apuestaActual * 2;
+    resultadoNumerico = 2;
   } else {
-      // En cualquier otro caso, gana el Dealer y el jugador pierde la apuesta
-      mensaje = "Gana el Dealer.";
+    mensaje = "Gana el Dealer.";
+    resultadoNumerico = 0;
   }
-
+  
+  // Se guarda la apuesta actual antes de reiniciarla
+  let apuestaRegistrada = apuestaActual;
+  
+  // Se registra la tirada enviando un valor numérico en "resultado"
+  registrarTiradaEnBD(apuestaRegistrada, resultadoNumerico);
+  
   actualizarSaldo();
   deshabilitarBotonesJuego();
   mostrarMensajeModal(mensaje);
@@ -431,7 +468,6 @@ function finalizarJuego() {
   document.getElementById('apuesta-actual').textContent = 0;
   document.getElementById("fichas-actuales").textContent = `FICHAS: ${fichas}🎫`;
   juegoIniciado = false;
-  // Se vuelve a habilitar el botón "Nuevo Juego"
   document.getElementById("nuevo-juego").disabled = false;
 }
 
@@ -546,80 +582,3 @@ document.getElementById("reiniciar-apuesta").addEventListener("click", () => {
 // Al cargar la página se actualiza el saldo y se deshabilitan los botones de juego
 actualizarSaldo();
 deshabilitarBotonesJuego();
-
-function registrarTiradaEnBD(apuesta, resultado) {
-  const dni = localStorage.getItem("dni");
-  const idJuego = 3; // SavageHands
-
-  if (!dni) {
-    return;
-  }
-
-  // Objeto con los datos para el registro general en HISTORICO
-  const datos = {
-    apuesta: apuesta,
-    resultado: resultado,
-    usuarioDni: dni,
-    juegoId: idJuego,
-    fechaLogHistorico: new Date().toISOString()
-  };
-
-  $.ajax({
-    type: "POST",
-    url: "/historico/registrar",
-    contentType: "application/json",
-    data: JSON.stringify(datos),
-    success: function(response) {
-      // Una vez registrado en el histórico, se registra la jugada en SavageHands
-      registrarTiradaSavageHandsEnBD(apuesta, resultado);
-      console.log('Entra en el success');
-    },
-    error: function(error) {
-      console.error("Error registrando en el histórico general", error);
-    }
-  });
-}
-
-function registrarTiradaSavageHandsEnBD(apuesta, resultado) {
-  const dni = localStorage.getItem("dni");
-  const idJuego = 3; // SavageHands
-
-  if (!dni) {
-    return;
-  }
-
-  // Se solicita el id del registro en HISTORICO para relacionarlo con la jugada
-  $.ajax({
-    type: "GET",
-    url: "/savagehands/historicoId",
-    success: function(historicoId) {
-      if (historicoId) {
-        const datos = {
-          apuesta: apuesta,
-          resultado: resultado,
-          dni: dni,       // Nombre que debe coincidir en el DTO
-          idJuego: idJuego, // Id del juego (3)
-          historicoId: historicoId
-        };
-
-        $.ajax({
-          type: "POST",
-          url: "/savagehands/registrar",
-          contentType: "application/json",
-          data: JSON.stringify(datos),
-          success: function(response) {
-            console.log("Registro en SavageHands exitoso:", response);
-          },
-          error: function(error) {
-            console.error("Error registrando en SavageHands", error);
-          }
-        });
-      } else {
-        console.error("historicoId no obtenido");
-      }
-    },
-    error: function(error) {
-      console.error("Error obteniendo historicoId", error);
-    }
-  });
-}

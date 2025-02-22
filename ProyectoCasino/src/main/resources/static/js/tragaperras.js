@@ -893,15 +893,21 @@ function actualizarSaldoEnBD(nuevoSaldo) {
 
 // Función que convierte las fichas en dinero y actualiza el saldo
 function convertirFichasADinero() {
-if (fichas > 0) {
-    const cantidadDinero = fichas / 100;
-    saldo += cantidadDinero; 
-    fichas = 0;
+  if (fichas > 0) {
+      const cantidadDinero = fichas / 50;
+      saldo += cantidadDinero; 
+      fichas = 0;
 
-    actualizarSaldoEnBD(saldo);
-    actualizarSaldo();
+      actualizarSaldoEnBD(saldo);
+      actualizarSaldo();
+  }
 }
-}
+
+window.addEventListener("beforeunload", function(event) {
+  if (fichas > 0) {
+      convertirFichasADinero();
+  }
+});
 
 /* TRADUCIR A INGLES */
 i18next.init({
