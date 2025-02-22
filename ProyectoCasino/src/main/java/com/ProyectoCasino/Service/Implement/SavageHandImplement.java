@@ -12,6 +12,7 @@ import com.ProyectoCasino.Repository.UsuarioRepository;
 import com.ProyectoCasino.Service.SavageHandService;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,7 +56,7 @@ public class SavageHandImplement implements SavageHandService {
         // Crear una nueva entidad CavemanRun
         SavageHandEntity savageHandEntity = new SavageHandEntity();
         savageHandEntity.setApuesta(savageHandDTO.getApuesta());
-        savageHandEntity.setFechaLogSavageHands(new Timestamp(System.currentTimeMillis()));
+        savageHandEntity.setFechaLogSavageHands(new Timestamp(new Date().getTime()));
         savageHandEntity.setResultado(savageHandDTO.getResultado());
         savageHandEntity.setUsuario(usuario);
         savageHandEntity.setJuego(juego);
@@ -77,19 +78,19 @@ public class SavageHandImplement implements SavageHandService {
         return historico.getIdHistorico();
     }
 
-     @Override
+    @Override
     public List<SavageHandDTO> obtenerHistoricoTiradas() {
-
         List<SavageHandEntity> entities = savageHandRepository.findAll();
+        List<SavageHandDTO> dtos = new ArrayList<>();
         
-        List<SavageHandDTO> dtos = entities.stream().map(entity -> {
+        for (SavageHandEntity entity : entities) {
             SavageHandDTO dto = new SavageHandDTO();
             dto.setIdLogSavageHands(entity.getIdLogSavageHands());
             dto.setApuesta(entity.getApuesta());
             dto.setResultado(entity.getResultado());
             dto.setDni(entity.getUsuario().getDni());
-            return dto;
-        }).collect(Collectors.toList());
+            dtos.add(dto);
+        }
         
         return dtos;
     }

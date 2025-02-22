@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -83,23 +84,21 @@ public class CavemanRunImplement implements CavemanRunService {
 
      @Override
     public List<CavemanRunDTO> obtenerHistoricoTiradas() {
-        // 1. Recuperamos todas las entidades de la base de datos.
+
         List<CavemanRunEntity> entities = cavemanRunRepository.findAll();
+        List<CavemanRunDTO> dtos = new ArrayList<>();
         
-        // 2. Convertimos cada entidad a DTO.
-        List<CavemanRunDTO> dtos = entities.stream().map(entity -> {
+        for (CavemanRunEntity entity : entities) {
             CavemanRunDTO dto = new CavemanRunDTO();
-            dto.setIdLogCavemanRun(entity.getIdLogCavemanRun());;
-            dto.setFechaLogCavemanRun(entity.getFechaLogCavemanRun());;
+            dto.setIdLogCavemanRun(entity.getIdLogCavemanRun());
+            dto.setFechaLogCavemanRun(entity.getFechaLogCavemanRun());
             dto.setApuesta(entity.getApuesta());
             dto.setMultiplicador(entity.getMultiplicador());
             dto.setResultado(entity.getResultado());
             dto.setUsuarioDni(entity.getUsuario().getNombre());
-            return dto;
-        }).collect(Collectors.toList());
-        
-        // 3. Retornamos la lista de DTOs.
+            dtos.add(dto);
+        }
+
         return dtos;
     }
-
 }

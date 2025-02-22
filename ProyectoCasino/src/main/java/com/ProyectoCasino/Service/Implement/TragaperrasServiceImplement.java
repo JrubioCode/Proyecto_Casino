@@ -1,6 +1,7 @@
 package com.ProyectoCasino.Service.Implement;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -80,21 +81,20 @@ public class TragaperrasServiceImplement implements TragaperrasService{
 
      @Override
     public List<CavernSlotsDTO> obtenerHistoricoTiradas() {
-        // 1. Recuperamos todas las entidades de la base de datos.
+
         List<CavernSlotsEntity> entities = tragaperrasRepository.findAll();
+        List<CavernSlotsDTO> dtos = new ArrayList<>();
         
-        // 2. Convertimos cada entidad a DTO.
-        List<CavernSlotsDTO> dtos = entities.stream().map(entity -> {
+        for (CavernSlotsEntity entity : entities) {
             CavernSlotsDTO dto = new CavernSlotsDTO();
             dto.setIdLogCavernSlots(entity.getIdLogCavernSlots());
             dto.setApuesta(entity.getApuesta());
             dto.setCombinacion(entity.getCombinacion());
             dto.setResultado(entity.getResultado());
             dto.setUsuarioDni(entity.getUsuario().getNombre());
-            return dto;
-        }).collect(Collectors.toList());
+            dtos.add(dto);
+        }
         
-        // 3. Retornamos la lista de DTOs.
         return dtos;
     }
     
