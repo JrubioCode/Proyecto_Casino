@@ -40,16 +40,24 @@ body{
 }
 
 /* Contenedor para el reloj */
-.reloj-container {
+.contenedorDatos {
     position: absolute;
     right: 20px;
-    top: 30px;
+    top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.reloj-container {
     background-color: rgba(255, 255, 255, 0.9);
     border: 2px solid #03551f;
     padding: 10px 15px;
     border-radius: 5px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: max-content;
 }
 
 #reloj {
@@ -57,6 +65,29 @@ body{
     color: #05752a;
     font-weight: bold;
     width: 100px;
+}
+
+.inicioSesion {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #03551f;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: max-content;
+}
+
+.inicioSesion a {
+    font-size: 18px;
+    color: #05752a;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.inicioSesion:hover {
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 /* Estilo del cuerpo */
