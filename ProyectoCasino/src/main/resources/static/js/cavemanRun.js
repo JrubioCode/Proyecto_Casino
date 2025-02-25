@@ -491,34 +491,6 @@ function renderHistorialTiradas() {
   });
 }
 
-function renderMejoresJugadas() {
-  const tbody = document.getElementById('mejores-jugadas');
-  tbody.innerHTML = '';
-  mejoresJugadas.forEach((jugada) => {
-    const row = `
-      <tr>
-        <td>${jugada.jugador}</td>
-        <td>$${jugada.premio}</td>
-      </tr>
-    `;
-    tbody.innerHTML += row;
-  });
-}
-
-// Cambiar entre pestañas
-document.querySelectorAll('.tab-button').forEach((button) => {
-  button.addEventListener('click', () => {
-    // Cambiar pestaña activa
-    document.querySelector('.tab-button.active').classList.remove('active');
-    button.classList.add('active');
-
-    // Mostrar sección correspondiente
-    document.querySelector('.estadistica-section.active').classList.remove('active');
-    const targetSection = document.getElementById(button.dataset.target);
-    targetSection.classList.add('active');
-  });
-});
-
 document.addEventListener("DOMContentLoaded", () => {
   const inputApuesta = document.getElementById("apuesta");
   const btnMenos = document.getElementById("btn-menos");
