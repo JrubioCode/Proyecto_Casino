@@ -571,71 +571,80 @@ function comprobarPremio() {
   let resultado = 0;
   let combinacion = "SIN_COMBINACION";
 
-  // Obtener de elementos e imágenes de cada carril
-  const carril1Elem = document.getElementById("carril1");
-  const carril2Elem = document.getElementById("carril2");
-  const carril3Elem = document.getElementById("carril3");
+  // 1. Obtener los elementos HTML de cada carril
+  const elementoCarril1 = document.getElementById("carril1");
+  const elementoCarril2 = document.getElementById("carril2");
+  const elementoCarril3 = document.getElementById("carril3");
 
-  const imagenCarril1 = Array.from(carril1Elem.querySelectorAll('img')).map(img => img.src);
-  const imagenCarril2 = Array.from(carril2Elem.querySelectorAll('img')).map(img => img.src);
-  const imagenCarril3 = Array.from(carril3Elem.querySelectorAll('img')).map(img => img.src);
+  // 2. Extraer las rutas de las imágenes de cada carril
+  const imagenesCarril1 = Array.from(elementoCarril1.querySelectorAll('img')).map(img => img.src);
+  const imagenesCarril2 = Array.from(elementoCarril2.querySelectorAll('img')).map(img => img.src);
+  const imagenesCarril3 = Array.from(elementoCarril3.querySelectorAll('img')).map(img => img.src);
 
-  function obtenerNombreSimbolo(src) {
-    return src.split("/").pop().split(".")[0];
+  // 3. Función para extraer el nombre del símbolo de la ruta de la imagen
+  function obtenerNombreSimbolo(ruta) {
+    return ruta.split("/").pop().split(".")[0];
   }
 
-  // Comprobar una línea ganadora permitiendo solo 1 comodín
-  function checkLine(sym1, sym2, sym3) {
-    let countWild = 0;
-    if (sym1 === "comodin") countWild++;
-    if (sym2 === "comodin") countWild++;
-    if (sym3 === "comodin") countWild++;
-    if (countWild > 1) return false; // Máximo 1 comodín permitido
-    if (countWild === 0 && sym1 === sym2 && sym2 === sym3) return true;
-    if (countWild === 1) {
-      if (sym1 === "comodin" && sym2 === sym3) return true;
-      if (sym2 === "comodin" && sym1 === sym3) return true;
-      if (sym3 === "comodin" && sym1 === sym2) return true;
+  // 4. Función para verificar si una línea es ganadora (se permite como máximo 1 comodín)
+  function verificarLinea(simbolo1, simbolo2, simbolo3) {
+    let contadorComodin = 0;
+    if (simbolo1 === "comodin") contadorComodin++;
+    if (simbolo2 === "comodin") contadorComodin++;
+    if (simbolo3 === "comodin") contadorComodin++;
+    
+    // Si hay más de 1 comodín, no es una línea ganadora
+    if (contadorComodin > 1) return false;
+    
+    // Sin comodines: los tres símbolos deben ser idénticos
+    if (contadorComodin === 0 && simbolo1 === simbolo2 && simbolo2 === simbolo3) return true;
+    
+    // Con 1 comodín: los otros dos deben ser iguales
+    if (contadorComodin === 1) {
+      if (simbolo1 === "comodin" && simbolo2 === simbolo3) return true;
+      if (simbolo2 === "comodin" && simbolo1 === simbolo3) return true;
+      if (simbolo3 === "comodin" && simbolo1 === simbolo2) return true;
     }
+    
     return false;
   }
 
-  // 5. Función auxiliar para obtener el símbolo base (el que no es comodín)
-  function baseSymbol(sym1, sym2, sym3) {
-    if (sym1 !== "comodin") return sym1;
-    if (sym2 !== "comodin") return sym2;
-    if (sym3 !== "comodin") return sym3;
+  // 5. Función para obtener el símbolo base (el que no es comodín)
+  function obtenerSimboloBase(simbolo1, simbolo2, simbolo3) {
+    if (simbolo1 !== "comodin") return simbolo1;
+    if (simbolo2 !== "comodin") return simbolo2;
+    if (simbolo3 !== "comodin") return simbolo3;
     return "";
   }
 
-  // 6. Función auxiliar para formar el string de la combinación
-  function combinationString(sym1, sym2, sym3) {
-    return sym1 + "-" + sym2 + "-" + sym3;
+  // 6. Función para formar la cadena que representa la combinación
+  function cadenaCombinacion(simbolo1, simbolo2, simbolo3) {
+    return simbolo1 + "-" + simbolo2 + "-" + simbolo3;
   }
 
-  // 7. Comprobación del Jackpot: todas las posiciones iguales (no comodín)
+  // 7. Comprobación del Jackpot: todas las posiciones de cada carril deben ser iguales y no ser comodín
   if (
-      imagenCarril1[0] === imagenCarril2[0] && imagenCarril1[0] === imagenCarril3[0] &&
-      imagenCarril1[1] === imagenCarril2[1] && imagenCarril1[1] === imagenCarril3[1] &&
-      imagenCarril1[2] === imagenCarril2[2] && imagenCarril1[2] === imagenCarril3[2]
+    imagenesCarril1[0] === imagenesCarril2[0] && imagenesCarril1[0] === imagenesCarril3[0] &&
+    imagenesCarril1[1] === imagenesCarril2[1] && imagenesCarril1[1] === imagenesCarril3[1] &&
+    imagenesCarril1[2] === imagenesCarril2[2] && imagenesCarril1[2] === imagenesCarril3[2]
   ) {
-    let simbolo = obtenerNombreSimbolo(imagenCarril1[0]);
+    let simbolo = obtenerNombreSimbolo(imagenesCarril1[0]);
     if (simbolo !== "comodin") {
       resultado = premios[simbolo] * 5;
       combinacion = simbolo + "-" + simbolo + "-" + simbolo;
       fichas += resultado;
       actualizarSaldo();
 
-      // Aplica efecto visual a todas las imágenes
+      // Aplicar efecto visual a todas las imágenes (resalta el premio)
       const imagenesPremiadas = [
-        ...carril1Elem.children,
-        ...carril2Elem.children,
-        ...carril3Elem.children
+        ...elementoCarril1.children,
+        ...elementoCarril2.children,
+        ...elementoCarril3.children
       ];
       imagenesPremiadas.forEach(img => img.classList.add("recuadro-premio"));
       setTimeout(() => {
-          imagenesPremiadas.forEach(img => img.classList.remove("recuadro-premio"));
-          bloquearGiro(false);  // Desbloquea la palanca al terminar el efecto
+        imagenesPremiadas.forEach(img => img.classList.remove("recuadro-premio"));
+        bloquearGiro(false);  // Desbloquear la palanca tras el efecto
       }, 3000);
 
       if (estaEnIngles()) {
@@ -650,23 +659,23 @@ function comprobarPremio() {
     }
   }
 
-  // 8. Comprobación manual de líneas ganadoras (diagonales y filas)
+  // 8. Comprobación de las líneas ganadoras (diagonales y filas)
 
-  // a) Diagonal: carril1[0], carril2[1], carril3[2]
-  let symA = obtenerNombreSimbolo(imagenCarril1[0]);
-  let symB = obtenerNombreSimbolo(imagenCarril2[1]);
-  let symC = obtenerNombreSimbolo(imagenCarril3[2]);
-  if (checkLine(symA, symB, symC)) {
-    let base = baseSymbol(symA, symB, symC);
-    resultado = premios[base];
-    combinacion = combinationString(symA, symB, symC);
+  // a) Diagonal: posición [0] del carril1, [1] del carril2 y [2] del carril3
+  let simA = obtenerNombreSimbolo(imagenesCarril1[0]);
+  let simB = obtenerNombreSimbolo(imagenesCarril2[1]);
+  let simC = obtenerNombreSimbolo(imagenesCarril3[2]);
+  if (verificarLinea(simA, simB, simC)) {
+    let simboloBase = obtenerSimboloBase(simA, simB, simC);
+    resultado = premios[simboloBase];
+    combinacion = cadenaCombinacion(simA, simB, simC);
     fichas += resultado;
     actualizarSaldo();
 
-    [carril1Elem.children[0], carril2Elem.children[1], carril3Elem.children[2]]
+    [elementoCarril1.children[0], elementoCarril2.children[1], elementoCarril3.children[2]]
       .forEach(img => img.classList.add("recuadro-premio"));
     setTimeout(() => {
-      [carril1Elem.children[0], carril2Elem.children[1], carril3Elem.children[2]]
+      [elementoCarril1.children[0], elementoCarril2.children[1], elementoCarril3.children[2]]
         .forEach(img => img.classList.remove("recuadro-premio"));
       bloquearGiro(false);
     }, 3000);
@@ -682,21 +691,21 @@ function comprobarPremio() {
     return;
   }
 
-  // b) Diagonal: carril1[2], carril2[1], carril3[0]
-  symA = obtenerNombreSimbolo(imagenCarril1[2]);
-  symB = obtenerNombreSimbolo(imagenCarril2[1]);
-  symC = obtenerNombreSimbolo(imagenCarril3[0]);
-  if (checkLine(symA, symB, symC)) {
-    let base = baseSymbol(symA, symB, symC);
-    resultado = premios[base];
-    combinacion = combinationString(symA, symB, symC);
+  // b) Diagonal: posición [2] del carril1, [1] del carril2 y [0] del carril3
+  simA = obtenerNombreSimbolo(imagenesCarril1[2]);
+  simB = obtenerNombreSimbolo(imagenesCarril2[1]);
+  simC = obtenerNombreSimbolo(imagenesCarril3[0]);
+  if (verificarLinea(simA, simB, simC)) {
+    let simboloBase = obtenerSimboloBase(simA, simB, simC);
+    resultado = premios[simboloBase];
+    combinacion = cadenaCombinacion(simA, simB, simC);
     fichas += resultado;
     actualizarSaldo();
 
-    [carril1Elem.children[2], carril2Elem.children[1], carril3Elem.children[0]]
+    [elementoCarril1.children[2], elementoCarril2.children[1], elementoCarril3.children[0]]
       .forEach(img => img.classList.add("recuadro-premio"));
     setTimeout(() => {
-      [carril1Elem.children[2], carril2Elem.children[1], carril3Elem.children[0]]
+      [elementoCarril1.children[2], elementoCarril2.children[1], elementoCarril3.children[0]]
         .forEach(img => img.classList.remove("recuadro-premio"));
       bloquearGiro(false);
     }, 3000);
@@ -712,21 +721,21 @@ function comprobarPremio() {
     return;
   }
 
-  // c) Fila 1: carril1[0], carril2[0], carril3[0]
-  symA = obtenerNombreSimbolo(imagenCarril1[0]);
-  symB = obtenerNombreSimbolo(imagenCarril2[0]);
-  symC = obtenerNombreSimbolo(imagenCarril3[0]);
-  if (checkLine(symA, symB, symC)) {
-    let base = baseSymbol(symA, symB, symC);
-    resultado = premios[base];
-    combinacion = combinationString(symA, symB, symC);
+  // c) Fila 1: posición [0] de cada carril
+  simA = obtenerNombreSimbolo(imagenesCarril1[0]);
+  simB = obtenerNombreSimbolo(imagenesCarril2[0]);
+  simC = obtenerNombreSimbolo(imagenesCarril3[0]);
+  if (verificarLinea(simA, simB, simC)) {
+    let simboloBase = obtenerSimboloBase(simA, simB, simC);
+    resultado = premios[simboloBase];
+    combinacion = cadenaCombinacion(simA, simB, simC);
     fichas += resultado;
     actualizarSaldo();
 
-    [carril1Elem.children[0], carril2Elem.children[0], carril3Elem.children[0]]
+    [elementoCarril1.children[0], elementoCarril2.children[0], elementoCarril3.children[0]]
       .forEach(img => img.classList.add("recuadro-premio"));
     setTimeout(() => {
-      [carril1Elem.children[0], carril2Elem.children[0], carril3Elem.children[0]]
+      [elementoCarril1.children[0], elementoCarril2.children[0], elementoCarril3.children[0]]
         .forEach(img => img.classList.remove("recuadro-premio"));
       bloquearGiro(false);
     }, 3000);
@@ -742,21 +751,21 @@ function comprobarPremio() {
     return;
   }
 
-  // d) Fila 2: carril1[1], carril2[1], carril3[1]
-  symA = obtenerNombreSimbolo(imagenCarril1[1]);
-  symB = obtenerNombreSimbolo(imagenCarril2[1]);
-  symC = obtenerNombreSimbolo(imagenCarril3[1]);
-  if (checkLine(symA, symB, symC)) {
-    let base = baseSymbol(symA, symB, symC);
-    resultado = premios[base];
-    combinacion = combinationString(symA, symB, symC);
+  // d) Fila 2: posición [1] de cada carril
+  simA = obtenerNombreSimbolo(imagenesCarril1[1]);
+  simB = obtenerNombreSimbolo(imagenesCarril2[1]);
+  simC = obtenerNombreSimbolo(imagenesCarril3[1]);
+  if (verificarLinea(simA, simB, simC)) {
+    let simboloBase = obtenerSimboloBase(simA, simB, simC);
+    resultado = premios[simboloBase];
+    combinacion = cadenaCombinacion(simA, simB, simC);
     fichas += resultado;
     actualizarSaldo();
 
-    [carril1Elem.children[1], carril2Elem.children[1], carril3Elem.children[1]]
+    [elementoCarril1.children[1], elementoCarril2.children[1], elementoCarril3.children[1]]
       .forEach(img => img.classList.add("recuadro-premio"));
     setTimeout(() => {
-      [carril1Elem.children[1], carril2Elem.children[1], carril3Elem.children[1]]
+      [elementoCarril1.children[1], elementoCarril2.children[1], elementoCarril3.children[1]]
         .forEach(img => img.classList.remove("recuadro-premio"));
       bloquearGiro(false);
     }, 3000);
@@ -772,21 +781,21 @@ function comprobarPremio() {
     return;
   }
 
-  // e) Fila 3: carril1[2], carril2[2], carril3[2]
-  symA = obtenerNombreSimbolo(imagenCarril1[2]);
-  symB = obtenerNombreSimbolo(imagenCarril2[2]);
-  symC = obtenerNombreSimbolo(imagenCarril3[2]);
-  if (checkLine(symA, symB, symC)) {
-    let base = baseSymbol(symA, symB, symC);
-    resultado = premios[base];
-    combinacion = combinationString(symA, symB, symC);
+  // e) Fila 3: posición [2] de cada carril
+  simA = obtenerNombreSimbolo(imagenesCarril1[2]);
+  simB = obtenerNombreSimbolo(imagenesCarril2[2]);
+  simC = obtenerNombreSimbolo(imagenesCarril3[2]);
+  if (verificarLinea(simA, simB, simC)) {
+    let simboloBase = obtenerSimboloBase(simA, simB, simC);
+    resultado = premios[simboloBase];
+    combinacion = cadenaCombinacion(simA, simB, simC);
     fichas += resultado;
     actualizarSaldo();
 
-    [carril1Elem.children[2], carril2Elem.children[2], carril3Elem.children[2]]
+    [elementoCarril1.children[2], elementoCarril2.children[2], elementoCarril3.children[2]]
       .forEach(img => img.classList.add("recuadro-premio"));
     setTimeout(() => {
-      [carril1Elem.children[2], carril2Elem.children[2], carril3Elem.children[2]]
+      [elementoCarril1.children[2], elementoCarril2.children[2], elementoCarril3.children[2]]
         .forEach(img => img.classList.remove("recuadro-premio"));
       bloquearGiro(false);
     }, 3000);
@@ -802,7 +811,7 @@ function comprobarPremio() {
     return;
   }
 
-  // 9. Sin premio: mostramos mensaje y registramos la tirada como pérdida, desbloqueamos inmediatamente.
+  // 9. Si no se detecta ninguna combinación ganadora
   if (estaEnIngles()) {
     mostrarMensajePremio("¡Try again!");
   } else {
