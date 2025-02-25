@@ -160,6 +160,7 @@ function cargarSaldo() {
               actualizarSaldo();
           },
           error: function(error) {
+              console.error("Error al cargar el saldo:", error);
           }
       });
   }
@@ -191,8 +192,10 @@ function registrarTiradaEnBD(apuesta, resultado) {
     success: function(response) {
       // Una vez registrado en el histórico, se registra la jugada en SavageHands
       registrarTiradaSavageHandsEnBD(apuesta, resultado);
+      console.log('Entra en el success');
     },
     error: function(error) {
+      console.error("Error registrando en el histórico general", error);
     }
   });
 }
@@ -224,14 +227,18 @@ function registrarTiradaSavageHandsEnBD(apuesta, resultado) {
           contentType: "application/json",
           data: JSON.stringify(datos),
           success: function(response) {
+            console.log("Registro en SavageHands exitoso:", response);
           },
           error: function(error) {
+            console.error("Error registrando en SavageHands", error);
           }
         });
       } else {
+        console.error("historicoId no obtenido");
       }
     },
     error: function(error) {
+      console.error("Error obteniendo historicoId", error);
     }
   });
 }
@@ -253,6 +260,7 @@ function actualizarSaldoEnBD(nuevoSaldo) {
               cargarSaldo();
           },
           error: function(xhr, status, error) {
+              console.error("Error al actualizar el saldo en BD:", error);
           }
       });
   }
