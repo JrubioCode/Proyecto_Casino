@@ -434,7 +434,7 @@ function comprobarCaducidad() {
 
   const hoy = new Date();
   const anioActual = hoy.getFullYear();
-  const mesActual = hoy.getMonth() + 1; // getMonth() es 0-indexado
+  const mesActual = hoy.getMonth() + 1;
 
   // Verifica que la fecha de caducidad no sea anterior a la fecha actual
   if (anio > anioActual || (anio === anioActual && mes >= mesActual)) {
