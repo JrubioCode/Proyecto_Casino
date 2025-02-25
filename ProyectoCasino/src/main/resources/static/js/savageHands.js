@@ -260,7 +260,6 @@ function actualizarSaldoEnBD(nuevoSaldo) {
               cargarSaldo();
           },
           error: function(xhr, status, error) {
-              console.error("Error al actualizar el saldo en BD:", error);
           }
       });
   }
