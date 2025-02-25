@@ -525,6 +525,12 @@ main {
     font-size: 1.3rem;
   }
 
+  .modal-contenido {
+    width: 80%;
+    height: 80%;
+    overflow: auto;
+  }
+
   .area-juego {
     display: flex;
     justify-content: space-between;
