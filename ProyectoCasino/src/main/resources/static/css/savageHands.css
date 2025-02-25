@@ -103,10 +103,11 @@ body {
 .mensajes-saldo{
   display: flex;
   gap: 450px;
+  height: 20px;
 }
 
 .mensajes-saldo p {
-  font-size: 1rem;
+  font-size: 16px;
   margin: 3px 0;
 }
 
@@ -523,6 +524,12 @@ main {
 
   .info-icon {
     font-size: 1.3rem;
+  }
+
+  .modal-contenido {
+    width: 80%;
+    height: 80%;
+    overflow: auto;
   }
 
   .area-juego {

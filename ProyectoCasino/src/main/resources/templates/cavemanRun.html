@@ -64,11 +64,9 @@
         <div class="analiticas">
             <div class="estadisticas-menu">
                 <button class="tab-button active" data-target="estadistica1">Historial de Tiradas</button>
-                <button class="tab-button" data-target="estadistica2">Mejores Jugadas</button>
             </div>
             
             <div class="estadisticas-contenido">
-                
                 <!-- HISTORIAL DE TIRADAS -->
                 <div class="estadistica-section active" id="estadistica1">
                     <p class="parrafo-seccion1">Historial de tiradas:</p>
@@ -90,22 +88,6 @@
                                 <td th:text="${tirada.multiplicador}">Multi</td>
                                 <td th:text="${tirada.resultado}">Premio</td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <!-- MEJORES JUGADAS -->
-                <div class="estadistica-section" id="estadistica2">
-                    <p class="parrafo-seccion2">Mejores jugadas:</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Jugador</th>
-                                <th>Ganancia</th>
-                            </tr>
-                        </thead>
-                        <tbody id="mejores-jugadas">
-                            <!-- RELLENADO DINÁMICAMENTE -->
                         </tbody>
                     </table>
                 </div>
