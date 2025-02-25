@@ -78,7 +78,7 @@ public class CavemanRunImplement implements CavemanRunService {
             historicoRepository.save(nuevoHistorico);
             return nuevoHistorico.getIdHistorico();
         }
-        return historico.getIdHistorico(); // Retorna el último ID si existe
+        return historico.getIdHistorico();
     }
 
      @Override

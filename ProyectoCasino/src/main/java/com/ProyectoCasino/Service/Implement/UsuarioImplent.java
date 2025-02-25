@@ -106,8 +106,7 @@ public class UsuarioImplent implements UsuarioService {
 
     @Override
     public UsuarioDTO actualizarSaldo(UsuarioDTO usuarioDTO) {
-        UsuarioEntity usuarioEntity = usuarioRepository.findById(usuarioDTO.getDni())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        UsuarioEntity usuarioEntity = usuarioRepository.findById(usuarioDTO.getDni()).orElse(null);
 
         usuarioEntity.setDineroUsuario(usuarioDTO.getDineroUsuario());
         UsuarioEntity actualizado = usuarioRepository.save(usuarioEntity);
