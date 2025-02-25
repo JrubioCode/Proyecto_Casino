@@ -61,7 +61,7 @@ public class UsuarioController {
         UsuarioEntity usuarioEntity = usuarioService.comprobarUsuario(userName);
 
         if (usuarioEntity == null) {
-            return "404 - Usuario no encontrado";
+            return "Usuario no encontrado";
         }
 
         UsuarioDTO usuarioDTO = usuarioService.validarUsuario(usuarioEntity, userPassword);

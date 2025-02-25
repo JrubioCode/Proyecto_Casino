@@ -79,7 +79,7 @@ btn.addEventListener("click", function (event) {
               window.location.pathname = "/";
             }, 3000);
           } else {
-            mostrarModal("Respuesta inesperada del servidor: " + response);
+            mostrarModal(response);
           }
         },
         error: function (error) {
