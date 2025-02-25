@@ -82,5 +82,4 @@ public class UsuarioController {
     public UsuarioDTO actualizarSaldo(@RequestBody UsuarioDTO usuarioDTO) {
         return usuarioService.actualizarSaldo(usuarioDTO);
     }
-
 }

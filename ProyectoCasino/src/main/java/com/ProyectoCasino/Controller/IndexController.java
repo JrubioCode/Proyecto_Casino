@@ -44,7 +44,7 @@ public class IndexController {
             model.addAttribute("esVip", false);
         }
 
-        return "lobby"; // Renderiza la vista lobby.html
+        return "lobby";
     }
 
     // Metodo para acceder a CavemanRun

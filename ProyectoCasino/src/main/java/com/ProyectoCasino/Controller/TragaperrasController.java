@@ -27,5 +27,4 @@ public class TragaperrasController {
     public Integer obtenerHistoricoId() {
         return tragaperrasService.obtenerHistoricoIdValido();
     }
-    
 }
