@@ -215,10 +215,10 @@ function registrarTiradaSavageHandsEnBD(apuesta, resultado) {
       if (historicoId) {
         const datos = {
           apuesta: apuesta,
-          resultado: resultado,   // Ahora es numérico
+          resultado: resultado,
           dni: dni,
           idJuego: idJuego,
-          idHistorico: historicoId  // Clave correctamente nombrada
+          idHistorico: historicoId
         };
 
         $.ajax({
@@ -257,7 +257,6 @@ function actualizarSaldoEnBD(nuevoSaldo) {
           contentType: 'application/json',
           data: JSON.stringify(usuarioDTO),
           success: function(response) {
-              // Si es necesario, recarga el saldo actualizado
               cargarSaldo();
           },
           error: function(xhr, status, error) {
@@ -494,8 +493,7 @@ function nuevoJuego() {
   repartirCarta(manoJugador);
   repartirCarta(manoDealer);
   
-  // Importante: establecer que el juego ha iniciado ANTES de actualizar la pantalla,
-  // para que la función que muestra las cartas sepa que debe ocultar la primera carta del dealer
+  // antes de actualizar la pantalla, para que la función que muestra las cartas sepa que debe ocultar la primera carta del dealer
   juegoIniciado = true;
   
   actualizarPantalla();
@@ -516,7 +514,6 @@ function nuevoJuego() {
     apuestaActual = 0;
     deshabilitarBotonesJuego();
     actualizarSaldo();
-    // Se vuelve a habilitar el botón "Nuevo Juego"
     document.getElementById("nuevo-juego").disabled = false;
     return;
   }
