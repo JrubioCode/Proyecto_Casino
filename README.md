@@ -366,4 +366,4 @@ Después de generar el dominio, si lo visitas verás tu página
 
 # Link del despliegue
 
-**[Prehistoric Jackpot]([https://railway.app/](https://proyecto-casino-desplegado-production.up.railway.app/))**
+1. Ve a la página oficial de **[Railway](https://railway.app/)**.
