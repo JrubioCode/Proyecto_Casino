@@ -83,7 +83,6 @@ btn.addEventListener("click", function (event) {
           }
         },
         error: function (error) {
-          console.error("Error en la solicitud AJAX:", error);
           mostrarModal("Error al registrar el usuario: " + error.responseText);
           btn.textContent = "Registrar";
         },

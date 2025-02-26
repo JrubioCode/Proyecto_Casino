@@ -438,18 +438,14 @@ function registrarTiradaPrehistoricSlotRunEnBD(apuesta, combinacion, resultado) 
           contentType: "application/json",
           data: JSON.stringify(datos),
           success: function(response) {
-            console.log("Tirada registrada en CavemanRun con éxito");
           },
           error: function(error) {
-            console.error("Error registrando tirada en CavemanRun", error);
           }
         });
       } else {
-        console.error("No se obtuvo historicoId");
       }
     },
     error: function(error) {
-      console.error("Error al obtener historicoId", error);
     }
   });
 }

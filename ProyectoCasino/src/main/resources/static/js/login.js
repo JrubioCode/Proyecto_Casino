@@ -23,7 +23,6 @@ function comprobaciones(event) {
         }
       },
       error: function (error) {
-        console.error("Error en la solicitud AJAX (GET):", error);
         mostrarModal("Ocurrió un error al intentar iniciar sesión. Inténtelo de nuevo.");
       }
     });
