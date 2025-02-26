@@ -19,7 +19,7 @@ function comprobaciones(event) {
           localStorage.setItem("esVip", response.esVip);
 
           // Redirigir a /lobby con el parámetro dni
-          window.location.href = `/lobby?dni=${response.dni}`;
+          window.location.href = `/proyecto-casino-desplegado-production.up.railway.app/lobby?dni=${response.dni}`;
         }
       },
       error: function (error) {
