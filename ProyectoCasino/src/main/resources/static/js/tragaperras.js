@@ -69,7 +69,7 @@ const iconoVolumen = document.getElementById('icono-volumen');
 const controlVolumen = document.getElementById('control-volumen');
 
 // Estado del sonido
-let musicaMuteada = false;
+var musicaMuteada = false;
 
 // Función para reproducir música
 function reproducirMusica() {
@@ -563,9 +563,9 @@ function girar() {
 }
 
 function comprobarPremio() {
-  let apuesta = 25;
-  let resultado = 0;
-  let combinacion = "SIN_COMBINACION";
+  var apuesta = 25;
+  var resultado = 0;
+  var combinacion = "SIN_COMBINACION";
 
   const elementoCarril1 = document.getElementById("carril1");
   const elementoCarril2 = document.getElementById("carril2");
@@ -582,7 +582,7 @@ function comprobarPremio() {
 
   // Verificar si una línea es ganadora
   function verificarLinea(simbolo1, simbolo2, simbolo3) {
-    let contadorComodin = 0;
+    var contadorComodin = 0;
     if (simbolo1 === "comodin") contadorComodin++;
     if (simbolo2 === "comodin") contadorComodin++;
     if (simbolo3 === "comodin") contadorComodin++;

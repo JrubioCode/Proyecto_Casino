@@ -366,8 +366,8 @@ function repartirCarta(mano) {
 }
 
 function calcularPuntuacion(mano) {
-  let total = mano.reduce((suma, carta) => suma + carta.num, 0);
-  let ases = mano.filter(carta => carta.valor === 'A').length;
+  var total = mano.reduce((suma, carta) => suma + carta.num, 0);
+  var ases = mano.filter(carta => carta.valor === 'A').length;
   while (total > 21 && ases > 0) {
     total -= 10;
     ases--;
@@ -430,8 +430,8 @@ function finalizarJuego() {
   
   const puntosJugador = calcularPuntuacion(manoJugador);
   const puntosDealer = calcularPuntuacion(manoDealer);
-  let mensaje = "";
-  let resultadoNumerico = 0; // Valor que se enviará a la BD
+  var mensaje = "";
+  var resultadoNumerico = 0; // Valor que se enviará a la BD
   
   if (puntosJugador > 21) {
     mensaje = "¡Te pasaste de 21! Gana el Dealer.";
@@ -454,7 +454,7 @@ function finalizarJuego() {
   }
   
   // Se guarda la apuesta actual antes de reiniciarla
-  let apuestaRegistrada = apuestaActual;
+  var apuestaRegistrada = apuestaActual;
   
   // Se registra la tirada enviando un valor numérico en "resultado"
   registrarTiradaEnBD(apuestaRegistrada, resultadoNumerico);
