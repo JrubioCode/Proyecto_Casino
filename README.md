@@ -363,3 +363,7 @@ Una vez desplegado con exito, en el servicio donde tienes el proyecto de GitHub,
 Después de generar el dominio, si lo visitas verás tu página
 
 <img src="https://github.com/JrubioCode/Proyecto_Casino/blob/main/ContenidoREADME/Imagen22.png" width="1000" height="auto" align="center">
+
+# Link del despliegue
+
+**[Prehistoric Jackpot]([https://railway.app/](https://proyecto-casino-desplegado-production.up.railway.app/))**
