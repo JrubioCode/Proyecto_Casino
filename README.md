@@ -366,4 +366,4 @@ Después de generar el dominio, si lo visitas verás tu página
 
 # Link del despliegue
 
-1. Ve a la página oficial de **[Proyecto_Casino](https://proyecto-casino-desplegado-production.up.railway.app/)**.
+Ve a la página del despliegue **[Proyecto_Casino](https://proyecto-casino-desplegado-production.up.railway.app/)**.
