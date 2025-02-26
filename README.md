@@ -18,9 +18,10 @@ Los usuarios pueden registrarse, iniciar sesión, jugar a los juegos y consultar
 - **Autenticación de usuarios**: Los usuarios pueden iniciar sesión con sus credenciales (nombre de usuario y contraseña).
 - **Gestión de saldo**: Los jugadores pueden ver y actualizar su saldo en tiempo real.
 - **Historial de juegos**: Cada jugada o tirada se registra para que los usuarios puedan consultar su historial.
-- **Dos juegos principales**:
+- **Tres juegos principales**:
   - **Tragaperras**: Una clásica máquina tragamonedas con un toque de la era prehistórica.
   - **Caveman Run**: Un juego ambientado en el Paleolítico similar al Dinosteak, donde los jugadores pueden hacer apuestas y ganar según el multiplicador.
+  - **🃏 Blackjack SavageHands**: Blackjack SavageHands es un juego de blackjack interactivo en el que puedes apostar fichas, jugar contra el dealer y probar tu estrategia para alcanzar 21 sin pasarte. 
 
 ---
 
