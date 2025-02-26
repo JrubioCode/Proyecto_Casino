@@ -21,7 +21,7 @@ Los usuarios pueden registrarse, iniciar sesión, jugar a los juegos y consultar
 - **Tres juegos principales**:
   - **Tragaperras**: Una clásica máquina tragamonedas con un toque de la era prehistórica.
   - **Caveman Run**: Un juego ambientado en el Paleolítico similar al Dinosteak, donde los jugadores pueden hacer apuestas y ganar según el multiplicador.
-  - **🃏 Blackjack SavageHands**: Blackjack SavageHands es un juego de blackjack interactivo en el que puedes apostar fichas, jugar contra el dealer y probar tu estrategia para alcanzar 21 sin pasarte. 
+  - **Blackjack SavageHands**: Blackjack SavageHands es un juego de blackjack interactivo en el que puedes apostar fichas, jugar contra el dealer y probar tu estrategia para alcanzar 21 sin pasarte. 
 
 ---
 
