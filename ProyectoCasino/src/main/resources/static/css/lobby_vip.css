@@ -315,8 +315,6 @@ body{
     }
 }
 
-
-
 /* Estilo para móviles */
 @media (max-width: 768px) {
 
@@ -338,9 +336,20 @@ body{
     }
 
     .header h1 {
+        margin-top: -10px;
+        margin-bottom: 50px;
         font-size: 30px;
         margin-left: 0;
         text-align: center;
+    }
+
+    .reloj-container{
+        display: none;
+    }
+
+    .inicioSesion {
+        margin-top: 170px;
+        margin-right: 100px;
     }
 
     .contenidoCasino {
